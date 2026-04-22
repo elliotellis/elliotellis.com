@@ -115,7 +115,7 @@
     .rule {
       --rule-weight: 0.0625rem;
       border-top: var(--rule-weight) solid var(--text-colour);
-      padding: 0.5rem 0;
+      padding: calc(1rem - var(--rule-weight)) 0 0;
     }
 
     .rule-1x { --rule-weight: 0.0625rem; }
