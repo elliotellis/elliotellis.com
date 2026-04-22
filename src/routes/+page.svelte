@@ -6,7 +6,7 @@
 
 <svelte:head>
   <!-- Page title -->
-  <title>elliot ellis &ndash; {''}</title>
+  <title>elliot ellis</title>
   <meta property="og:title" content={'' + ' &ndash; elliot ellis'}>
   <meta property="twitter:title" content={'' + ' &ndash; elliot ellis'}>
   <!-- Page image -->
@@ -21,8 +21,10 @@
   {/if}
 </svelte:head>
 
-<main>
+<main class="grid">
 
   <Header />
+
+  <Work />
 
 </main>
