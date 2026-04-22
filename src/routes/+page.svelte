@@ -1,20 +1,28 @@
+<script>
+  import { page } from '$app/state';
+  let { data } = $props();
+  import Header from '$lib/components/Header.svelte';
+</script>
+
 <svelte:head>
   <!-- Page title -->
-  <title>elliot ellis &ndash; {data.siteSettings[0].siteSubheading}</title>
-  <meta property="og:title" content={data.siteSettings[0].siteSubheading + ' &ndash; elliot ellis'}>
-  <meta property="twitter:title" content={data.siteSettings[0].siteSubheading + ' &ndash; elliot ellis'}>
+  <title>elliot ellis &ndash; {''}</title>
+  <meta property="og:title" content={'' + ' &ndash; elliot ellis'}>
+  <meta property="twitter:title" content={'' + ' &ndash; elliot ellis'}>
   <!-- Page image -->
-  {#if data.siteSettings[0].siteSharingImage}
-    <meta property="og:image" content={data.siteSettings[0].siteSharingImage}>
-    <meta name="twitter:image" content={data.siteSettings[0].siteSharingImage}>
+  {#if ''}
+    <meta property="og:image" content={''}>
+    <meta name="twitter:image" content={''}>
   {/if}
   <!-- Page description -->
-  {#if data.siteSettings[0].siteDescription}
-    <meta property="og:description" content={data.siteSettings[0].siteDescription}>
-    <meta name="twitter:description" content={data.siteSettings[0].siteDescription}>
+  {#if ''}
+    <meta property="og:description" content={''}>
+    <meta name="twitter:description" content={''}>
   {/if}
 </svelte:head>
 
-<main></main>
+<main>
 
-<style></style>
+  <Header />
+
+</main>

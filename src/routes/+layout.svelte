@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/state';
 	import favicon from '$lib/assets/favicon.svg';
 
 	let { children } = $props();
@@ -6,8 +7,9 @@
 
 <svelte:head>
   <meta property="og:locale" content="en_GB">
+	<!--
 	<link rel="icon" type="image/png" href={faviconPng1x} />
-	<link rel="icon" type="image/png" href={faviconPng2x} />
+	<link rel="icon" type="image/png" href={faviconPng2x} /> -->
 	<link rel="icon" href={favicon} />
   <link rel="canonical" href={'https://elliotellis.com' + page.url.pathname} />
   <meta property="og:url" content={'https://elliotellis.com' + page.url.pathname}>
@@ -44,7 +46,7 @@
 		}
 
 		body {
-			--background-colour: var(--colour-white);
+			--background-colour: var(--colour-lightgrey);
       --text-colour: var(--colour-black);
       --key-colour: var(--colour-orange);
 
@@ -73,6 +75,20 @@
       content: '\2197';
     } */
 
-		
+		main {
+			width: 100%;
+			display: grid;
+  		grid-template-columns: repeat(12, [col-start] 1fr);
+  		gap: var(--site-xmargin);
+		}
+
+		main > * {
+			grid-column: col-start / span 12;
+		}
+
+		.subgrid {
+      grid-template-columns: subgrid;
+    }
+
 	}
 </style>
