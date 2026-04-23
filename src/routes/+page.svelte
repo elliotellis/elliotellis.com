@@ -3,6 +3,7 @@
   let { data } = $props();
   import Header from '$lib/components/Header.svelte';
   import Works from '$lib/components/Works.svelte';
+  import works from '$lib/content/home';
 </script>
 
 <svelte:head>
@@ -26,6 +27,6 @@
 
   <Header />
 
-  <Works />
+  <Works {works} />
 
 </main>

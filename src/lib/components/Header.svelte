@@ -13,8 +13,6 @@
 <style>
 
   .header {
-		--background-colour: var(--colour-white);
-    background-color: var(--background-colour);
     min-height: 0;
   }
 

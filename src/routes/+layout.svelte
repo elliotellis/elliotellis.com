@@ -51,8 +51,9 @@
 
     body {
       --text-colour: var(--colour-black);
+      --text-colour-minor: var(--colour-midgrey);
       --key-colour: var(--colour-orange);
-      --background-colour: var(--colour-lightgrey);
+      --background-colour: var(--colour-white);
 
       font-family: var(--typeface);
       line-height: var(--leading-base);
@@ -79,8 +80,14 @@
       margin: 0;
     }
 
+    h3 {
+      margin: 0.5rem 0 0;
+      font-size: var(--typesize-body);
+
+    }
+
     p {
-      margin: 1rem 0 0;
+      margin: 0.5rem 0 0;
     }
 
     /* a[target="_blank"]:after {
