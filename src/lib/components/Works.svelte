@@ -3,7 +3,7 @@
   let { works } = $props();
 </script>
 
-<section class="works">
+<section class="works section">
 
   {#each works as work}
     <Work content={work} />
@@ -19,7 +19,7 @@
 
   @media only screen and (56rem < width) {
     .works {
-      grid-column: content-start / site-end;
+      grid-column: divider / site-end;
     }
   }
   

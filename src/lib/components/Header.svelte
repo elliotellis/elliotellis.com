@@ -7,7 +7,7 @@
   }
 </script>
 
-<header class="header">
+<header class="header section">
   <h1>
     elliot<br>
     ellis
@@ -16,8 +16,8 @@
     <div class="bio">
       <p>
         Designer and developer<span class:hidden={open ? false : true}>&nbsp;who likes to work with 
-        type, code, and information, to create graphics, websites, identity systems, 
-        and custom design tools.</span>
+        type, code, and information, to&nbsp;create graphics, websites, identity systems, 
+        and custom design&nbsp;tools.</span>
       </p>
       <p class:hidden={open ? false : true}>
         Currently working on a freelance basis in the fields of art, culture, 
@@ -25,8 +25,8 @@
         editorial design, film titles, and exhibitions.
       </p>
       <p class:hidden={open ? false : true}>
-        Elliot’s experience includes work with The Guardian, the Barbican Centre, 
-        Fraser Muggeridge studio, Searchlight Pictures, and Commercial Type.
+        Elliot’s experience includes work with The&nbsp;Guardian, the Barbican Centre, 
+        Fraser Muggeridge studio, Searchlight Pictures, and Commercial&nbsp;Type.
       </p>
       <p class="location">
         <span class:hidden={open ? false : true}>He lives and works in&nbsp;</span>London, UK<span class:hidden={open ? false : true}>.</span>
@@ -48,12 +48,17 @@
 
   @media only screen and (56rem < width) {
     .header {
-      grid-column: site-start / header-end;
+      position: sticky;
+      top: 0;
+      grid-column: site-start / divider;
+      max-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: scroll;
     }
   }
 
   h1 {
-    margin: 1.5rem 0 0;
+    margin: 0;
     font-size: 3.1875rem;
     line-height: 3rem;
     font-weight: 800;

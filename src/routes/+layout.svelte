@@ -46,9 +46,13 @@
       --typesize-body: 1rem;
       --leading-body: 1.25rem;
 
-      --grid-gutter: 1rem;
-      --grid-margin: 1rem;
-      --grid-margin-dtp: 2rem;
+      --site-margin: 1rem;
+    }
+
+    @media only screen and (32rem < width) {
+      :root {
+        --site-margin: 1.5rem;
+      }
     }
 
     body {
@@ -121,18 +125,14 @@
     } */
 
     .grid {
-      --margin: var(--grid-margin);
-      --gutter: var(--grid-gutter);
       width: 100%;
       display: grid;
-      grid-template-columns: 
-        [site-start] 0 1fr [content-start] 0 [header-end] 2fr 0 [site-end];
-      gap: var(--gutter);
+      grid-template-columns: [site-start] 1fr [divider] 2fr [site-end];
     }
 
     .grid > * {
       grid-column: site-start / site-end;
-      padding: 0 var(--grid-margin);
+      padding: var(--site-margin);
     }
 
     .subgrid {

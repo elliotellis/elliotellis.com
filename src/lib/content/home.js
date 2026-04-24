@@ -1,7 +1,7 @@
 const homeContent = [
   {
     title: 'The Guardian \u2013 Today in Focus: The Latest',
-    description: 'Digital graphics and maps for the UK newspaper\u2019s daily news video podcast.',
+    description: 'Digital graphics and maps for the UK newspaper\u2019s daily news video\u00a0podcast.',
     information: '2026',
     media: [
       {
@@ -32,7 +32,7 @@ const homeContent = [
   },
   {
     title: 'Barbican Centre \u2013 Classical Music 2024/25',
-    description: 'Campaign identity featuring code-driven motion graphics that inventively process music and media into colourful, exciting formations via a custom program.',
+    description: 'Campaign identity featuring code-driven motion graphics that inventively process music and media into colourful, exciting formations via a custom\u00a0program.',
     information: '2024',
     media: [],
   },
@@ -44,7 +44,7 @@ const homeContent = [
   },
   {
     title: 'ICK',
-    description: 'Identity design for a rising fashion brand that accentuates the unsettling quality of its name. The custom program can output an infinite number of possible logo forms.',
+    description: 'Identity design for a rising fashion brand that accentuates the unsettling quality of its name. The custom program can output an infinite number of possible logo\u00a0forms.',
     information: '2026',
     media: [],
   }
