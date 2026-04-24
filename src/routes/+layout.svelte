@@ -41,6 +41,8 @@
       --fontweight-bold: 700;
       --leading-base: 1.25em;
 
+      --typesize-caption: 0.8rem;
+      --leading-caption: 1rem;
       --typesize-body: 1rem;
       --leading-body: 1.25rem;
 
@@ -73,8 +75,7 @@
     em { font-style: italic; }
     strong { font-weight: var(--fontweight-bold); }
 
-    a { color: var(--text-colour); }
-    a:hover { color: var(--text-colour); }
+    a { color: inherit; }
 
     h1 {
       margin: 0;
@@ -87,7 +88,32 @@
     }
 
     p {
-      margin: 0.5rem 0 0;
+      margin: 1rem 0 0;
+      max-width: 32rem;
+    }
+
+    p:first-of-type {
+      margin: 0;
+    }
+
+    .caption {
+      font-size: var(--typesize-caption);
+      line-height: var(--leading-caption);
+      color: var(--text-colour-minor);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
     }
 
     /* a[target="_blank"]:after {
@@ -99,7 +125,8 @@
       --gutter: var(--grid-gutter);
       width: 100%;
       display: grid;
-      grid-template-columns: [site-start] 0 [content-start] repeat(12, 1fr) [content-end] 0 [site-end];
+      grid-template-columns: 
+        [site-start] 0 1fr [content-start] 0 [header-end] 2fr 0 [site-end];
       gap: var(--gutter);
     }
 
@@ -119,15 +146,24 @@
       i think i found this out one time
     */
 
-    .rule {
-      --rule-weight: 0.0625rem;
-      border-top: var(--rule-weight) solid var(--text-colour);
-      padding: calc(1rem - var(--rule-weight)) 0 0;
+
+
+    .rule-above-1x { --rule-weight-above: 0.0625rem; }
+    .rule-above-2x { --rule-weight-above: 0.125rem; }
+    .rule-above-4x { --rule-weight-above: 0.25rem; }
+    .rule-below-1x { --rule-weight-below: 0.0625rem; }
+    .rule-below-2x { --rule-weight-below: 0.125rem; }
+    .rule-below-4x { --rule-weight-below: 0.25rem; }
+
+    .rule-above-1x, .rule-above-2x, .rule-above-4x {
+      border-top: var(--rule-weight-above) solid var(--text-colour);
+      padding-top: calc(1rem - var(--rule-weight-above));
     }
 
-    .rule-1x { --rule-weight: 0.0625rem; }
-    .rule-2x { --rule-weight: 0.125rem;	}
-    .rule-4x { --rule-weight: 0.25rem; }
+    .rule-below-1x, .rule-below-2x, .rule-below-4x {
+      border-bottom: var(--rule-weight-below) solid var(--text-colour);
+      padding-bottom: calc(1rem - var(--rule-weight-below));
+    }
 
   }
 </style>

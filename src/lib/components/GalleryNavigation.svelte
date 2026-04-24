@@ -12,12 +12,6 @@
 
 <style>
   button {
-    border: none;
-    background: transparent;
-    margin: 0;
-    padding: 0;
-    color: inherit;
-    font: inherit;
     width: 10%;
     height: 100%;
     position: absolute;

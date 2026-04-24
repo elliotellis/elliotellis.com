@@ -16,5 +16,11 @@
 		--background-colour: var(--colour-lightgrey);
     background-color: var(--background-colour);
   }
+
+  @media only screen and (56rem < width) {
+    .works {
+      grid-column: content-start / site-end;
+    }
+  }
   
 </style>
