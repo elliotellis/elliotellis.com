@@ -20,6 +20,7 @@
     margin: 2rem 0 0;
     font-size: 3.375rem;
     line-height: 3rem;
+    font-weight: 800;
     color: var(--key-colour);
   }
 

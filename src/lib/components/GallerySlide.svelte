@@ -2,17 +2,28 @@
   let content = $props();
 </script>
 
-<div class="placeholder-image">
-
+<div class="slide">
+  {#if content.imgSrc && content.imgAlt}
+    {#if content.videoSrc}
+      <video src={content.videoSrc} poster={content.imgSrc} alt={content.imgAlt}></video>
+    {:else}
+      <img src={content.imgSrc} alt={content.imgAlt}>
+    {/if}
+  {:else}
+    Error! No imgSrc and/or imgAlt.
+  {/if}
 </div>
 
 <style>
-
-  .placeholder-image {
+  .slide {
     width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    background-color: var(--colour-midgrey);
+    height: 100%;
   }
 
+  img, video {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 </style>
