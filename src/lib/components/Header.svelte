@@ -3,7 +3,7 @@
   let openToggleText = $state('(more +)');
   const toggleOpen = () => {
     open = !open;
-    openToggleText = (open) ? '(less -)' : '(more +)';
+    openToggleText = (open) ? '(less \u2212)' : '(more +)';
   }
 </script>
 

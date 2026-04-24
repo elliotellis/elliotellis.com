@@ -23,6 +23,7 @@
 </script>
 
 <div class="gallery-container">
+
   {#if media.length === 0}
     Error! No media.
   {:else}
@@ -33,7 +34,10 @@
       videoSrc={media[currentSlideIndex].videoSrc}
     />
   {/if}
-  <Navigation prev={prevSlide} next={nextSlide} />
+  
+  {#if media.length > 1}
+    <Navigation prev={prevSlide} next={nextSlide} />
+  {/if}
 </div>
 
 <style>
