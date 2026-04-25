@@ -2,6 +2,7 @@
   import { page } from '$app/state';
   let { data } = $props();
   import Header from '$lib/components/Header.svelte';
+  import SiteContainer from '$lib/components/SiteContainer.svelte';
   import Works from '$lib/components/Works.svelte';
   import works from '$lib/content/home';
 </script>
@@ -23,6 +24,7 @@
   {/if}
 </svelte:head>
 
-<Header />
-
-<Works {works} />
+<SiteContainer>
+  <Header />
+  <Works {works} />
+</SiteContainer>

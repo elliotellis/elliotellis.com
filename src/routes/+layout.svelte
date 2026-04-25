@@ -20,10 +20,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-<div class="site-container">
-  {@render children()}
-</div>
-
+{@render children()}
 
 <style>
   :global {
@@ -48,8 +45,6 @@
       --fontweight-bold: 700;
       --leading-base: 1.25em;
 
-      --typesize-caption: 0.8rem;
-      --leading-caption: 1rem;
       --typesize-body: 1rem;
       --leading-body: 1.25rem;
 
@@ -67,6 +62,12 @@
     @media only screen and (32rem < width) {
       :root {
         --site-margin: 1.5rem;
+      }
+    }
+
+    @media only print {
+      :root { 
+        font-size: 10pt;
       }
     }
 
@@ -155,29 +156,6 @@
     /* a[target="_blank"]:after {
       content: '\2197';
     } */
-
-    .site-container {
-      width: 100%;
-      display: grid;
-      grid-template-columns: [site-start] 1fr [divider] 2fr [site-end];
-    }
-
-    .site-container > * {
-      grid-column: site-start / site-end;
-      padding: var(--site-margin);
-    }
-
-    @media only screen and (56rem < width) {
-      .main-content {
-        grid-column: divider / site-end;
-      }
-    }
-
-    @media only print and (orientation: portrait) {
-      .main-content {
-        grid-column: divider / site-end;
-      }
-    }
     
     /*
       want to do a set of min and max widths of type size/leading combos

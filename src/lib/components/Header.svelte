@@ -9,7 +9,7 @@
   }
 </script>
 
-<header class="header section">
+<header class="header side-content">
   <h1>
     elliot<br>
     ellis
@@ -70,18 +70,6 @@
 
   .header {
     min-height: 0;
-  }
-
-  @media only screen and (56rem < width) {
-    .header {
-      grid-column: site-start / divider;
-    }
-  }
-
-  @media only print and (orientation: portrait) {
-    .header {
-      grid-column: site-start / divider;
-    }
   }
 
   h1 {
