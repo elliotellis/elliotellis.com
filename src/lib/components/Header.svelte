@@ -38,6 +38,11 @@
     </div> -->
     <button class="open-toggle" onclick={toggleOpen}>{openToggleText}</button>
   </div>
+  <div class="contact-container rule-below-1x">
+    <p class="email">
+      <a href="mailto:elliot@elliotellis.com">elliot@elliotellis.com</a>
+    </p>
+  </div>
 </header>
 
 <style>
@@ -79,8 +84,12 @@
     margin-top: 0;
   }
 
-  .colophon {
-    margin-top: 1.5rem;
+  .email {
+    margin-top: 1rem;
+  }
+
+  .email a {
+    text-decoration: none;
   }
 
 </style>
