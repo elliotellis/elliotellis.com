@@ -20,13 +20,20 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-{@render children()}
+<div class="site-container">
+  {@render children()}
+</div>
 
 
 <style>
   :global {
     *, *::before, *::after {
       box-sizing: border-box;
+    }
+
+    @page {
+      size: 210mm 297mm;
+      margin: 1rem;
     }
 
     :root {
@@ -47,6 +54,14 @@
       --leading-body: 1.25rem;
 
       --site-margin: 1rem;
+      --max-text-width: 32rem;
+      --base-rule-weight: 0.0625rem;
+    }
+    
+    @media (monochrome) {
+      :root {
+        --colour-orange: #000;
+      }
     }
 
     @media only screen and (32rem < width) {
@@ -81,8 +96,17 @@
 
     a { color: inherit; }
 
+    .subtle-link {
+      text-decoration: none;
+    }
+
     h1 {
       margin: 0;
+    }
+
+    h2 {
+      margin: 0.5rem 0 0;
+      font-size: var(--typesize-body);
     }
 
     h3 {
@@ -91,9 +115,9 @@
 
     }
 
-    p {
+    p, ul {
       margin: 1rem 0 0;
-      max-width: 32rem;
+      max-width: var(--max-text-width);
     }
 
     p:first-of-type {
@@ -104,6 +128,10 @@
       font-size: var(--typesize-caption);
       line-height: var(--leading-caption);
       color: var(--text-colour-minor);
+    }
+
+    ul {
+      padding: 0 0 0 1em;
     }
 
     .hidden {
@@ -120,23 +148,35 @@
       cursor: pointer;
     }
 
+    .bold {
+      font-weight: var(--fontweight-bold);
+    }
+
     /* a[target="_blank"]:after {
       content: '\2197';
     } */
 
-    .grid {
+    .site-container {
       width: 100%;
       display: grid;
       grid-template-columns: [site-start] 1fr [divider] 2fr [site-end];
     }
 
-    .grid > * {
+    .site-container > * {
       grid-column: site-start / site-end;
       padding: var(--site-margin);
     }
 
-    .subgrid {
-      grid-template-columns: subgrid;
+    @media only screen and (56rem < width) {
+      .main-content {
+        grid-column: divider / site-end;
+      }
+    }
+
+    @media only print and (orientation: portrait) {
+      .main-content {
+        grid-column: divider / site-end;
+      }
     }
     
     /*
@@ -146,14 +186,12 @@
       i think i found this out one time
     */
 
-
-
-    .rule-above-1x { --rule-weight-above: 0.0625rem; }
-    .rule-above-2x { --rule-weight-above: 0.125rem; }
-    .rule-above-4x { --rule-weight-above: 0.25rem; }
-    .rule-below-1x { --rule-weight-below: 0.0625rem; }
-    .rule-below-2x { --rule-weight-below: 0.125rem; }
-    .rule-below-4x { --rule-weight-below: 0.25rem; }
+    .rule-above-1x { --rule-weight-above: var(--base-rule-weight); }
+    .rule-above-2x { --rule-weight-above: calc(2 * var(--base-rule-weight)); }
+    .rule-above-4x { --rule-weight-above: calc(4 * var(--base-rule-weight)); }
+    .rule-below-1x { --rule-weight-below: var(--base-rule-weight); }
+    .rule-below-2x { --rule-weight-below: calc(2 * var(--base-rule-weight)); }
+    .rule-below-4x { --rule-weight-below: calc(4 * var(--base-rule-weight)); }
 
     .rule-above-1x, .rule-above-2x, .rule-above-4x {
       border-top: var(--rule-weight-above) solid var(--text-colour);

@@ -3,7 +3,7 @@
   let { works } = $props();
 </script>
 
-<section class="works section">
+<section class="works main-content">
 
   {#each works as work}
     <Work content={work} />
@@ -16,11 +16,4 @@
 		--background-colour: var(--colour-lightgrey);
     background-color: var(--background-colour);
   }
-
-  @media only screen and (56rem < width) {
-    .works {
-      grid-column: divider / site-end;
-    }
-  }
-  
 </style>
