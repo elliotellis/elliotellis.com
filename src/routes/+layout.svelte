@@ -40,9 +40,9 @@
       --colour-black: #23202e; /* to change to new black */
       --colour-orange: #ee6416;
 
-      --typeface: 'Delegate Trial', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --fontweight-reg: 400;
-      --fontweight-bold: 700;
+      --typeface: 'Action Grotesque Trial', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --fontweight-reg: 500;
+      --fontweight-bold: 800;
       --leading-base: 1.25em;
 
       --typesize-body: 1rem;
@@ -52,24 +52,6 @@
       --max-text-width: 32rem;
       --base-rule-weight: 0.0625rem;
     }
-    
-    @media (monochrome) {
-      :root {
-        --colour-orange: #000;
-      }
-    }
-
-    @media only screen and (32rem < width) {
-      :root {
-        --site-margin: 1.5rem;
-      }
-    }
-
-    @media only print {
-      :root { 
-        font-size: 10pt;
-      }
-    }
 
     body {
       --text-colour: var(--colour-black);
@@ -78,6 +60,7 @@
       --background-colour: var(--colour-white);
 
       font-family: var(--typeface);
+      font-weight: var(--fontweight-reg);
       line-height: var(--leading-base);
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;
@@ -93,7 +76,7 @@
     }
 
     em { font-style: italic; }
-    strong { font-weight: var(--fontweight-bold); }
+    strong, .ty-bold { font-weight: var(--fontweight-bold); }
     a { color: inherit; }
 
     .subtle-link {
@@ -116,7 +99,7 @@
     }
 
     p, ul {
-      margin: 1rem 0 0;
+      margin: 0;
       max-width: var(--max-text-width);
     }
 
