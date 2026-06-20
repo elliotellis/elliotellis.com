@@ -1,16 +1,17 @@
 <script>
-  let { word, blockWidth, blockHeight, lastLine = $bindable(), indentWidth = $bindable() } = $props();
-  let windowWidth = $state(0);
+  let { word, lineHeight, blockWidth, blockHeight, indentWidthAddition = $bindable() } = $props();
   let wordWidth = $state();
-  let wordHeight = $state();
   let wordElement;
-  let thisWordsLine = $state(0);
+  let thisLine = $state(0);
+  let totalLines = $state(0);
 
   function updateValues() {
-    thisWordsLine = wordElement.getBoundingClientRect().y / wordHeight + 1
-    lastLine = thisWordsLine
-    if (thisWordsLine === lastLine) {
-      indentWidth += wordWidth
+    thisLine = wordElement.getBoundingClientRect().y / lineHeight + 1
+    totalLines = blockHeight / lineHeight
+    if (thisLine === totalLines) {
+      indentWidthAddition = wordWidth
+    } else {
+      indentWidthAddition = 0
     }
   }
 
@@ -22,13 +23,13 @@
 <svelte:window onresize={updateValues} />
 
 <span 
+  style={'height: ' + lineHeight + 'px'}
   bind:offsetWidth={wordWidth}
-  bind:offsetHeight={wordHeight}
   bind:this={wordElement}
-  data-this-line={thisWordsLine}
-  data-last-line={lastLine}
+  data-this-line={thisLine}
+  data-last-line={totalLines}
   data-block-width={blockWidth}
-  data-is-last-line={thisWordsLine === lastLine ? 'true' : 'false'}
+  data-is-last-line={thisLine === totalLines ? 'true' : 'false'}
 >{word}&nbsp;</span>
 
 <style>

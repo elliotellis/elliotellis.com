@@ -1,21 +1,25 @@
 <script>
   import TextPortion from '$lib/components/TextPortion.svelte';
   import Word from '$lib/components/Word.svelte';
-  let { data } = $props();
+  let { data, thisParagraphIndent, nextParagraphIndent = $bindable() } = $props();
+  let lineHeight = 20; // need to make this dynamic
   let blockWidth = $state();
   let blockHeight = $state();
   let lastLine = $state();
-  let nextParagraphIndent = $state(0);
+  let indentWidthAdditions = $state([]);
   $effect(() => {
-    console.log('Last line: ' + lastLine)
-    console.log('Block width: ' + blockWidth)
+    nextParagraphIndent = indentWidthAdditions.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   });
 </script>
 
-<p bind:offsetWidth={blockWidth} bind:offsetHeight={blockHeight} data-lines={lastLine}>
-  {#if data}
-    {#each data.text.split(' ') as word}
-      <Word {word} {blockWidth} {blockHeight} bind:lastLine={lastLine} bind:indentWidth={nextParagraphIndent} />
+<p bind:offsetWidth={blockWidth} bind:offsetHeight={blockHeight}>
+  <span 
+    style:display={thisParagraphIndent > 0 ? 'inline-block' : 'none'}
+    style:width={thisParagraphIndent + 'px'}
+    style:height={lineHeight + 'px'}
+  >&nbsp;</span>{#if data}
+    {#each data.text.split(' ') as word, i}
+      <Word {word} {lineHeight} {blockWidth} {blockHeight} bind:indentWidthAddition={indentWidthAdditions[i]} />
     {/each}
     <!--
     {#each data.portions as portion}
@@ -26,8 +30,6 @@
     Error: no data
   {/if}
 </p>
-
-<div style={'width: ' + nextParagraphIndent + 'px;'}></div>
 
 <style>
   div {
