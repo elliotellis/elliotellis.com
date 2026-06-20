@@ -22,23 +22,21 @@
   {/if}
 </svelte:head>
 
-<main>
-  <TextContainer blocks={bio} />
-  <!--
-  <div class="text-container">
-    <p>
-      Currently working on a freelance basis in the culture, 
-      editorial, education, and fashion sectors, he has worked on
-      <span>
-        websites, visual identities, motion graphics, editorial design, 
-        data graphics, exhibition graphics, and film titles, for 
-      </span>
-      <span>
-        The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, 
-        Philharmonia, the University of Reading, Geographer, 
-      </span>
-      and more.
-    </p>
-  </div>
-  -->
-</main>
+<TextContainer blocks={bio} />
+<!--
+<div class="text-container">
+  <p>
+    Currently working on a freelance basis in the culture, 
+    editorial, education, and fashion sectors, he has worked on
+    <span>
+      websites, visual identities, motion graphics, editorial design, 
+      data graphics, exhibition graphics, and film titles, for 
+    </span>
+    <span>
+      The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, 
+      Philharmonia, the University of Reading, Geographer, 
+    </span>
+    and more.
+  </p>
+</div>
+-->

@@ -7,7 +7,7 @@ const blocks = [
         text: 'elliot ellis',
       },
       {
-        text: 'is a designer, developer, and typographer who likes to work with type and code to create graphics, websites, systems, templates, and tools.'
+        text: 'is a designer, developer, and typographer who creates graphics, websites, systems, templates, and tools.'
       }
     ]
   },

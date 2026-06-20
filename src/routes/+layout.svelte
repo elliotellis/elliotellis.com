@@ -1,8 +1,26 @@
 <script>
+  import { SvelteDate } from 'svelte/reactivity';
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
-
-  let { children } = $props();
+  let { data, children } = $props();
+  const currentDatetime = new SvelteDate();
+ /* const formatter = new Intl.DateTimeFormat('en-GB', {
+    dateStyle: "full",
+    timeStyle: "long",
+	  timeZone: 'Europe/London'
+	});*/
+  let solarNoonDiff = $state(0);
+  let brightnessValue = $derived( Math.round( ( 100 - (solarNoonDiff + 43200) / 86400 * 100) * 100 ) / 100 );
+  $effect(() => {
+		const interval = setInterval(() => {
+			currentDatetime.setTime(Date.now());
+      solarNoonDiff = Math.floor((currentDatetime - data.solarNoon) / 1000)
+		}, 1000);
+		return () => {
+			clearInterval(interval);
+		};
+	});
+  console.log(data)
 </script>
 
 <svelte:head>
@@ -20,9 +38,21 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-{@render children()}
+<!--  -->
+
+<main style:--background-colour={'hsl(50, 75%, ' + brightnessValue + '%)'}>
+  {@render children()}
+</main>
+
+<p><strong>Current datetime</strong> <br/> {currentDatetime}</p>
+<p><strong>Today's solar noon</strong> <br/> {data.solarNoon}</p>
+<p><strong>Seconds difference to solarNoon</strong> <br/> {solarNoonDiff}</p>
+<p><strong>Brightness value</strong> <br/> {brightnessValue}</p>
 
 <style>
+  main {
+    background-color: var(--background-colour);
+  }
   :global {
     *, *::before, *::after {
       box-sizing: border-box;
@@ -40,7 +70,7 @@
       --colour-black: #23202e; /* to change to new black */
       --colour-orange: #ee6416;
 
-      --typeface: 'Action Grotesque Trial', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
       --fontweight-bold: 800;
       --leading-base: 1.25em;
