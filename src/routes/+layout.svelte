@@ -94,7 +94,6 @@
 
     em { font-style: italic; }
     strong { font-weight: var(--fontweight-bold); }
-
     a { color: inherit; }
 
     .subtle-link {
