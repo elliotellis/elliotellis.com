@@ -1,5 +1,5 @@
 <script>
-  let { word, lineHeight, blockWidth, blockHeight, indentWidthAddition = $bindable() } = $props();
+  let { word, className, lineHeight, blockWidth, blockHeight, indentWidthAddition = $bindable() } = $props();
   let wordWidth = $state();
   let wordElement;
   let thisLine = $state(0);
@@ -23,7 +23,8 @@
 <svelte:window onresize={updateValues} />
 
 <span 
-  style={'height: ' + lineHeight + 'px'}
+  style:height={lineHeight + 'px'}
+  class={className}
   bind:offsetWidth={wordWidth}
   bind:this={wordElement}
   data-this-line={thisLine}

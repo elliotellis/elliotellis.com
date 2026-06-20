@@ -1,5 +1,4 @@
 <script>
-  import TextPortion from '$lib/components/TextPortion.svelte';
   import Word from '$lib/components/Word.svelte';
   let { data, thisParagraphIndent, nextParagraphIndent = $bindable() } = $props();
   let lineHeight = 20; // need to make this dynamic
@@ -18,14 +17,11 @@
     style:width={thisParagraphIndent + 'px'}
     style:height={lineHeight + 'px'}
   >&nbsp;</span>{#if data}
-    {#each data.text.split(' ') as word, i}
-      <Word {word} {lineHeight} {blockWidth} {blockHeight} bind:indentWidthAddition={indentWidthAdditions[i]} />
-    {/each}
-    <!--
     {#each data.portions as portion}
-      <TextPortion {portion} {blockHeight} />
+      {#each portion.text.split(' ') as word, i}
+        <Word {word} className={portion.className} {lineHeight} {blockWidth} {blockHeight} bind:indentWidthAddition={indentWidthAdditions[i]} />
+      {/each}
     {/each}
-    -->
   {:else}
     Error: no data
   {/if}
