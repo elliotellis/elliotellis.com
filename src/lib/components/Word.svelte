@@ -1,18 +1,20 @@
 <script>
-  let { word, className, lineHeight, blockWidth, blockHeight, indentWidthAddition = $bindable() } = $props();
+  let { word, className, lineHeight, blockWidth, blockHeight, blockYPos, indentWidthAddition = $bindable() } = $props();
   let wordWidth = $state();
   let wordElement;
   let thisLine = $state(0);
   let totalLines = $state(0);
-
+  let textOpacity = $state(0);
+  
   function updateValues() {
-    thisLine = wordElement.getBoundingClientRect().y / lineHeight + 1
+    thisLine = (wordElement.getBoundingClientRect().y - blockYPos) / lineHeight + 1
     totalLines = blockHeight / lineHeight
     if (thisLine === totalLines) {
       indentWidthAddition = wordWidth
     } else {
       indentWidthAddition = 0
     }
+    textOpacity = 1;
   }
 
   $effect(() => {
@@ -20,10 +22,11 @@
   });
 </script>
 
-<svelte:window onresize={updateValues} />
+<!--<svelte:window onresize={updateValues} />-->
 
 <span 
   style:height={lineHeight + 'px'}
+  style:opacity={textOpacity}
   class={className}
   bind:offsetWidth={wordWidth}
   bind:this={wordElement}

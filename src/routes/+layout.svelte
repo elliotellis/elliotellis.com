@@ -1,26 +1,41 @@
 <script>
   import { SvelteDate } from 'svelte/reactivity';
+  import * as sun from 'suncalc';
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
-  let { data, children } = $props();
-  const currentDatetime = new SvelteDate();
- /* const formatter = new Intl.DateTimeFormat('en-GB', {
-    dateStyle: "full",
-    timeStyle: "long",
-	  timeZone: 'Europe/London'
-	});*/
+  let { children } = $props();
+
+  function to2dp(float) { return Math.round( float * 100 ) / 100 }
+
+  const atLoadDate = new Date();
+  const currentDate = new SvelteDate();
+
+  const sunData = sun.getTimes(atLoadDate, 51.509718, -0.104315) // Blackfriars Bridge
+  
+  // Hue is determined by the time of year
+  const hueCompDate = new Date(atLoadDate.getFullYear(), 0);
+  const oneYearDate = new Date(atLoadDate.getFullYear() + 1, 0);
+  const oneYear = oneYearDate - hueCompDate;
+  let hueDateDiff = $state(0);
+  let hue = $derived( to2dp( ( (hueDateDiff + oneYear/2) / oneYear * 360 ) ) );
+
+  // Brightness is determined by how close to the solar noon the current time is
   let solarNoonDiff = $state(0);
-  let brightnessValue = $derived( Math.round( ( 100 - (solarNoonDiff + 43200) / 86400 * 100) * 100 ) / 100 );
+  let brightness = $derived( to2dp(100 - (solarNoonDiff + 43200) / 86400 * 100) );
+
+  const customDate = new Date(atLoadDate.getFullYear(), 2);
+
+  function updateTimeValues() {
+    currentDate.setTime(Date.now());
+    solarNoonDiff = Math.floor((currentDate - sunData.solarNoon) / 1000);
+    hueDateDiff = currentDate - hueCompDate;
+    //hueDateDiff = customDate - hueCompDate;
+  }
+  updateTimeValues();
   $effect(() => {
-		const interval = setInterval(() => {
-			currentDatetime.setTime(Date.now());
-      solarNoonDiff = Math.floor((currentDatetime - data.solarNoon) / 1000)
-		}, 1000);
-		return () => {
-			clearInterval(interval);
-		};
+		const interval = setInterval(() => { updateTimeValues() }, 1000);
+		return () => { clearInterval(interval); };
 	});
-  console.log(data)
 </script>
 
 <svelte:head>
@@ -40,14 +55,18 @@
 
 <!--  -->
 
-<main style:--background-colour={'hsl(50, 75%, ' + brightnessValue + '%)'}>
+<main style:--background-colour={'hsl(' + hue + ', 75%, ' + brightness + '%)'}>
   {@render children()}
 </main>
-
-<p><strong>Current datetime</strong> <br/> {currentDatetime}</p>
-<p><strong>Today's solar noon</strong> <br/> {data.solarNoon}</p>
-<p><strong>Seconds difference to solarNoon</strong> <br/> {solarNoonDiff}</p>
-<p><strong>Brightness value</strong> <br/> {brightnessValue}</p>
+<!--
+<p><strong>Current datetime</strong> <br/> {currentDate}</p>
+<p><strong>Custom datetime</strong> <br/> {customDate}</p>
+<p><strong>Hue comp datetime</strong> <br/> {hueCompDate}</p>
+<p><strong>+1year datetime</strong> <br/> {oneYearDate}</p>
+<p><strong>One year</strong> <br/> {oneYear}</p>
+<p><strong>Difference to Hue date</strong><br/> {hueDateDiff}</p>
+<p><strong>Hue value</strong> <br/> {hue}</p>
+<p><strong>Brightness value</strong> <br/> {brightness}</p>-->
 
 <style>
   main {
