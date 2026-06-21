@@ -47,6 +47,10 @@
 
 <style>
   .text-container {
+    --line-height: 1.25rem;
+    width: 300px;
+    font-size: 1rem;
+    line-height: var(--line-height);
     color: contrast-color(var(--background-colour))
   }
 </style>

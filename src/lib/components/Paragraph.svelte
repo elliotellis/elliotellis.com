@@ -8,6 +8,7 @@
   let lastLine = $state();
   let indentWidthAdditions = $state([]);
   let paragraphElement = $state(null);
+  let visible = $state(false);
   let blockYPos = $state();
   let lastLineInfo = $state();
 
@@ -61,6 +62,7 @@
         if (!paragraphElement) return;
         const { width } = getLastLineWidth(paragraphElement);
         onNextIndent?.(width);
+        visible = true;
       });
     });
     //blockYPos = paragraphElement.getBoundingClientRect().y
@@ -82,11 +84,10 @@
   
 </script>
 
-<p bind:this={paragraphElement} bind:offsetWidth={blockWidth} bind:offsetHeight={blockHeight}>
+<p bind:this={paragraphElement} style:opacity={visible ? '1' : '0'} bind:offsetWidth={blockWidth} bind:offsetHeight={blockHeight}>
   <span 
     style:display={thisIndent > 0 ? 'inline-block' : 'none'}
     style:width={thisIndent + 'px'}
-    style:height={lineHeight + 'px'}
   >&nbsp;</span>{#if data}
     {#each data.portions as portion}
       {#if portion.className}
@@ -104,3 +105,9 @@
     Error: no data
   {/if}
 </p>
+
+<style>
+  span {
+    height: var(--line-height);
+  }
+</style>
