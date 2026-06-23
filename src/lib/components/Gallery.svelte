@@ -45,7 +45,7 @@
   .gallery-container {
     width: 100%;
     height: auto;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 16 / 9;
     background-color: var(--colour-midgrey);
     position: relative;
   }

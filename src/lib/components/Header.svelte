@@ -61,6 +61,9 @@
       max-height: 100vh;
       overflow-x: hidden;
       overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   }
 </style>

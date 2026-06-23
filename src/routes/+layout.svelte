@@ -36,8 +36,8 @@
     :root {
       --colour-white: #fff;
       --colour-lightgrey: #eee;
-      --colour-midgrey: #9e9896;
-      --colour-black: #23202e; /* to change to new black */
+      --colour-midgrey: #5D5856;
+      --colour-black: #161616;
       --colour-orange: #ee6416;
 
       --typeface: 'Delegate Trial', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -59,11 +59,27 @@
       }
     }
 
-    @media only screen and (32rem < width) {
-      :root {
-        --site-margin: 1.5rem;
-      }
-    }
+    @media only screen and (28rem < width) {
+      :root { --site-margin: 1.5rem; } }
+		
+		@media only screen and (36rem < width) {
+			:root { --site-margin: 2rem; } }
+		
+		@media only screen and (56rem < width) {
+			:root { --site-margin: 1.5rem; } }
+		
+		@media only screen and (64rem < width) {
+      :root { --site-margin: 2rem; } }
+		
+		@media only screen and (80rem < width) {
+      :root { --site-margin: 2.5rem; } }
+		
+		/* the above is fine for now but i think i want to separate horiz and vert 
+			margins with the horizontal one being wider in proportion usually, especially
+			on larger viewports */
+
+		/* you also need to make most element margins/paddings relative to both root em
+			and the site margin - site-margin probably needs renaming to like root spacing scale */
 
     @media only print {
       :root { 

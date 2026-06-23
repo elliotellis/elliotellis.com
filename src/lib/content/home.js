@@ -25,16 +25,32 @@ const homeContent = [
     media: []
   },
   {
-    title: 'IQ Magazine \u2013 European Festival Report',
-    description: 'Editorial design and data graphics for the live music magazine\u2019s industry report publication.',
-    information: '2025',
-    media: []
-  },
-  {
     title: 'Barbican Centre \u2013 Classical Music 2024/25',
     description: 'Campaign identity featuring code-driven motion graphics that inventively process music and media into colourful, exciting formations via a custom\u00a0program.',
     information: '2024',
-    media: [],
+    media: [
+      {
+        videoSrc: 'https://cdn.sanity.io/files/13spts0f/production/815315ff3c9cf8e39aca86802b61b00b55d9a3f9.mp4',
+        imgSrc: '$lib/content/media/barbican-classical/ee-barbican-classical-main-video.jpg',
+        imgAlt: ''
+      },
+      {
+        imgSrc: '$lib/content/media/barbican-classical/ee-barbican-classical-01.jpg',
+        imgAlt: ''
+      },
+      {
+        imgSrc: '$lib/content/media/barbican-classical/ee-barbican-classical-02.jpg',
+        imgAlt: ''
+      },
+      {
+        imgSrc: '$lib/content/media/barbican-classical/ee-barbican-classical-03.jpg',
+        imgAlt: ''
+      },
+      {
+        imgSrc: '$lib/content/media/barbican-classical/ee-barbican-classical-04.jpg',
+        imgAlt: ''
+      },
+    ],
   },
   {
     title: 'Barbican Centre \u2013 Guide',
