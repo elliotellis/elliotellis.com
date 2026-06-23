@@ -19,7 +19,10 @@
   let hueDateDiff = $state(0);
   let hue = $derived( to2dp( ( (hueDateDiff + oneYear/2) / oneYear * 360 ) ) );
 
-  // Brightness is determined by how close to the solar noon the current time is
+  // Saturation is a linear interpolation where it is low at noon and night, and at its peak at dusk and dawn
+  
+
+  // Brightness is a linear interpolation over 24h over how close it is to noon
   let solarNoonDiff = $state(0);
   let brightness = $derived( to2dp(100 - (solarNoonDiff + 43200) / 86400 * 100) );
 
@@ -35,6 +38,7 @@
   $effect(() => {
 		const interval = setInterval(() => { updateTimeValues() }, 1000);
 		return () => { clearInterval(interval); };
+    console.log(sunData);
 	});
 </script>
 
