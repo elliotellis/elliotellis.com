@@ -71,6 +71,7 @@
 <style>
   main {
     background-color: var(--background-colour);
+    padding: 2rem;
   }
   :global {
     *, *::before, *::after {
@@ -98,7 +99,7 @@
       --leading-body: 1.25rem;
 
       --site-margin: 1rem;
-      --max-text-width: 32rem;
+      --max-text-width: 20rem;
       --base-rule-weight: 0.0625rem;
     }
 
