@@ -54,10 +54,6 @@
     thisIndent;
     untrack(() => {
       if (!paragraphElement) return;
-
-      // tick() ensures the layout is fully settled
-      // (needed because $effect fires after DOM update but
-      //  potentially before browser has done layout/paint)
       tick().then(() => {
         if (!paragraphElement) return;
         const { width } = getLastLineWidth(paragraphElement);
@@ -65,27 +61,13 @@
         visible = true;
       });
     });
-    //blockYPos = paragraphElement.getBoundingClientRect().y
-    //nextIndent = indentWidthAdditions.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    /*
-    if (thisIndent > 0) {
-      lastLineInfo = getLastLineWidth(paragraphElement);
-		  nextIndent = lastLineInfo.width;
-      console.log(lastLineInfo.text);
-    }*/
   });
-  /*
-  onMount(() => {
-    console.log('PARAGRAPH ' + {thisBlock} + ' MOUNTED');
-		lastLineInfo = getLastLineWidth(paragraphElement);
-		nextIndent = lastLineInfo.width;
-    console.log(lastLineInfo.text);
-	});*/
   
 </script>
 
 <p bind:this={paragraphElement} style:opacity={visible ? '1' : '0'} bind:offsetWidth={blockWidth} bind:offsetHeight={blockHeight}>
   <span 
+    class="indent"
     style:display={thisIndent > 0 ? 'inline-block' : 'none'}
     style:width={thisIndent + 'px'}
   >&nbsp;</span>{#if data}
@@ -95,11 +77,6 @@
       {:else}
         {portion.text}
       {/if}
-    <!--
-      {#each portion.text.split(' ') as word, i}
-        <Word {word} className={portion.className} {lineHeight} {blockWidth} {blockHeight} {blockYPos} bind:indentWidthAddition={indentWidthAdditions[i]} />
-      {/each}
-    -->
     {/each}
   {:else}
     Error: no data
@@ -107,7 +84,7 @@
 </p>
 
 <style>
-  span {
+  .indent {
     height: var(--line-height);
   }
 </style>

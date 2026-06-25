@@ -6,8 +6,13 @@ const blocks = [
         className: 'ty-bold',
         text: 'elliot ellis',
       },
+    ]
+  },
+  {
+    type: 'paragraph',
+    portions: [
       {
-        text: 'is a designer, developer, and typographer who creates graphics, websites, systems, templates, and tools.'
+        text: 'is a designer, developer, and typographer'
       }
     ]
   },
@@ -15,7 +20,18 @@ const blocks = [
     type: 'paragraph',
     portions: [
       {
-        text: 'Crucially, it is the critically-minded, cross-disciplinary, and problem-solving nature of his that provides the deepest value to the people he works with.'
+        text: 'who makes graphics, websites, systems, and tools.'
+      }
+    ]
+  },
+  {
+    type: 'paragraph'
+  },
+  {
+    type: 'paragraph',
+    portions: [
+      {
+        text: 'Best at things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles,'
       }
     ]
   },
@@ -23,15 +39,18 @@ const blocks = [
     type: 'paragraph',
     portions: [
       {
-        text: 'Currently working on a freelance basis in the culture, editorial, education, and fashion sectors, he has worked on'
+        text: 'it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original and personal angle to any project.'
       }
     ]
+  },
+  {
+    type: 'paragraph'
   },
   {
     type: 'paragraph',
     portions: [
       {
-        text: 'websites, visual identities, motion graphics, editorial design, data graphics, exhibition graphics, and film titles, for'
+        text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked on'
       }
     ]
   },

@@ -3,74 +3,8 @@
   import * as sun from 'suncalc';
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
+  import PageContainer from '$lib/components/PageContainer.svelte';
   let { children } = $props();
-
-  /* ===========
-   * This section for debugging colour with mouse x position
-   * instead of time
-   *
-  let m = $state({ x: 0, y: 0 });
-  let ww = $state();
-	const handleMousemove = (e) => m.x = event.clientX; */
-
-  function piecewise_linear(ts, ys, t) { 
-    for(let i = 0; i < ts.length; ++i){
-      if(ts[i] <= t && ts[i+1] >= t) {
-        // Use the equation for the line passing through 
-        // (ts[i], ys[i]) and (ts[i+1], ys[i+1])
-        return ys[i] + (t - ts[i]) * (ys[i+1] - ys[i]) / (ts[i+1] - ts[i])
-      }
-    }
-  }
-
-  const to2dp = (float) => Math.round( float * 100 ) / 100;
-  const lerp = (x, y, a) => x * (1 - a) + y * a;
-  const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));
-  const invlerp = (x, y, a) => clamp((a - x) / (y - x));
-  const range = (x1, y1, x2, y2, a) => lerp(x2, y2, invlerp(x1, y1, a));
-
-  const now = new SvelteDate();
-  now.setTime(Date.now());
-  const sunTimes = sun.getTimes(now, 51.509718, -0.104315); // Blackfriars Bridge
-  const dayStart = new Date(sunTimes.solarNoon - 43200000);
-  const dayEnd = new Date(sunTimes.solarNoon.valueOf() + 43200000); // for some reason dates in future need to be set from unix number
-  const yearStart = new Date(now.getFullYear(), 0);
-  const yearEnd = new Date(now.getFullYear() + 1, 0);
-
-  const tp = (t) => invlerp(dayStart, dayEnd, t); // get time point float
-
-  let dayPoints = [
-    { t: tp(dayStart), s: 5, l: 10 }, 
-    { t: tp(sunTimes.nauticalDawn), s: 10, l: 15 }, 
-    { t: tp(sunTimes.goldenHourEnd), s: 90, l: 60 }, 
-    { t: tp(sunTimes.solarNoon), s: 100, l: 95 }, 
-    { t: tp(sunTimes.goldenHour), s: 90, l: 60 }, 
-    { t: tp(sunTimes.nauticalDusk), s: 10, l: 15 }, 
-    { t: tp(dayEnd), s: 5, l: 10 }, 
-  ];
-
-  let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) ); // Hue is determined by the time of year
-
-  // Saturation is a linear interpolation where it is low at noon and night, and at its peak at dusk and dawn
-  //let saturation = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[0], colorRanges[1], now) ) );
-  //let lightness = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[2], colorRanges[3], now) ) );
-
-  let saturation = $derived(to2dp(piecewise_linear(
-    dayPoints.map((i) => i.t),
-    dayPoints.map((i) => i.s),
-    tp(now)
-  )));
-
-  let lightness = $derived(to2dp(piecewise_linear(
-    dayPoints.map((i) => i.t),
-    dayPoints.map((i) => i.l),
-    tp(now)
-  )));
-  
-  $effect(() => {
-		const interval = setInterval(() => { now.setTime(Date.now()) }, 1000);
-		return () => { clearInterval(interval); };
-	});
 </script>
 
 <svelte:head>
@@ -88,81 +22,11 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-<!-- <svelte:window bind:innerWidth={ww} /> --
-
-<div class="colour-debug-points">
-  <span style:left={dayPoints[0].t*100 + '%;'}>
-    midnight<br>{dayStart.toLocaleTimeString()}
-  </span>
-  <span style:left={dayPoints[1].t*100 + '%;'}>
-    nauticalDawn<br>{sunTimes.nauticalDawn.toLocaleTimeString()}
-  </span>
-  <span style:left={dayPoints[2].t*100 + '%;'}>
-    goldenHourEnd<br>{sunTimes.goldenHourEnd.toLocaleTimeString()}
-  </span>
-  <span style:left={dayPoints[3].t*100 + '%;'}>
-    solarNoon<br>{sunTimes.solarNoon.toLocaleTimeString()}
-  </span>
-  <span style:left={dayPoints[4].t*100 + '%;'}>
-    goldenHour<br>{sunTimes.goldenHour.toLocaleTimeString()}
-  </span>
-  <span style:left={dayPoints[5].t*100 + '%;'}>
-    nauticalDusk<br>{sunTimes.nauticalDusk.toLocaleTimeString()}
-  </span>
-  <div>s {saturation} / l {lightness}</div>
-</div> -->
-
-<!-- <main onmousemove={handleMousemove} style:--background-colour={'hsl(' + hue + ' ' + saturation + ' ' + lightness + ')'}> -->
-<main style:--background-colour={'hsl(' + hue + ' ' + saturation + ' ' + lightness + ')'}>
+<PageContainer debug={true}>
   {@render children()}
-</main>
-
-
-
-<!--
-<p><strong>Current datetime</strong> <br/> {currentDate}</p>
-<p><strong>Custom datetime</strong> <br/> {customDate}</p>
-<p><strong>Hue comp datetime</strong> <br/> {hueCompDate}</p>
-<p><strong>+1year datetime</strong> <br/> {oneYearDate}</p>
-<p><strong>One year</strong> <br/> {oneYear}</p>
-<p><strong>Difference to Hue date</strong><br/> {hueDateDiff}</p>
-<p><strong>Hue value</strong> <br/> {hue}</p>
-<p><strong>Brightness value</strong> <br/> {brightness}</p>-->
+</PageContainer>
 
 <style>
-  .colour-debug-points {
-    position: absolute;
-    width: 100vw;
-    height: 10vh;
-    top: 0;
-    left: 0;
-    color: white;
-    mix-blend-mode: difference;
-  }
-  .colour-debug-points span {
-    position: absolute;
-    display: block;
-    border-left: 1px solid white;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-  }
-  .colour-debug-points div {
-    margin-top: 60px;
-    text-align: center;
-    width: 100%;
-  }
-  span:nth-child(1) { width: 18%; left: 0; }
-  span:nth-child(2) { width: 12%; left: 18%; }
-  span:nth-child(3) { width: 20%; left: 30%; }
-  span:nth-child(4) { width: 20%; left: 50%; }
-  span:nth-child(5) { width: 12%; left: 70% }
-  span:nth-child(6) { width: 18%; left: 82%; }
-  main {
-    background-color: var(--background-colour);
-    padding: 2rem;
-  }
   :global {
     *, *::before, *::after {
       box-sizing: border-box;
