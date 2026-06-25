@@ -8,10 +8,10 @@
   /* ===========
    * This section for debugging colour with mouse x position
    * instead of time
-   */
+   *
   let m = $state({ x: 0, y: 0 });
   let ww = $state();
-	const handleMousemove = (e) => m.x = event.clientX;
+	const handleMousemove = (e) => m.x = event.clientX; */
 
   function piecewise_linear(ts, ys, t) { 
     for(let i = 0; i < ts.length; ++i){
@@ -30,24 +30,14 @@
   const range = (x1, y1, x2, y2, a) => lerp(x2, y2, invlerp(x1, y1, a));
 
   const now = new SvelteDate();
+  now.setTime(Date.now());
   const sunTimes = sun.getTimes(now, 51.509718, -0.104315); // Blackfriars Bridge
   const dayStart = new Date(sunTimes.solarNoon - 43200000);
   const dayEnd = new Date(sunTimes.solarNoon.valueOf() + 43200000); // for some reason dates in future need to be set from unix number
   const yearStart = new Date(now.getFullYear(), 0);
   const yearEnd = new Date(now.getFullYear() + 1, 0);
-  let colorRanges = [0, 100, 0, 100]; // saturation low, high, lightness low, high
 
-  let timePoints = [ 
-    0, 
-    invlerp(dayStart, dayEnd, sunTimes.nauticalDawn), 
-    invlerp(dayStart, dayEnd, sunTimes.goldenHourEnd), 
-    invlerp(dayStart, dayEnd, sunTimes.solarNoon),  
-    invlerp(dayStart, dayEnd, sunTimes.goldenHour),  
-    invlerp(dayStart, dayEnd, sunTimes.nauticalDusk),  
-    1
-  ];
-
-  const tp = (t) => invlerp(dayStart, dayEnd, t);
+  const tp = (t) => invlerp(dayStart, dayEnd, t); // get time point float
 
   let dayPoints = [
     { t: tp(dayStart), s: 5, l: 10 }, 
@@ -61,58 +51,24 @@
 
   let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) ); // Hue is determined by the time of year
 
+  // Saturation is a linear interpolation where it is low at noon and night, and at its peak at dusk and dawn
+  //let saturation = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[0], colorRanges[1], now) ) );
+  //let lightness = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[2], colorRanges[3], now) ) );
+
   let saturation = $derived(to2dp(piecewise_linear(
-    dayPoints.map((i) => i.t * ww),
+    dayPoints.map((i) => i.t),
     dayPoints.map((i) => i.s),
-    m.x
+    tp(now)
   )));
 
   let lightness = $derived(to2dp(piecewise_linear(
-    dayPoints.map((i) => i.t * ww),
+    dayPoints.map((i) => i.t),
     dayPoints.map((i) => i.l),
-    m.x
+    tp(now)
   )));
-
-  // Brightness is a linear interpolation over 24h over how close it is to noon
-  //let solarNoonDiff = $state(0);
-  //let brightness = $derived( to2dp(100 - (solarNoonDiff + 43200) / 86400 * 100) );
-
-
-  function updateTimeValues() {
-    now.setTime(Date.now());
-    console.log(saturation);
-
-    /*
-    if (dayStart <= now && now < sunTimes.nauticalDawn) {
-      timeRange = [dayStart, sunTimes.nauticalDawn];
-      colorRanges = [10, 10, 10, 10];
-    } else if (sunTimes.nauticalDawn <= now && now < sunTimes.goldenHourEnd) {
-      timeRange = [sunTimes.nauticalDawn, sunTimes.goldenHourEnd];
-      colorRanges = [10, 100, 10, 67];
-    } else if (sunTimes.goldenHourEnd <= now && now < sunTimes.solarNoon) {
-      timeRange = [sunTimes.goldenHourEnd, sunTimes.solarNoon];
-      colorRanges = [100, 10, 67, 100];
-    } else if (sunTimes.solarNoon <= now && now < sunTimes.goldenHour) {
-      timeRange = [sunTimes.solarNoon, sunTimes.goldenHour];
-      colorRanges = [10, 100, 100, 67];
-    } else if (sunTimes.goldenHour <= now && now < sunTimes.nauticalDusk) {
-      timeRange = [sunTimes.goldenHour, sunTimes.nauticalDusk];
-      colorRanges = [100, 10, 67, 10];
-    } else if (sunTimes.nauticalDusk <= now && now < dayEnd) {
-      timeRange = [sunTimes.nauticalDusk, dayEnd];
-      colorRanges = [10, 10, 10, 10];
-    } else {
-      console.log("error! time is messed up")
-    }
-    */
-
-    //solarNoonDiff = Math.floor((now - sunTimes.solarNoon) / 1000);
-    
-  }
-  updateTimeValues();
   
   $effect(() => {
-		const interval = setInterval(() => { updateTimeValues() }, 1000);
+		const interval = setInterval(() => { now.setTime(Date.now()) }, 1000);
 		return () => { clearInterval(interval); };
 	});
 </script>
@@ -132,12 +88,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-<svelte:window bind:innerWidth={ww} />
-
-<main onmousemove={handleMousemove} style:--background-colour={'hsl(' + hue + ' ' + saturation + ' ' + lightness + ')'}>
-  {@render children()}
-</main>
-
+<!-- <svelte:window bind:innerWidth={ww} /> --
 
 <div class="colour-debug-points">
   <span style:left={dayPoints[0].t*100 + '%;'}>
@@ -159,7 +110,13 @@
     nauticalDusk<br>{sunTimes.nauticalDusk.toLocaleTimeString()}
   </span>
   <div>s {saturation} / l {lightness}</div>
-</div>
+</div> -->
+
+<!-- <main onmousemove={handleMousemove} style:--background-colour={'hsl(' + hue + ' ' + saturation + ' ' + lightness + ')'}> -->
+<main style:--background-colour={'hsl(' + hue + ' ' + saturation + ' ' + lightness + ')'}>
+  {@render children()}
+</main>
+
 
 
 <!--
