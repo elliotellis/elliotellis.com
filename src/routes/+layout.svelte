@@ -5,13 +5,13 @@
   import favicon from '$lib/assets/favicon.svg';
   let { children } = $props();
 
+  /* ===========
+   * This section for debugging colour with mouse x position
+   * instead of time
+   */
   let m = $state({ x: 0, y: 0 });
   let ww = $state();
-
-	function handleMousemove(event) {
-		m.x = event.clientX;
-		m.y = event.clientY;
-	}
+	const handleMousemove = (e) => m.x = event.clientX;
 
   function piecewise_linear(ts, ys, t) { 
     for(let i = 0; i < ts.length; ++i){
@@ -23,7 +23,7 @@
     }
   }
 
-  const to2dp = (float) => Math.round( float * 100 ) / 100
+  const to2dp = (float) => Math.round( float * 100 ) / 100;
   const lerp = (x, y, a) => x * (1 - a) + y * a;
   const clamp = (a, min = 0, max = 1) => Math.min(max, Math.max(min, a));
   const invlerp = (x, y, a) => clamp((a - x) / (y - x));
@@ -31,42 +31,45 @@
 
   const now = new SvelteDate();
   const sunTimes = sun.getTimes(now, 51.509718, -0.104315); // Blackfriars Bridge
-  const dayCycleStart = new Date(sunTimes.solarNoon - 43200000);
-  const dayCycleEnd = new Date(sunTimes.solarNoon.valueOf() + 43200000); // for some reason dates in future need to be set from unix number
+  const dayStart = new Date(sunTimes.solarNoon - 43200000);
+  const dayEnd = new Date(sunTimes.solarNoon.valueOf() + 43200000); // for some reason dates in future need to be set from unix number
   const yearStart = new Date(now.getFullYear(), 0);
   const yearEnd = new Date(now.getFullYear() + 1, 0);
   let colorRanges = [0, 100, 0, 100]; // saturation low, high, lightness low, high
-  let timeRange = [];
 
-  // Hue is determined by the time of year
-  let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) );
-
-  // Saturation is a linear interpolation where it is low at noon and night, and at its peak at dusk and dawn
-  //let saturation = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[0], colorRanges[1], now) ) );
-  //let lightness = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[2], colorRanges[3], now) ) );
-  //let saturation = $derived( to2dp( range(0, ww, colorRanges[0], colorRanges[1], m.x) ) );
-  //let lightness = $derived( to2dp( range(0, ww, colorRanges[2], colorRanges[3], m.x) ) );
-
-  let colourDebugPoints = [ 
+  let timePoints = [ 
     0, 
-    invlerp(dayCycleStart, dayCycleEnd, sunTimes.nauticalDawn), 
-    invlerp(dayCycleStart, dayCycleEnd, sunTimes.goldenHourEnd), 
-    invlerp(dayCycleStart, dayCycleEnd, sunTimes.solarNoon),  
-    invlerp(dayCycleStart, dayCycleEnd, sunTimes.goldenHour),  
-    invlerp(dayCycleStart, dayCycleEnd, sunTimes.nauticalDusk),  
-    1];
+    invlerp(dayStart, dayEnd, sunTimes.nauticalDawn), 
+    invlerp(dayStart, dayEnd, sunTimes.goldenHourEnd), 
+    invlerp(dayStart, dayEnd, sunTimes.solarNoon),  
+    invlerp(dayStart, dayEnd, sunTimes.goldenHour),  
+    invlerp(dayStart, dayEnd, sunTimes.nauticalDusk),  
+    1
+  ];
+
+  const tp = (t) => invlerp(dayStart, dayEnd, t);
+
+  let dayPoints = [
+    { t: tp(dayStart), s: 5, l: 10 }, 
+    { t: tp(sunTimes.nauticalDawn), s: 10, l: 15 }, 
+    { t: tp(sunTimes.goldenHourEnd), s: 90, l: 60 }, 
+    { t: tp(sunTimes.solarNoon), s: 100, l: 95 }, 
+    { t: tp(sunTimes.goldenHour), s: 90, l: 60 }, 
+    { t: tp(sunTimes.nauticalDusk), s: 10, l: 15 }, 
+    { t: tp(dayEnd), s: 5, l: 10 }, 
+  ];
+
+  let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) ); // Hue is determined by the time of year
 
   let saturation = $derived(to2dp(piecewise_linear(
-    colourDebugPoints.map((x) => x * ww),
-    // midn, nauDawn, ghEnd,   noon,  goldhr, nauDusk, midn
-    [   5,      10,    90,     20,    90,      10,   5 ],
+    dayPoints.map((i) => i.t * ww),
+    dayPoints.map((i) => i.s),
     m.x
   )));
 
   let lightness = $derived(to2dp(piecewise_linear(
-    colourDebugPoints.map((x) => x * ww),
-    // midn, nauDawn, ghEnd,   noon,  goldhr, nauDusk, midn
-    [   10,      15,     60,    85,     60,      15,   10 ],
+    dayPoints.map((i) => i.t * ww),
+    dayPoints.map((i) => i.l),
     m.x
   )));
 
@@ -77,9 +80,11 @@
 
   function updateTimeValues() {
     now.setTime(Date.now());
+    console.log(saturation);
 
-    if (dayCycleStart <= now && now < sunTimes.nauticalDawn) {
-      timeRange = [dayCycleStart, sunTimes.nauticalDawn];
+    /*
+    if (dayStart <= now && now < sunTimes.nauticalDawn) {
+      timeRange = [dayStart, sunTimes.nauticalDawn];
       colorRanges = [10, 10, 10, 10];
     } else if (sunTimes.nauticalDawn <= now && now < sunTimes.goldenHourEnd) {
       timeRange = [sunTimes.nauticalDawn, sunTimes.goldenHourEnd];
@@ -93,28 +98,19 @@
     } else if (sunTimes.goldenHour <= now && now < sunTimes.nauticalDusk) {
       timeRange = [sunTimes.goldenHour, sunTimes.nauticalDusk];
       colorRanges = [100, 10, 67, 10];
-    } else if (sunTimes.nauticalDusk <= now && now < dayCycleEnd) {
-      timeRange = [sunTimes.nauticalDusk, dayCycleEnd];
+    } else if (sunTimes.nauticalDusk <= now && now < dayEnd) {
+      timeRange = [sunTimes.nauticalDusk, dayEnd];
       colorRanges = [10, 10, 10, 10];
     } else {
       console.log("error! time is messed up")
     }
+    */
 
     //solarNoonDiff = Math.floor((now - sunTimes.solarNoon) / 1000);
     
   }
   updateTimeValues();
-
-  console.log(colourDebugPoints);
-  console.log(dayCycleStart);
-  console.log(dayCycleEnd);
-  console.log(sunTimes.nauticalDawn);
-  //console.log(invlerp(dayCycleStart, dayCycleEnd, sunTimes.nauticalDawn));
-      //console.log(now.valueOf());
-    //console.log("timeRange " + timeRange);
-    //console.log("colorRanges " + colorRanges);
-    //console.log("SATURATION " + saturation);
-    //console.log("LIGHTNESS " + lightness);
+  
   $effect(() => {
 		const interval = setInterval(() => { updateTimeValues() }, 1000);
 		return () => { clearInterval(interval); };
@@ -144,22 +140,22 @@
 
 
 <div class="colour-debug-points">
-  <span style:left={colourDebugPoints[0]*100 + '%;'}>
-    midnight<br>{dayCycleStart.toLocaleTimeString()}
+  <span style:left={dayPoints[0].t*100 + '%;'}>
+    midnight<br>{dayStart.toLocaleTimeString()}
   </span>
-  <span style:left={colourDebugPoints[1]*100 + '%;'}>
+  <span style:left={dayPoints[1].t*100 + '%;'}>
     nauticalDawn<br>{sunTimes.nauticalDawn.toLocaleTimeString()}
   </span>
-  <span style:left={colourDebugPoints[2]*100 + '%;'}>
+  <span style:left={dayPoints[2].t*100 + '%;'}>
     goldenHourEnd<br>{sunTimes.goldenHourEnd.toLocaleTimeString()}
   </span>
-  <span style:left={colourDebugPoints[3]*100 + '%;'}>
+  <span style:left={dayPoints[3].t*100 + '%;'}>
     solarNoon<br>{sunTimes.solarNoon.toLocaleTimeString()}
   </span>
-  <span style:left={colourDebugPoints[4]*100 + '%;'}>
+  <span style:left={dayPoints[4].t*100 + '%;'}>
     goldenHour<br>{sunTimes.goldenHour.toLocaleTimeString()}
   </span>
-  <span style:left={colourDebugPoints[5]*100 + '%;'}>
+  <span style:left={dayPoints[5].t*100 + '%;'}>
     nauticalDusk<br>{sunTimes.nauticalDusk.toLocaleTimeString()}
   </span>
   <div>s {saturation} / l {lightness}</div>
