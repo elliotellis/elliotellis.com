@@ -23,6 +23,9 @@
 </svelte:head>
 
 <TextContainer blocks={bio} />
+
+
+
 <!--
 <div class="text-container">
   <p>

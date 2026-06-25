@@ -1,10 +1,11 @@
 <script>
   import { SvelteDate } from 'svelte/reactivity';
   import * as sun from 'suncalc';
+  import ms from 'ms';
   let { children } = $props();
 
   const debug = true;
-  let mx = $state(0);
+  let m = $state({ x: 0, y: 0 });
   let dt = new SvelteDate();
   let ww = $state();
 
@@ -24,43 +25,42 @@
   const now = new SvelteDate();
   now.setTime(Date.now());
   const sunTimes = sun.getTimes(now, 51.509718, -0.104315); // Blackfriars Bridge
-  const dayStart = new Date(sunTimes.solarNoon - 43200000);
-  const dayEnd = new Date(sunTimes.solarNoon.valueOf() + 43200000); // for some reason dates in future need to be set from unix number
+  const dayStart = new Date(sunTimes.solarNoon - ms('12h'));
+  const dayEnd = new Date(sunTimes.solarNoon.valueOf() + ms('12h')); // for some reason have to use valueOf() when adding milliseconds
   const yearStart = new Date(now.getFullYear(), 0);
   const yearEnd = new Date(now.getFullYear() + 1, 0);
   const tp = (t) => invlerp(dayStart, dayEnd, t); // get time point float
-
+  console.log(sunTimes.solarNoon - ms('1h'))
   let dayPoints = [
-    { label: 'dayStart', t: dayStart,                s:   5, l: 10, okl: 0.1,  okc: 0.1 }, 
-    { label: 'dayStart', t: sunTimes.nauticalDawn,   s:  10, l: 15, okl: 0.15, okc: 0.1 }, 
-    { label: 'dayStart', t: sunTimes.goldenHourEnd,  s:  90, l: 60, okl: 0.6,  okc: 0.5 }, 
-    { label: 'dayStart', t: sunTimes.solarNoon,      s: 100, l: 95, okl: 1,    okc: 0   }, 
-    { label: 'dayStart', t: sunTimes.goldenHour,     s:  90, l: 60, okl: 0.6,  okc: 0.5 }, 
-    { label: 'dayStart', t: sunTimes.nauticalDusk,   s:  10, l: 15, okl: 0.15, okc: 0.1 }, 
-    { label: 'dayStart', t: dayEnd,                  s:   5, l: 10, okl: 0.1,  okc: 0.1 }, 
+    { label: 'dayStart',      s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayStart }, 
+    { label: 'nauticalDawn',  s:  10, l: 15, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDawn }, 
+    { label: 'goldenHourEnd', s:  90, l: 60, okl: 0.6,  okc: 0.35,  t: sunTimes.goldenHourEnd }, 
+    { label: 'noon-1h',       s:  90, l: 60, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon - ms('1h')) }, 
+    { label: 'solarNoon',     s: 100, l: 95, okl: 1,    okc: 0,    t: sunTimes.solarNoon },  
+    { label: 'noon+1h',       s:  90, l: 60, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon.valueOf() + ms('1h')) },
+    { label: 'goldenHour',    s:  90, l: 60, okl: 0.6,  okc: 0.35,  t: sunTimes.goldenHour }, 
+    { label: 'nauticalDusk',  s:  10, l: 15, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDusk }, 
+    { label: 'dayEnd',        s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayEnd }, 
   ];
 
   let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) ); // Hue is determined by the time of year
 
-  // Saturation is a linear interpolation where it is low at noon and night, and at its peak at dusk and dawn
-  //let saturation = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[0], colorRanges[1], now) ) );
-  //let lightness = $derived( to2dp( range(timeRange[0], timeRange[1], colorRanges[2], colorRanges[3], now) ) );
-
-  let saturation = $derived(to2dp(piecewiseLinear(
+  let saturation = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okc),
-    /*tp(now)*/ mx/ww
-  )));
+    /*tp(now)*/ m.x/ww
+  ));
 
-  let lightness = $derived(to2dp(piecewiseLinear(
+  let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
-    /*tp(now)*/ mx/ww
-  )));
+    /*tp(now)*/ m.x/ww
+  ));
 
   const handleMousemove = (event) => { 
-    mx = event.clientX; 
-    dt.setTime(range(0, ww, dayStart, dayEnd, mx));
+    m.x = event.clientX; 
+    m.y = event.clientY; 
+    dt.setTime(range(0, ww, dayStart, dayEnd, m.x));
   }
   
   $effect(() => {
@@ -72,7 +72,8 @@
   
 <svelte:window bind:innerWidth={ww}  /> 
 
-<main onmousemove={handleMousemove} style:--background-colour={'oklch(' + (lightness) + ' ' + (saturation) + ' ' + hue + ')'}>
+<main onmousemove={handleMousemove} style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'}>
+  <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (0.5/saturation) + ' ' + hue + ')'}></div>
   {@render children()}
 </main>
 
@@ -80,7 +81,19 @@
 
   main {
     background-color: var(--background-colour);
-    padding: 1rem;
+    padding: 3rem 0.75rem 0.75rem;
+  }
+
+  .colour-bar {
+    position: absolute;
+    top: -2rem;
+    left: -50%;
+    width: 200%;
+    height: 4rem;
+    background-color: var(--background-colour);
+    mix-blend-mode: exclusion;
+    filter: blur(2rem);
+    z-index: 0;
   }
 
 </style>
@@ -90,7 +103,7 @@
     {#each dayPoints as point}
       <span style:left={tp(point.t)*100 + '%'}>{point.label}<br>{point.t.toLocaleTimeString()}</span>
     {/each}
-    <div>s {saturation} / l {lightness} <br>{dt.toLocaleTimeString()}</div>
+    <div>chroma {to2dp(saturation)} / light {to2dp(lightness)} <br>chroma {to2dp(1-saturation)} / light {1}<br>{dt.toLocaleTimeString()}</div>
   </div>
 
   <style>

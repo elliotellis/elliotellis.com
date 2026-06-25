@@ -53,7 +53,7 @@
       --leading-body: 1.25rem;
 
       --site-margin: 1rem;
-      --max-text-width: 20rem;
+      --max-text-width: 18rem;
       --base-rule-weight: 0.0625rem;
     }
 
@@ -65,6 +65,7 @@
 
       font-family: var(--typeface);
       font-weight: var(--fontweight-reg);
+      font-size: var(--typesize-body);
       line-height: var(--leading-base);
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;

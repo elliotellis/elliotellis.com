@@ -22,9 +22,6 @@
 
 <style>
   .text-container {
-    --line-height: 1.25rem;
-    font-size: 1rem;
-    line-height: var(--line-height);
     color: contrast-color(var(--background-colour))
   }
 </style>
