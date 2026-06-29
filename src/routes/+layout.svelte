@@ -22,7 +22,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-<PageContainer debug={true}>
+<PageContainer>
   {@render children()}
 </PageContainer>
 
@@ -49,8 +49,8 @@
       --typesize-body: 1rem;
       --leading-body: 1.25rem;
 
-      --site-margin: 0.75rem;
-      --main-text-width: calc(320px - (2*var(--site-margin)));
+      --site-x-margin: 0.75rem;
+      --main-text-width: 32rem;
       --base-rule-weight: 0.0625rem;
     }
 
@@ -81,19 +81,20 @@
       text-decoration: none;
     }
 
+    h1, h2, h3, h4, h5, h6 {
+      font-size: var(--typesize-body);
+    }
+
     h1 {
       margin: 0;
     }
 
     h2 {
       margin: 0.5rem 0 0;
-      font-size: var(--typesize-body);
     }
 
     h3 {
       margin: 0.5rem 0 0;
-      font-size: var(--typesize-body);
-
     }
 
     p, ul {
@@ -101,18 +102,23 @@
       max-width: var(--main-text-width);
     }
 
-    p:first-of-type {
-      margin: 0;
+    p {
+      text-indent: var(--leading-base);
+    }
+
+    p:first-child, ul + p {
+      text-indent: unset;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
 
     .caption {
       font-size: var(--typesize-caption);
       line-height: var(--leading-caption);
       color: var(--text-colour-minor);
-    }
-
-    ul {
-      padding: 0 0 0 1em;
     }
 
     .hidden {
@@ -127,38 +133,6 @@
       color: inherit;
       font: inherit;
       cursor: pointer;
-    }
-
-    .bold {
-      font-weight: var(--fontweight-bold);
-    }
-
-    /* a[target="_blank"]:after {
-      content: '\2197';
-    } */
-    
-    /*
-      want to do a set of min and max widths of type size/leading combos
-      e.g. 1/1.25 up to a certain measure and then 1/1.5 above that
-      could be a media query related to element width? 
-      i think i found this out one time
-    */
-
-    .rule-above-1x { --rule-weight-above: var(--base-rule-weight); }
-    .rule-above-2x { --rule-weight-above: calc(2 * var(--base-rule-weight)); }
-    .rule-above-4x { --rule-weight-above: calc(4 * var(--base-rule-weight)); }
-    .rule-below-1x { --rule-weight-below: var(--base-rule-weight); }
-    .rule-below-2x { --rule-weight-below: calc(2 * var(--base-rule-weight)); }
-    .rule-below-4x { --rule-weight-below: calc(4 * var(--base-rule-weight)); }
-
-    .rule-above-1x, .rule-above-2x, .rule-above-4x {
-      border-top: var(--rule-weight-above) solid var(--text-colour);
-      padding-top: calc(1rem - var(--rule-weight-above));
-    }
-
-    .rule-below-1x, .rule-below-2x, .rule-below-4x {
-      border-bottom: var(--rule-weight-below) solid var(--text-colour);
-      padding-bottom: calc(1rem - var(--rule-weight-below));
     }
 
   }

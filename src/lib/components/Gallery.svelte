@@ -1,7 +1,7 @@
 <script>
-  let { media } = $props();
-  import Slide from '$lib/components/GallerySlide.svelte';
+  let { content } = $props();
   import Navigation from '$lib/components/GalleryNavigation.svelte';
+  import TextBlocks from '$lib/components/TextBlocks.svelte';
 
   let currentSlideIndex = $state(0);
 
@@ -23,19 +23,18 @@
 </script>
 
 <div class="gallery">
-
-  {#if media.length === 0}
-    Error! No media.
-  {:else}
-    <Slide 
-      slideNumber={currentSlideIndex + 1}
-      imgSrc={media[currentSlideIndex].imgSrc}
-      imgAlt={media[currentSlideIndex].imgAlt}
-      videoSrc={media[currentSlideIndex].videoSrc}
-    />
-  {/if}
+  {#each content as slide}
+    <div class="slide" style:background-color={slide.background}>
+      {#if slide.type === 'text'}
+        <br>
+        <TextBlocks blocks={slide.textBlocks} />
+      {:else if slide.type === 'image'}
+        <img src={slide.imgSrc} alt={slide.imgAlt}>
+      {/if}
+    </div>
+  {/each}
   
-  {#if media.length > 1}
+  {#if content.length > 1}
     <Navigation prev={prevSlide} next={nextSlide} />
   {/if}
 </div>
@@ -46,6 +45,19 @@
     width: 100%;
     height: 100%;
     position: relative;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    padding-top: var(--top-padding);
+  }
+
+  img, video {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
 </style>

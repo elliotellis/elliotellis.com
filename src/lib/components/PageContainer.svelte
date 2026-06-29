@@ -85,22 +85,22 @@
     flex-direction: row;
     align-items: stretch;
     background-color: var(--background-colour);
-    padding: var(--top-padding) var(--site-margin) var(--site-margin);
     width: 100%;
     position: relative;
   }
 
+/*
   main::before {
     content: '';
     display: block;
     position: absolute;
-    top: calc(var(--top-padding) - var(--site-margin));
-    left: var(--site-margin);
-    width: calc(100% - (2*var(--site-margin)));
+    top: calc(var(--top-padding) - var(--site-x-margin));
+    left: var(--site-x-margin);
+    width: calc(100% - (2*var(--site-x-margin)));
     height: 0;
     border-top: 1px solid var(--text-colour);
 
-  }
+  }*/
 
   .colour-bar {
     position: absolute;
@@ -111,7 +111,7 @@
     background-color: var(--background-colour);
     mix-blend-mode: exclusion;
     filter: blur(2rem);
-    z-index: 0;
+    z-index: 1;
   }
 
 </style>

@@ -1,10 +1,7 @@
 <script>
   import { page } from '$app/state';
-  import GalleryContainer from '$lib/components/GalleryContainer.svelte';
   import Gallery from '$lib/components/Gallery.svelte';
-  import TextContainer from '$lib/components/TextContainer.svelte';
-  import bio from '$lib/content/bio.js';
-  import homeContent from '$lib/content/home.js';
+  import content from '$lib/content/home.js';
   let { data } = $props();
 </script>
 
@@ -25,10 +22,17 @@
   {/if}
 </svelte:head>
 
-<TextContainer blocks={bio} />
-<GalleryContainer>
-  <Gallery media={homeContent} />
-</GalleryContainer>
+<div class="name-container">
+  <h1>elliot ellis</h1>
+</div>
+
+<Gallery {content} />
+
+<style>
+  .name-container {
+    padding: var(--top-padding) 0 0 var(--site-x-margin);
+  }
+</style>
 
 
 
