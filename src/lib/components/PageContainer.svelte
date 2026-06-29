@@ -4,7 +4,7 @@
   import ms from 'ms';
   let { children } = $props();
 
-  const debug = true;
+  const debug = false;
   let m = $state({ x: 0, y: 0 });
   let dt = new SvelteDate();
   let ww = $state();
@@ -48,13 +48,13 @@
   let saturation = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okc),
-    /*tp(now)*/ m.x/ww
+    tp(now) /*m.x/ww*/
   ));
 
   let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
-    /*tp(now)*/ m.x/ww
+    tp(now) /*m.x/ww*/
   ));
 
   const handleMousemove = (event) => { 
@@ -73,15 +73,33 @@
 <svelte:window bind:innerWidth={ww}  /> 
 
 <main onmousemove={handleMousemove} style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'}>
-  <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (0.5/saturation) + ' ' + hue + ')'}></div>
+  <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')'}></div>
   {@render children()}
 </main>
 
 <style>
 
   main {
+    --top-padding: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
     background-color: var(--background-colour);
-    padding: 3rem 0.75rem 0.75rem;
+    padding: var(--top-padding) var(--site-margin) var(--site-margin);
+    width: 100%;
+    position: relative;
+  }
+
+  main::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: calc(var(--top-padding) - var(--site-margin));
+    left: var(--site-margin);
+    width: calc(100% - (2*var(--site-margin)));
+    height: 0;
+    border-top: 1px solid var(--text-colour);
+
   }
 
   .colour-bar {

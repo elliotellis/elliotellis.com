@@ -1,7 +1,10 @@
 <script>
   import { page } from '$app/state';
-  import TextContainer from '$lib/components/TextContainer.svelte'
-  import bio from '$lib/content/bio.js'
+  import GalleryContainer from '$lib/components/GalleryContainer.svelte';
+  import Gallery from '$lib/components/Gallery.svelte';
+  import TextContainer from '$lib/components/TextContainer.svelte';
+  import bio from '$lib/content/bio.js';
+  import homeContent from '$lib/content/home.js';
   let { data } = $props();
 </script>
 
@@ -23,6 +26,9 @@
 </svelte:head>
 
 <TextContainer blocks={bio} />
+<GalleryContainer>
+  <Gallery media={homeContent} />
+</GalleryContainer>
 
 
 

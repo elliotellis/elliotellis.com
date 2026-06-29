@@ -1,5 +1,16 @@
 const homeContent = [
   {
+    reference: 'reference name',
+    caption: 'Test',
+    type: 'image',
+    imgSrc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPHJlY3QgZmlsbD0iIzdiOWFlNyIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiLz4KICA8dGV4dCBmaWxsPSIjZmVmZmZmIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI1IiBmb250LXdlaWdodD0iYm9sZCIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPjE8L3RleHQ+Cjwvc3ZnPg==',
+    imgAlt: 'alt text',
+  }
+]
+
+
+/*const homeContent = [
+  {
     title: 'The Guardian \u2013 Today in Focus: The Latest',
     description: 'Digital graphics and maps for the UK newspaper\u2019s daily news video\u00a0podcast.',
     information: '2026',
@@ -48,6 +59,6 @@ const homeContent = [
     information: '2026',
     media: [],
   }
-]
+]*/
 
 export default homeContent;

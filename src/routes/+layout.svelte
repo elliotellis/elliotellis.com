@@ -38,11 +38,8 @@
     }
 
     :root {
-      --colour-white: #fff;
-      --colour-lightgrey: #eee;
-      --colour-midgrey: #9e9896;
-      --colour-black: #23202e; /* to change to new black */
-      --colour-orange: #ee6416;
+      --background-colour: white;
+      --text-colour: contrast-color(var(--background-colour));
 
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
@@ -52,17 +49,12 @@
       --typesize-body: 1rem;
       --leading-body: 1.25rem;
 
-      --site-margin: 1rem;
-      --max-text-width: 18rem;
+      --site-margin: 0.75rem;
+      --main-text-width: calc(320px - (2*var(--site-margin)));
       --base-rule-weight: 0.0625rem;
     }
 
     body {
-      --text-colour: var(--colour-black);
-      --text-colour-minor: var(--colour-midgrey);
-      --key-colour: var(--colour-orange);
-      --background-colour: var(--colour-white);
-
       font-family: var(--typeface);
       font-weight: var(--fontweight-reg);
       font-size: var(--typesize-body);
@@ -70,14 +62,15 @@
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
-      background: var(--background-colour);
       color: var(--text-colour);
       min-width: 320px;
       min-height: 100vh;
       margin: 0;
-      display: grid;
-      grid-template-rows: 1fr auto;
       position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: space-between;
     }
 
     em { font-style: italic; }
@@ -105,7 +98,7 @@
 
     p, ul {
       margin: 0;
-      max-width: var(--max-text-width);
+      max-width: var(--main-text-width);
     }
 
     p:first-of-type {

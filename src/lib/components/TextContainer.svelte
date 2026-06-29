@@ -22,6 +22,10 @@
 
 <style>
   .text-container {
-    color: contrast-color(var(--background-colour))
+    min-width: var(--main-text-width);
+    max-width: var(--main-text-width);
+    border-right: 1px solid var(--text-colour);
+    padding-bottom: 2rem;
+    color: var(--text-colour);
   }
 </style>

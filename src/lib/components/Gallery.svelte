@@ -22,7 +22,7 @@
   }
 </script>
 
-<div class="gallery-container">
+<div class="gallery">
 
   {#if media.length === 0}
     Error! No media.
@@ -42,11 +42,9 @@
 
 <style>
 
-  .gallery-container {
+  .gallery {
     width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    background-color: var(--colour-midgrey);
+    height: 100%;
     position: relative;
   }
 
