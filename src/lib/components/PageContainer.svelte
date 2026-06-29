@@ -85,8 +85,10 @@
     flex-direction: row;
     align-items: stretch;
     background-color: var(--background-colour);
+    color: contrast-color(var(--background-colour));
     width: 100%;
     position: relative;
+    overflow-x: hidden;
   }
 
 /*
