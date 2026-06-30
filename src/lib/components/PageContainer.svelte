@@ -68,6 +68,7 @@
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
     document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
+    document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')');
     document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});
@@ -78,7 +79,7 @@
 
 <!-- style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'} -->
 <main>
-  <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')'}></div>
+  <!-- <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')'}></div> -->
   {@render children()}
 </main>
 
@@ -93,31 +94,6 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-  }
-
-/*
-  main::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(var(--top-padding) - var(--site-x-margin));
-    left: var(--site-x-margin);
-    width: calc(100% - (2*var(--site-x-margin)));
-    height: 0;
-    border-top: 1px solid var(--text-colour);
-
-  }*/
-
-  .colour-bar {
-    position: absolute;
-    top: -2rem;
-    left: -50%;
-    width: 200%;
-    height: 4rem;
-    background-color: var(--background-colour);
-    mix-blend-mode: exclusion;
-    filter: blur(2rem);
-    z-index: 1;
   }
 
 </style>

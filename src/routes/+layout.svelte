@@ -71,8 +71,21 @@
       flex-direction: row;
       align-items: stretch;
       justify-content: space-between;
-      opacity: 0;
+      opacity: 0.5;
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4rem;
+      background: linear-gradient(180deg in oklch, var(--gradient-colour) -25%, transparent);
+      mix-blend-mode: exclusion;
+      z-index: 1;
     }
 
     em { font-style: italic; }

@@ -32,7 +32,7 @@ const content = [
         type: 'paragraph',
         portions: [
           {
-            text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, Geographer, among others.'
+            text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.'
           }
         ]
       },
