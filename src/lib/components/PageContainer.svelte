@@ -30,7 +30,7 @@
   const yearStart = new Date(now.getFullYear(), 0);
   const yearEnd = new Date(now.getFullYear() + 1, 0);
   const tp = (t) => invlerp(dayStart, dayEnd, t); // get time point float
-  console.log(sunTimes.solarNoon - ms('1h'))
+  
   let dayPoints = [
     { label: 'dayStart',      s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayStart }, 
     { label: 'nauticalDawn',  s:  10, l: 15, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDawn }, 
@@ -69,7 +69,7 @@
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
     document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
     document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')');
-    document.body.style.opacity = 1;
+    //document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});
 

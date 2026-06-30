@@ -16,7 +16,7 @@ const content = [
         type: 'paragraph',
         portions: [
           {
-            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.'
+            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.'
           }
         ]
       },
@@ -38,14 +38,14 @@ const content = [
       },
     ]
   },
-  /*
+  
   {
     reference: 'reference name',
     caption: 'Test',
     type: 'image',
     imgSrc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPHJlY3QgZmlsbD0iIzdiOWFlNyIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiLz4KICA8dGV4dCBmaWxsPSIjZmVmZmZmIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI1IiBmb250LXdlaWdodD0iYm9sZCIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPjE8L3RleHQ+Cjwvc3ZnPg==',
     imgAlt: 'alt text',
-  }*/
+  }
 ]
 
 

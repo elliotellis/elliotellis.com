@@ -71,7 +71,7 @@
       flex-direction: row;
       align-items: stretch;
       justify-content: space-between;
-      opacity: 0.5;
+      /*opacity: 0.5;*/
       overflow-x: hidden;
     }
 
