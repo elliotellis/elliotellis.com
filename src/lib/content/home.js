@@ -16,7 +16,7 @@ const content = [
         type: 'paragraph',
         portions: [
           {
-            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original and personal angle to any project.'
+            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original and personal angle to any project.'
           }
         ]
       },

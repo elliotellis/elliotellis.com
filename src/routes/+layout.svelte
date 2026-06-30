@@ -62,6 +62,7 @@
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
+      background-color: var(--background-colour);
       color: var(--text-colour);
       min-width: 320px;
       min-height: 100vh;
@@ -71,6 +72,8 @@
       flex-direction: row;
       align-items: stretch;
       justify-content: space-between;
+      opacity: 0;
+      overflow-x: hidden;
     }
 
     em { font-style: italic; }

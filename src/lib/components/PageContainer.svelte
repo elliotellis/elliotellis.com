@@ -48,13 +48,15 @@
   let saturation = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okc),
-    tp(now) /*m.x/ww*/
+    tp(now) 
+    //m.x/ww
   ));
 
   let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
-    tp(now) /*m.x/ww*/
+    tp(now) 
+    //m.x/ww
   ));
 
   const handleMousemove = (event) => { 
@@ -65,14 +67,17 @@
   
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
+    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
+    document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});
 
 </script>
   
-<svelte:window bind:innerWidth={ww}  /> 
+<svelte:window bind:innerWidth={ww} onmousemove={handleMousemove} />
 
-<main onmousemove={handleMousemove} style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'}>
+<!-- style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'} -->
+<main>
   <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')'}></div>
   {@render children()}
 </main>
@@ -84,11 +89,10 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    background-color: var(--background-colour);
     color: contrast-color(var(--background-colour));
     width: 100%;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
 /*
