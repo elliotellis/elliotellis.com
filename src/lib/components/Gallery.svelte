@@ -4,7 +4,12 @@
   import TextBlocks from '$lib/components/TextBlocks.svelte';
   let galleryWidth = $state(0);
   let currentSlideIndex = $state(0);
+  let nextSlideIndex = $derived(getNextSlideIndex(currentSlideIndex));
   const slideWidth = $derived(galleryWidth * 0.9);
+
+  function getNextSlideIndex(currentIndex) {
+    return currentIndex === (content.length - 1) ? 0 : currentIndex + 1;
+  }
 
   const prevSlide = () => {
     if (currentSlideIndex === 0) {
@@ -21,31 +26,32 @@
       currentSlideIndex++;
     }
   }
+
+  $inspect("Current " + currentSlideIndex);
+  $inspect("Next " + nextSlideIndex);
 </script>
 
 <div class="gallery" bind:offsetWidth={galleryWidth}>
   <div class="slides-container" style:width={slideWidth * 2 + 'px'}>
-    {#each content as slide, i}
-      {#if i === currentSlideIndex}
-        <div class="slide" style:background-color={slide.background} style:width={slideWidth + 'px'}>
-          {#if slide.type === 'text'}
-            <br>
-            <TextBlocks blocks={slide.textBlocks} />
-          {:else if slide.type === 'image'} 
-            <img src={slide.imgSrc} alt={slide.imgAlt}>
-          {/if}
-        </div>
-      {:else if i === currentSlideIndex + 1}
-        <div class="slide" style:padding-left={slideWidth * galleryWidth} style:background-color={slide.background} style:width={slideWidth + 'px'}>
-          {#if slide.type === 'text'}
-            <br>
-            <TextBlocks blocks={slide.textBlocks} />
-          {:else if slide.type === 'image'}
-            <img src={slide.imgSrc} alt={slide.imgAlt}>
-          {/if}
-        </div>
-      {/if}
-    {/each}
+
+    {#snippet slide(slide, i)}
+      <div 
+        class="slide" 
+        style:background-color={slide.background} 
+        style:width={slideWidth + 'px'}
+        style:padding-top={slide.type === 'text' ? 'var(--top-padding)' : 0}
+      >
+        {#if slide.type === 'text'}
+          <TextBlocks blocks={slide.textBlocks} />
+        {:else if slide.type === 'image'} 
+          <img src={slide.imgSrc} alt={slide.imgAlt}>
+        {/if}
+      </div>
+    {/snippet}
+
+    {@render slide(content[currentSlideIndex])}
+    {@render slide(content[nextSlideIndex])}
+
   </div>
   
   {#if content.length > 1}
@@ -70,7 +76,6 @@
 
   .slide {
     height: 100%;
-    padding-top: var(--top-padding);
   }
 
   img, video {

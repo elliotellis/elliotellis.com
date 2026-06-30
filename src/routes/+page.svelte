@@ -23,7 +23,9 @@
 </svelte:head>
 
 <div class="name-container">
-  <h1>elliot ellis</h1>
+  <div class="text-container">
+    <h1>elliot ellis</h1>
+  </div>
 </div>
 
 <Gallery {content} />

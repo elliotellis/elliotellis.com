@@ -69,7 +69,7 @@
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
     document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
     document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')');
-    //document.body.style.opacity = 1;
+    document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});
 
@@ -86,7 +86,7 @@
 <style>
 
   main {
-    --top-padding: 3rem;
+    --top-padding: 3rlh;
     display: flex;
     flex-direction: row;
     align-items: stretch;

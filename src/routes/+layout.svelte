@@ -5,6 +5,7 @@
   import favicon from '$lib/assets/favicon.svg';
   import PageContainer from '$lib/components/PageContainer.svelte';
   let { children } = $props();
+  const showBaselineGrid = true;
 </script>
 
 <svelte:head>
@@ -21,6 +22,22 @@
   <meta name="twitter:card" content="summary">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
+
+{#if showBaselineGrid}
+  <style>
+    body {
+      background-image: 
+        linear-gradient(to top, 
+          rgba(255,255,255,1) 0, 
+          transparent 1px 50%, 
+          rgba(255,255,255,0.333) 50%, 
+          transparent calc(50% + 1px) 100%
+        );
+      background-repeat: repeat-y;
+      background-size: 100% 1rlh;
+    }
+  </style>
+{/if}
 
 <PageContainer>
   {@render children()}
@@ -44,6 +61,8 @@
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
       --fontweight-bold: 800;
+      --font-spacewidth-reg: 0.232em;
+      --font-spacewidth-bold: 0.238em;
 
       --typesize-base: 1rem;
       --leading-base: 1.25em;
@@ -51,13 +70,17 @@
       --site-x-margin: 0.75rem;
       --main-text-width: 32rem;
       --base-rule-weight: 0.0625rem;
+
+      font-size: var(--typesize-base);
+      line-height: var(--leading-base);
+      --baseline-offset: calc(calc(var(--leading-base) - 1cap) / 2);
     }
 
     body {
-      font-family: var(--typeface);
-      font-weight: var(--fontweight-reg);
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
+      font-family: var(--typeface);
+      font-weight: var(--fontweight-reg);
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
@@ -71,7 +94,7 @@
       flex-direction: row;
       align-items: stretch;
       justify-content: space-between;
-      /*opacity: 0.5;*/
+      opacity: 0.5;
       overflow-x: hidden;
     }
 
@@ -96,29 +119,19 @@
       text-decoration: none;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      font-size: var(--typesize-body);
+    .text-container {
+      padding-top: var(--baseline-offset);
     }
 
-    h1 {
+    h1, h2, h3, h4, h5, h6, p, ul {
+      padding: 0;
       margin: 0;
-    }
-
-    h2 {
-      margin: 0.5rem 0 0;
-    }
-
-    h3 {
-      margin: 0.5rem 0 0;
-    }
-
-    p, ul {
-      margin: 0;
+      font-size: 1rem;
       max-width: var(--main-text-width);
     }
 
     p {
-      text-indent: var(--leading-base);
+      text-indent: 2rem;
     }
 
     p:first-child, ul + p {
@@ -127,13 +140,6 @@
 
     ul {
       list-style-type: none;
-      padding: 0;
-    }
-
-    .caption {
-      font-size: var(--typesize-caption);
-      line-height: var(--leading-caption);
-      color: var(--text-colour-minor);
     }
 
     .hidden {

@@ -25,7 +25,7 @@
   }
 </script>
 
-<div class="text-container" bind:offsetWidth={null, resetIndents}>
+<div class="text-blocks text-container" bind:offsetWidth={null, resetIndents}>
   {#each blocks as block, i (i)}
     <p {@attach blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
       {#if blockIndents[i] > 0}
@@ -43,6 +43,12 @@
 </div>
 
 <style>
+
+  .text-blocks {
+    padding-right: var(--site-x-margin);
+    padding-left: var(--font-spacewidth-bold);
+  }
+
   .indent {
     display: inline-block;
   }
@@ -54,4 +60,5 @@
   :global(.new-line) {
     margin-right: 100%;
   }
+
 </style>
