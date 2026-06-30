@@ -10,9 +10,6 @@
 
 <svelte:head>
   <meta property="og:locale" content="en_GB">
-  <!--
-  <link rel="icon" type="image/png" href={faviconPng1x} />
-  <link rel="icon" type="image/png" href={faviconPng2x} /> -->
   <link rel="icon" href={favicon} />
   <link rel="canonical" href={'https://elliotellis.com' + page.url.pathname} />
   <meta property="og:url" content={'https://elliotellis.com' + page.url.pathname}>
@@ -52,6 +49,11 @@
     @page {
       size: 210mm 297mm;
       margin: 1rem;
+    }
+
+    ::selection {
+      color: red;
+      background-color: var(--colour-grey);
     }
 
     :root {
@@ -121,6 +123,10 @@
 
     .text-container {
       padding-top: var(--baseline-offset);
+    }
+
+    figure {
+      margin: 0;
     }
 
     h1, h2, h3, h4, h5, h6, p, ul {

@@ -77,9 +77,7 @@
   
 <svelte:window bind:innerWidth={ww} onmousemove={handleMousemove} />
 
-<!-- style:--background-colour={'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')'} -->
 <main>
-  <!-- <div class="colour-bar" style:--background-colour={'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')'}></div> -->
   {@render children()}
 </main>
 
@@ -132,12 +130,5 @@
       text-align: center;
       width: 100%;
     }
-    
-    .colour-debug-points span:nth-child(1) { width: 18%; left: 0; }
-    .colour-debug-points span:nth-child(2) { width: 12%; left: 18%; }
-    .colour-debug-points span:nth-child(3) { width: 20%; left: 30%; }
-    .colour-debug-points span:nth-child(4) { width: 20%; left: 50%; }
-    .colour-debug-points span:nth-child(5) { width: 12%; left: 70% }
-    .colour-debug-points span:nth-child(6) { width: 18%; left: 82%; }
   </style>
 {/if}

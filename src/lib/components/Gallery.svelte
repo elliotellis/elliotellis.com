@@ -1,7 +1,8 @@
 <script>
-  let { content } = $props();
+	import { asset } from '$app/paths';
   import Navigation from '$lib/components/GalleryNavigation.svelte';
   import TextBlocks from '$lib/components/TextBlocks.svelte';
+  let { content } = $props();
   let galleryWidth = $state(0);
   let currentSlideIndex = $state(0);
   let nextSlideIndex = $derived(getNextSlideIndex(currentSlideIndex));
@@ -41,11 +42,22 @@
         style:width={slideWidth + 'px'}
         style:padding-top={slide.type === 'text' ? 'var(--top-padding)' : 0}
       >
-        {#if slide.type === 'text'}
-          <TextBlocks blocks={slide.textBlocks} />
-        {:else if slide.type === 'image'} 
-          <img src={slide.imgSrc} alt={slide.imgAlt}>
-        {/if}
+        
+          {#if slide.type === 'text'}
+            <TextBlocks blocks={slide.textBlocks} />
+          {:else if slide.type === 'image'} 
+            <figure>
+              <div class="media-container">
+                <img src={asset('/images/' + slide.imgFilename)} alt={slide.imgAlt}>
+              </div>
+              <figcaption>
+                <div class="text-container">
+                  <p class="caption">{slide.caption}</p>
+                </div>
+              </figcaption>
+            </figure>
+          {/if}
+        
       </div>
     {/snippet}
 
@@ -63,7 +75,7 @@
 
   .gallery {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: relative;
     overflow: hidden;
   }
@@ -78,11 +90,25 @@
     height: 100%;
   }
 
+  figure {
+    height: 100%;
+  }
+
+  .media-container {
+    height: round(down, calc(100% - 3rlh), 1rlh);
+  }
+
   img, video {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
   }
+
+  figcaption {
+    height: 3rlh;
+  }
+
+  
 
 </style>
