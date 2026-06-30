@@ -44,10 +44,9 @@
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
       --fontweight-bold: 800;
-      --leading-base: 1.25em;
 
-      --typesize-body: 1rem;
-      --leading-body: 1.25rem;
+      --typesize-base: 1rem;
+      --leading-base: 1.25em;
 
       --site-x-margin: 0.75rem;
       --main-text-width: 32rem;
@@ -57,7 +56,7 @@
     body {
       font-family: var(--typeface);
       font-weight: var(--fontweight-reg);
-      font-size: var(--typesize-body);
+      font-size: var(--typesize-base);
       line-height: var(--leading-base);
       text-rendering: optimizeLegibility;
       -moz-osx-font-smoothing: grayscale;

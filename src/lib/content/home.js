@@ -16,25 +16,7 @@ const content = [
         type: 'paragraph',
         portions: [
           {
-            text: 'When working on things like '
-          }
-        ]
-      },
-      {
-        type: 'unorderedList',
-        items: [
-          { text: 'visual identities, ' },
-          { text: 'motion graphics, ' },
-          { text: 'editorial design, ' },
-          { text: 'exhibition graphics, and ' },
-          { text: 'film titles, ' },
-        ]
-      },
-      {
-        type: 'paragraph',
-        portions: [
-          {
-            text: 'it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original and personal angle to any project.'
+            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.'
           }
         ]
       },
@@ -42,27 +24,15 @@ const content = [
         type: 'paragraph',
         portions: [
           {
-            text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with'
+            text: 'His coding background means he especially enjoys to build websites, custom design tools, scripts, and systematic workflows.'
           }
-        ]
-      },
-      {
-        type: 'unorderedList',
-        items: [
-          { text: 'The Guardian, ' },
-          { text: 'the Barbican Centre, ' },
-          { text: 'WIRED, ' },
-          { text: 'Fraser Muggeridge studio,  ' },
-          { text: 'Philharmonia, ' },
-          { text: 'the University of Reading, ' },
-          { text: 'Geographer, ' },
         ]
       },
       {
         type: 'paragraph',
         portions: [
           {
-            text: 'among others.'
+            text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, Geographer, among others.'
           }
         ]
       },
