@@ -22,16 +22,4 @@
   {/if}
 </svelte:head>
 
-<div class="name-container">
-  <div class="text-container">
-    <h1>elliot ellis</h1>
-  </div>
-</div>
-
 <Gallery {content} />
-
-<style>
-  .name-container {
-    padding: var(--top-padding) 0 0 var(--site-x-margin);
-  }
-</style>

@@ -78,20 +78,30 @@
 <svelte:window bind:innerWidth={ww} onmousemove={handleMousemove} />
 
 <main>
+
+  <header class="name-container">
+    <div class="text-container">
+      <h1>elliot ellis</h1>
+    </div>
+  </header>
+
   {@render children()}
 </main>
 
 <style>
 
   main {
-    --top-padding: 3rlh;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
     color: contrast-color(var(--background-colour));
     width: 100%;
     position: relative;
     overflow: hidden;
+  }
+
+  .name-container {
+    width: var(--header-width);
+    padding: 1rlh 0 0 var(--site-x-margin);
+    position: absolute;
+    top: 0; left: var(--prev-area-width);
   }
 
 </style>

@@ -44,11 +44,6 @@
 
 <style>
 
-  .text-blocks {
-    padding-right: var(--site-x-margin);
-    padding-left: var(--font-spacewidth-bold);
-  }
-
   .indent {
     display: inline-block;
   }

@@ -25,9 +25,9 @@
     body {
       background-image: 
         linear-gradient(to top, 
-          rgba(255,255,255,1) 0, 
+          rgba(255,255,255,0.5) 0, 
           transparent 1px 50%, 
-          rgba(255,255,255,0.333) 50%, 
+          rgba(255,255,255,0.25) 50%, 
           transparent calc(50% + 1px) 100%
         );
       background-repeat: repeat-y;
@@ -37,7 +37,9 @@
 {/if}
 
 <PageContainer>
+
   {@render children()}
+
 </PageContainer>
 
 <style>
@@ -70,8 +72,10 @@
       --leading-base: 1.25em;
 
       --site-x-margin: 0.75rem;
+      --prev-area-width: 1.5rem;
+      --header-width: 16rem;
+      --next-area-width: 3rem;
       --main-text-width: 32rem;
-      --base-rule-weight: 0.0625rem;
 
       font-size: var(--typesize-base);
       line-height: var(--leading-base);

@@ -2,13 +2,14 @@ const content = [
   {
     reference: 'Bio text',
     type: 'text',
+    caption: '(Design & code)',
     //background: 'white',
     textBlocks: [
       {
         type: 'paragraph',
         portions: [
           {
-            text: 'is a designer, developer, and typographer who makes graphics, websites, systems, and tools.'
+            text: 'elliot is a designer, developer, and typographer who makes graphics, websites, systems, and tools.'
           }
         ]
       },
@@ -45,7 +46,7 @@ const content = [
     type: 'image',
     imgFilename: 'bti-animated.gif',
     imgAlt: 'alt text',
-    background: 'black',
+    background: '#fff',
   },
   
   {

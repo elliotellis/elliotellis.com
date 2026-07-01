@@ -32,36 +32,27 @@
   $inspect("Next " + nextSlideIndex);
 </script>
 
-<div class="gallery" bind:offsetWidth={galleryWidth}>
-  <div class="slides-container" style:width={slideWidth * 2 + 'px'}>
+<div class="gallery">
+  <div class="slides-container">
 
-    {#snippet slide(slide, i)}
-      <div 
-        class="slide" 
-        style:background-color={slide.background} 
-        style:width={slideWidth + 'px'}
-        style:padding-top={slide.type === 'text' ? 'var(--top-padding)' : 0}
-      >
-        
-          {#if slide.type === 'text'}
-            <TextBlocks blocks={slide.textBlocks} />
-          {:else if slide.type === 'image'} 
-            <figure>
-              <div class="media-container">
-                <img src={asset('/images/' + slide.imgFilename)} alt={slide.imgAlt}>
-              </div>
-              <figcaption>
-                <div class="text-container">
-                  <p class="caption">{slide.caption}</p>
-                </div>
-              </figcaption>
-            </figure>
-          {/if}
-        
+    {#snippet slide(slide, showCaption)}
+      <div class="slide" style:--slide-background={slide.background}>
+        {#if showCaption}
+          <div class="text-container">
+            <p class="caption">{slide.caption}</p>
+          </div>
+        {/if}
+        {#if slide.type === 'text'}
+          <TextBlocks blocks={slide.textBlocks} />
+        {:else if slide.type === 'image'} 
+          <div class="media-container">
+            <img src={asset('/images/' + slide.imgFilename)} alt={slide.imgAlt}>
+          </div>
+        {/if}
       </div>
     {/snippet}
 
-    {@render slide(content[currentSlideIndex])}
+    {@render slide(content[currentSlideIndex], true)}
     {@render slide(content[nextSlideIndex])}
 
   </div>
@@ -74,6 +65,7 @@
 <style>
 
   .gallery {
+    --text-y-margin: 5rlh;
     width: 100%;
     height: 100vh;
     position: relative;
@@ -84,31 +76,45 @@
     height: 100%;
     display: flex;
     align-items: flex-start;
+    padding-left: var(--prev-area-width);
+  }
+
+  .slides-container > * {
+    flex-shrink:  0;
   }
 
   .slide {
+    --slide-background: transparent;
+    width: calc(100vw - var(--prev-area-width) - var(--next-area-width));
     height: 100%;
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--slide-background);
+    color: contrast-color(var(--slide-background));
   }
 
-  figure {
-    height: 100%;
+  :global(.text-container) {
+    margin-top: var(--text-y-margin);
+  }
+  
+  .text-container {
+    width: var(--header-width);
+    padding-left: var(--site-x-margin);
+    padding-right: var(--site-x-margin);
   }
 
   .media-container {
-    height: round(down, calc(100% - 3rlh), 1rlh);
+    /*height: round(down, calc(100% - 3rlh), 1rlh);*/
+    
+    height: 100%;
+    display: flex;
+    align-items: start;
   }
 
   img, video {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  figcaption {
-    height: 3rlh;
-  }
-
-  
+    max-width: 100%;
+    max-height: 100%;
+  } 
 
 </style>
