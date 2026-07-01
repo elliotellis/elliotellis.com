@@ -36,18 +36,27 @@
   <div class="slides-container">
 
     {#snippet slide(slide, showCaption)}
-      <div class="slide" style:--slide-background={slide.background}>
+      <div class={['slide', slide.background ? 'has-custom-background' : '']} style:--slide-background={slide.background}>
+
         {#if showCaption}
-          <div class="text-container">
-            <p class="caption">{slide.caption}</p>
+          <div class="caption-container">
+            <TextBlocks blocks={slide.caption} />
           </div>
         {/if}
+
         {#if slide.type === 'text'}
-          <TextBlocks blocks={slide.textBlocks} />
+          <TextBlocks blocks={slide.mainText} dynamicIndents={true} />
+
         {:else if slide.type === 'image'} 
-          <div class="media-container">
-            <img src={asset('/images/' + slide.imgFilename)} alt={slide.imgAlt}>
+          <div class={['media-container', slide.layout]}>
+            <img src={asset('/media/' + slide.imgFilename)} alt={slide.imgAlt}>    
           </div>
+
+        {:else if slide.type === 'animation'}
+          <div class="media-container">
+            <video src={asset('/media/' + slide.videoFilename)} muted autoplay loop playsinline></video>
+          </div>
+
         {/if}
       </div>
     {/snippet}
@@ -84,12 +93,14 @@
   }
 
   .slide {
-    --slide-background: transparent;
     width: calc(100vw - var(--prev-area-width) - var(--next-area-width));
     height: 100%;
     display: flex;
     align-items: flex-start;
     background-color: var(--slide-background);
+  }
+
+  .slide.has-custom-background {
     color: contrast-color(var(--slide-background));
   }
 
@@ -97,7 +108,7 @@
     margin-top: var(--text-y-margin);
   }
   
-  .text-container {
+  .caption-container {
     width: var(--header-width);
     padding-left: var(--site-x-margin);
     padding-right: var(--site-x-margin);
@@ -105,10 +116,16 @@
 
   .media-container {
     /*height: round(down, calc(100% - 3rlh), 1rlh);*/
-    
     height: 100%;
     display: flex;
     align-items: start;
+  }
+
+  .media-container.cover img, 
+  .media-container.cover video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   img, video {

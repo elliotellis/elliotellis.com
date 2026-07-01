@@ -4,10 +4,11 @@
   import ms from 'ms';
   let { children } = $props();
 
-  const debug = false;
+  const debug = true;
   let m = $state({ x: 0, y: 0 });
   let dt = new SvelteDate();
   let ww = $state();
+  let wh = $state();
 
   const piecewiseLinear = (ts, ys, t) => { 
     for(let i = 0; i < ts.length; ++i){
@@ -59,6 +60,24 @@
     //m.x/ww
   ));
 
+  const getHue = (time, dc) => to2dp( invlerp(
+    yearStart, 
+    yearEnd, 
+    (debug ? dc/wh : time)
+  ) * 360 + 180 );
+
+  const getSaturation = (time, dc) => piecewiseLinear(
+    dayPoints.map((i) => tp(i.t)),
+    dayPoints.map((i) => i.okc),
+    (debug ? dc/ww : tp(time))
+  );
+
+  const getLightness = (time, dc) => piecewiseLinear(
+    dayPoints.map((i) => tp(i.t)),
+    dayPoints.map((i) => i.okl),
+    (debug ? dc/ww : tp(time))
+  );
+
   const handleMousemove = (event) => { 
     m.x = event.clientX; 
     m.y = event.clientY; 
@@ -67,15 +86,23 @@
   
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
-    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
-    document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + hue + ')');
+
+    document.body.style.setProperty(
+      '--background-gradient',
+      'linear-gradient( 90deg in oklch, #fff 0%, #000 100%)'
+    );
+
+    document.body.style.setProperty('--background-colour-left', 'oklch(' + (to2dp(getLightness(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + (to2dp(getSaturation(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + getHue(now - ms('3 hr'), m.y) + ')');
+    document.body.style.setProperty('--background-colour-centre', 'oklch(' + to2dp(getLightness(now, m.x)) + ' ' + (to2dp(getSaturation(now, m.x))) + ' ' + getHue(now, m.x) + ')');
+    document.body.style.setProperty('--background-colour-right', 'oklch(' + (to2dp(getLightness(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + (to2dp(getSaturation(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + getHue(now.valueOf() + ms('3 hr'), m.y) + ')');
+    //document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + getHue(now) + ')');
     document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});
 
 </script>
   
-<svelte:window bind:innerWidth={ww} onmousemove={handleMousemove} />
+<svelte:window bind:innerWidth={ww} bind:innerHeight={wh} onmousemove={handleMousemove} />
 
 <main>
 
@@ -101,7 +128,9 @@
     width: var(--header-width);
     padding: 1rlh 0 0 var(--site-x-margin);
     position: absolute;
-    top: 0; left: var(--prev-area-width);
+    top: 0; left: var(--prev-area-width); 
+    z-index: 2;
+    
   }
 
 </style>

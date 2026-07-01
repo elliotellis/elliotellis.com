@@ -2,68 +2,40 @@ const content = [
   {
     reference: 'Bio text',
     type: 'text',
-    caption: '(Design & code)',
-    //background: 'white',
-    textBlocks: [
-      {
-        type: 'paragraph',
-        portions: [
-          {
-            text: 'elliot is a designer, developer, and typographer who makes graphics, websites, systems, and tools.'
-          }
-        ]
-      },
-      {
-        type: 'paragraph',
-        portions: [
-          {
-            text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.'
-          }
-        ]
-      },
-      {
-        type: 'paragraph',
-        portions: [
-          {
-            text: 'His coding background means he especially enjoys to build websites, custom design tools, scripts, and systematic workflows.'
-          }
-        ]
-      },
-      {
-        type: 'paragraph',
-        portions: [
-          {
-            text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.'
-          }
-        ]
-      },
+    caption: [
+      { portions: [{ text: '(Design & code)'}] },
+      { portions: [{ type: 'link', text: 'elliot@elliotellis.com', url: 'mailto:elliot@elliotellis.com' }] }
+    ],
+    mainText: [
+      { portions: [{ text: 'elliot is a designer, developer, and typographer who makes graphics, websites, systems, and tools.' }] },
+      { portions: [{ text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.' }] },
+      { portions: [{ text: 'His coding background means he especially enjoys to build websites, custom design tools, scripts, and systematic workflows.' }] },
+      { portions: [{ text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.' }] },
     ]
   },
   
   {
     reference: 'reference name',
-    caption: 'Testy mctestface',
-    type: 'image',
-    imgFilename: 'bti-animated.gif',
+    caption: [{ portions: [{text: 'Testy mctestface'}] }],
+    type: 'animation',
+    videoFilename: 'test-animation-12fps.webm',
+    imgFilename: '',
     imgAlt: 'alt text',
     background: '#fff',
   },
   
   {
-    reference: 'reference name',
-    caption: 'Test',
+    reference: 'TOWNER 100',
+    caption: [
+      { portions: [{ text: 'TOWNER 100 identity system' }] },
+      { portions: [{ type: 'caption', text: 'TOWNER 100 identity system' }] },
+    ],
     type: 'image',
-    imgSrc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPHJlY3QgZmlsbD0iIzAwZTQ4ZCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiLz4KICA8dGV4dCBmaWxsPSIjZmVmZmZmIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI1IiBmb250LXdlaWdodD0iYm9sZCIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPjI8L3RleHQ+Cjwvc3ZnPg==',
+    layout: 'cover',
+    imgFilename: 'towner-100.png',
     imgAlt: 'alt text',
+    background: '#EE7402'
   },
-  
-  {
-    reference: 'reference name',
-    caption: 'Test',
-    type: 'image',
-    imgSrc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+CiAgPHJlY3QgZmlsbD0iIzAwZTQ4ZCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiLz4KICA8dGV4dCBmaWxsPSIjZmVmZmZmIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI1IiBmb250LXdlaWdodD0iYm9sZCIgeD0iNTAlIiB5PSI1MCUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPjI8L3RleHQ+Cjwvc3ZnPg==',
-    imgAlt: 'alt text',
-  }
 ]
 
 

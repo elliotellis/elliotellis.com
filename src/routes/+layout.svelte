@@ -22,7 +22,14 @@
 
 {#if showBaselineGrid}
   <style>
-    body {
+    body::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-image: 
         linear-gradient(to top, 
           rgba(255,255,255,0.5) 0, 
@@ -32,6 +39,8 @@
         );
       background-repeat: repeat-y;
       background-size: 100% 1rlh;
+      mix-blend-mode: difference;
+      z-index: 2;
     }
   </style>
 {/if}
@@ -51,11 +60,6 @@
     @page {
       size: 210mm 297mm;
       margin: 1rem;
-    }
-
-    ::selection {
-      color: red;
-      background-color: var(--colour-grey);
     }
 
     :root {
@@ -91,6 +95,7 @@
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       background-color: var(--background-colour);
+      background: linear-gradient(90deg in oklch, var(--background-colour-left) 0%, var(--background-colour-centre) 50%, var(--background-colour-right) 100%);
       color: var(--text-colour);
       min-width: 320px;
       min-height: 100vh;
@@ -104,7 +109,7 @@
       overflow-x: hidden;
     }
 
-    body::before {
+    /*body::before {
       content: '';
       display: block;
       position: absolute;
@@ -115,6 +120,13 @@
       background: linear-gradient(180deg in oklch, var(--gradient-colour) -25%, transparent);
       mix-blend-mode: exclusion;
       z-index: 1;
+    }*/
+
+    ::selection {
+      color: contrast-color(var(--text-colour));
+      background-color: var(--text-colour);
+      background-blend-mode: difference;
+      z-index: 3;
     }
 
     em { font-style: italic; }

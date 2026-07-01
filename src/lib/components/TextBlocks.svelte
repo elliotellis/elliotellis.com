@@ -1,15 +1,17 @@
 <script>
   import { onDestroy, tick } from 'svelte';
-    import { slide } from 'svelte/transition';
-  let { blocks = [] } = $props();
+  import { slide } from 'svelte/transition';
+  let { blocks = [], dynamicIndents = false } = $props();
   let blockIndents = $state([0]);
 
   function resetIndents() {
-    tick().then(() => {
-      setTimeout(() => {
-        blockIndents = [0];
-      }, 10); // wait 10ms before resetting indents to 0 to prevent jittering when resizing
-    });
+    if (dynamicIndents) {
+      tick().then(() => {
+        setTimeout(() => {
+          blockIndents = [0];
+        }, 10); // wait 10ms before resetting indents to 0 to prevent jittering when resizing
+      });
+    }
   }
 
   function getNextIndent(i, blockTag) {
@@ -27,13 +29,15 @@
 
 <div class="text-blocks text-container" bind:offsetWidth={null, resetIndents}>
   {#each blocks as block, i (i)}
-    <p {@attach blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
+    <p {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
       {#if blockIndents[i] > 0}
         <span class="indent" style:width={blockIndents[i] + 'px'}></span>
       {/if}
       {#each block.portions as portion}
         {#if portion.className}
           <span class={portion.className}>{portion.text}</span>
+        {:else if portion.type === 'link'}
+          <a href={portion.url} class={portion.className}>{portion.text}</a>
         {:else}
           {portion.text}
         {/if}

@@ -3,16 +3,15 @@
 </script>
 
 <button class="gallery-arrow prev" onclick={prev}>
-  <span>&#x2190;</span>
+  <span><!-- &#x2190; --></span>
 </button>
 
 <button class="gallery-arrow next" onclick={next}>
-  <span>&#x2192;</span>
+  <span><!-- &#x2192; --></span>
 </button>
 
 <style>
   button {
-    width: 10%;
     height: 100%;
     position: absolute;
     top: 0;
@@ -22,8 +21,13 @@
     align-items: center;
   }
 
+  button.prev {
+    width: var(--prev-area-width);
+  }
+
   button.next {
-    left: 90%;
+    width: var(--next-area-width);
+    left: calc(100vw - var(--next-area-width));
   }
 
   span {
