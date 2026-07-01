@@ -28,20 +28,15 @@
     }
   }
 
+  $inspect("Current " + currentSlideIndex);
+  $inspect("Next " + nextSlideIndex);
 </script>
 
 <div class="gallery">
   <div class="slides-container">
 
-    {#snippet slideMarkup(slide, current, showCaption)}
-      <div 
-        class={[
-          'slide', 
-          slide.background ? 'has-custom-background' : '',
-          current ? 'is-current' : ''
-        ]} 
-        style:--slide-background={slide.background}
-      >
+    {#snippet slide(slide, showCaption)}
+      <div class={['slide', slide.background ? 'has-custom-background' : '']} style:--slide-background={slide.background}>
 
         {#if showCaption}
           <div class="caption-container">
@@ -66,13 +61,8 @@
       </div>
     {/snippet}
 
-    {#each content as slide, i}
-      {@render slideMarkup(slide, i === currentSlideIndex ? true : false, true)}
-    {/each}
-
-    <!--
-    {@render slide(content[currentSlideIndex], true, true)}
-    {@render slide(content[nextSlideIndex])}-->
+    {@render slide(content[currentSlideIndex], true)}
+    {@render slide(content[nextSlideIndex])}
 
   </div>
   
@@ -93,9 +83,9 @@
 
   .slides-container {
     height: 100%;
-    /*display: flex;
+    display: flex;
     align-items: flex-start;
-    padding-left: var(--prev-area-width);*/
+    padding-left: var(--prev-area-width);
   }
 
   .slides-container > * {
@@ -105,25 +95,13 @@
   .slide {
     width: calc(100vw - var(--prev-area-width) - var(--next-area-width));
     height: 100%;
-    position: absolute;
-    z-index: 1; 
-    opacity: 0.05;
-    mix-blend-mode: soft-light;
     display: flex;
     align-items: flex-start;
     background-color: var(--slide-background);
-    transition: opacity 0.05s, filter 0.05s;
   }
 
   .slide.has-custom-background {
     color: contrast-color(var(--slide-background));
-  }
-
-  .slide.is-current {
-    z-index: 2;
-    opacity: 0.95;
-    filter: none;
-    mix-blend-mode: normal;
   }
 
   :global(.text-container) {
