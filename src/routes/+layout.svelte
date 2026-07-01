@@ -3,9 +3,9 @@
   import * as sun from 'suncalc';
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
-  import PageContainer from '$lib/components/PageContainer.svelte';
+  import BackgroundManager from '$lib/components/BackgroundManager.svelte';
   let { children } = $props();
-  const showBaselineGrid = true;
+  const showBaselineGrid = false;
 </script>
 
 <svelte:head>
@@ -41,17 +41,27 @@
       background-size: 100% 1rlh;
       mix-blend-mode: difference;
       z-index: 2;
+      pointer-events: none;
     }
   </style>
 {/if}
 
-<PageContainer>
+<BackgroundManager/>
+
+<main>
+
+  <header class="name-container">
+    <div class="text-container">
+      <h1>elliot ellis</h1>
+    </div>
+  </header>
 
   {@render children()}
 
-</PageContainer>
+</main>
 
 <style>
+
   :global {
     *, *::before, *::after {
       box-sizing: border-box;
@@ -63,8 +73,8 @@
     }
 
     :root {
-      --background-colour: white;
-      --text-colour: contrast-color(var(--background-colour));
+      --background-colour: grey;
+      --text-colour: white;
 
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
@@ -87,6 +97,7 @@
     }
 
     body {
+      --text-colour: contrast-color( oklch(from var(--background-colour) calc(l - 0.2) c h) );
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
       font-family: var(--typeface);
@@ -95,7 +106,7 @@
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       background-color: var(--background-colour);
-      background: linear-gradient(90deg in oklch, var(--background-colour-left) 0%, var(--background-colour-centre) 50%, var(--background-colour-right) 100%);
+      /*background: linear-gradient(90deg in oklch, var(--background-colour-left) 0%, var(--background-colour-centre) 50%, var(--background-colour-right) 100%);*/
       color: var(--text-colour);
       min-width: 320px;
       min-height: 100vh;
@@ -127,6 +138,20 @@
       background-color: var(--text-colour);
       background-blend-mode: difference;
       z-index: 3;
+    }
+
+    main {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .name-container {
+      width: var(--header-width);
+      padding: 1rlh 0 0 var(--site-x-margin);
+      position: absolute;
+      top: 0; left: var(--prev-area-width); 
+      z-index: 2;
     }
 
     em { font-style: italic; }
