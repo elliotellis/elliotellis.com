@@ -2,8 +2,9 @@
   import { SvelteDate } from 'svelte/reactivity';
   import * as sun from 'suncalc';
   import ms from 'ms';
-  let { debug = false, children } = $props();
+  let { children } = $props();
 
+  const debug = true;
   let m = $state({ x: 0, y: 0 });
   let dt = new SvelteDate();
   let ww = $state();
@@ -43,23 +44,23 @@
     { label: 'dayEnd',        s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayEnd }, 
   ];
 
-  let hue = $derived( to2dp( invlerp(yearStart, yearEnd, debug ? m.y/wh : now) * 360 + 180 ) ); // Hue is determined by the time of year
+  let hue = $derived( to2dp( invlerp(yearStart, yearEnd, now) * 360 + 180 ) ); // Hue is determined by the time of year
 
   let saturation = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okc),
-    debug ? m.x/ww : tp(now)
+    tp(now) 
     //m.x/ww
   ));
 
   let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
-    debug ? m.x/ww : tp(now)
+    tp(now) 
     //m.x/ww
   ));
 
-  /*const getHue = (time, dc) => to2dp( invlerp(
+  const getHue = (time, dc) => to2dp( invlerp(
     yearStart, 
     yearEnd, 
     (debug ? dc/wh : time)
@@ -75,7 +76,7 @@
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
     (debug ? dc/ww : tp(time))
-  );*/
+  );
 
   const handleMousemove = (event) => { 
     m.x = event.clientX; 
@@ -86,19 +87,14 @@
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
 
-    /*document.body.style.setProperty(
+    document.body.style.setProperty(
       '--background-gradient',
-      'linear-gradient( 90deg in oklch, ' 
-      + '#fff 0' + '%, '
-      + '#000 100' +'%' 
-      + ')'
+      'linear-gradient( 90deg in oklch, #fff 0%, #000 100%)'
     );
 
     document.body.style.setProperty('--background-colour-left', 'oklch(' + (to2dp(getLightness(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + (to2dp(getSaturation(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + getHue(now - ms('3 hr'), m.y) + ')');
     document.body.style.setProperty('--background-colour-centre', 'oklch(' + to2dp(getLightness(now, m.x)) + ' ' + (to2dp(getSaturation(now, m.x))) + ' ' + getHue(now, m.x) + ')');
     document.body.style.setProperty('--background-colour-right', 'oklch(' + (to2dp(getLightness(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + (to2dp(getSaturation(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + getHue(now.valueOf() + ms('3 hr'), m.y) + ')');
-    */
-    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
     //document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + getHue(now) + ')');
     document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
@@ -107,6 +103,37 @@
 </script>
   
 <svelte:window bind:innerWidth={ww} bind:innerHeight={wh} onmousemove={handleMousemove} />
+
+<main>
+
+  <header class="name-container">
+    <div class="text-container">
+      <h1>elliot ellis</h1>
+    </div>
+  </header>
+
+  {@render children()}
+</main>
+
+<style>
+
+  main {
+    color: contrast-color(var(--background-colour));
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .name-container {
+    width: var(--header-width);
+    padding: 1rlh 0 0 var(--site-x-margin);
+    position: absolute;
+    top: 0; left: var(--nav-prev-width); 
+    z-index: 2;
+    
+  }
+
+</style>
 
 {#if debug}
   <div class="colour-debug-points">
@@ -120,12 +147,11 @@
     .colour-debug-points {
       position: absolute;
       width: 100vw;
-      height: 1rlh;
+      height: 10vh;
       top: 0;
       left: 0;
       color: white;
       mix-blend-mode: difference;
-      overflow: hidden;
     }
 
     .colour-debug-points span {

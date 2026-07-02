@@ -85,7 +85,7 @@
     height: 100%;
     display: flex;
     align-items: flex-start;
-    padding-left: var(--prev-area-width);
+    padding-left: var(--nav-prev-width);
   }
 
   .slides-container > * {
@@ -93,7 +93,7 @@
   }
 
   .slide {
-    width: calc(100vw - var(--prev-area-width) - var(--next-area-width));
+    width: calc(100vw - var(--nav-prev-width) - var(--nav-next-width));
     height: 100%;
     display: flex;
     align-items: flex-start;

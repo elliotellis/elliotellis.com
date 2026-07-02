@@ -4,8 +4,8 @@
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
+  import BaselineGrid from '$lib/components/BaselineGrid.svelte';
   let { children } = $props();
-  const showBaselineGrid = false;
 </script>
 
 <svelte:head>
@@ -20,35 +20,11 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-{#if showBaselineGrid}
-  <style>
-    body::before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(to top, 
-          rgba(255,255,255,0.5) 0, 
-          transparent 1px 50%, 
-          rgba(255,255,255,0.25) 50%, 
-          transparent calc(50% + 1px) 100%
-        );
-      background-repeat: repeat-y;
-      background-size: 100% 1rlh;
-      mix-blend-mode: difference;
-      z-index: 2;
-      pointer-events: none;
-    }
-  </style>
-{/if}
+<BaselineGrid on />
 
-<BackgroundManager/>
+<BackgroundManager debug={false} />
 
-<main>
+<main class="grid">
 
   <header class="name-container">
     <div class="text-container">
@@ -86,9 +62,9 @@
       --leading-base: 1.25em;
 
       --site-x-margin: 0.75rem;
-      --prev-area-width: 1.5rem;
-      --header-width: 16rem;
-      --next-area-width: 3rem;
+      --nav-prev-width: 20%;
+      --nav-next-width: 20%;
+      --header-width: 12rem;
       --main-text-width: 32rem;
 
       font-size: var(--typesize-base);
@@ -146,12 +122,29 @@
       overflow: hidden;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: var(--header-width) 1fr;
+    }
+
+    .grid > * {
+      grid-column: span 2;
+    }
+
+    .subgrid {
+      grid-template-columns: subgrid;
+    }
+
     .name-container {
-      width: var(--header-width);
-      padding: 1rlh 0 0 var(--site-x-margin);
-      position: absolute;
-      top: 0; left: var(--prev-area-width); 
+      padding: 0 var(--site-x-margin);
+      margin-top: 1rlh;
       z-index: 2;
+    }
+
+    @media only screen and (min-width: 32rem) {
+      .name-container {
+        grid-column: span 1;
+      }
     }
 
     em { font-style: italic; }

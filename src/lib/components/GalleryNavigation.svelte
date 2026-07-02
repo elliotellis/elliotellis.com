@@ -43,12 +43,13 @@
   }
 
   button.prev {
-    width: var(--prev-area-width);
+    width: var(--nav-prev-width);
   }
 
   button.next {
-    width: var(--next-area-width);
-    left: calc(100vw - var(--next-area-width));
+    width: var(--nav-next-width);
+    left: auto;
+    right: 0;
   }
 
   span {

@@ -30,89 +30,58 @@
 
 </script>
 
-<div class="gallery">
-  <div class="slides-container">
+{#snippet slideMarkup(slide, current, showCaption)}
+  <div 
+    class={[
+      'slide', 
+      slide.background ? 'has-custom-background' : '',
+      current ? 'is-current' : ''
+    ]} 
+    style:--slide-background={slide.background}
+  >
 
-    {#snippet slideMarkup(slide, current, showCaption)}
-      <div 
-        class={[
-          'slide', 
-          slide.background ? 'has-custom-background' : '',
-          current ? 'is-current' : ''
-        ]} 
-        style:--slide-background={slide.background}
-      >
+    {#if slide.type === 'text'}
+      <TextBlocks blocks={slide.mainText} dynamicIndents={true} />
 
-        {#if showCaption}
-          <div class="caption-container">
-            <TextBlocks blocks={slide.caption} />
-          </div>
-        {/if}
-
-        {#if slide.type === 'text'}
-          <TextBlocks blocks={slide.mainText} dynamicIndents={true} />
-
-        {:else if slide.type === 'image'} 
-          <div class={['media-container', slide.layout]}>
-            <img src={asset('/media/' + slide.imgFilename)} alt={slide.imgAlt}>    
-          </div>
-
-        {:else if slide.type === 'animation'}
-          <div class="media-container">
-            <video src={asset('/media/' + slide.videoFilename)} muted autoplay loop playsinline></video>
-          </div>
-
-        {/if}
+    {:else if slide.type === 'image'} 
+      <div class={['media-container', slide.layout]}>
+        <img src={asset('/media/' + slide.imgFilename)} alt={slide.imgAlt}>    
       </div>
-    {/snippet}
 
-    {#each content as slide, i}
-      {@render slideMarkup(slide, i === currentSlideIndex ? true : false, true)}
-    {/each}
+    {:else if slide.type === 'animation'}
+      <div class="media-container">
+        <video src={asset('/media/' + slide.videoFilename)} muted autoplay loop playsinline></video>
+      </div>
 
-    <!--
-    {@render slide(content[currentSlideIndex], true, true)}
-    {@render slide(content[nextSlideIndex])}-->
-
+    {/if}
   </div>
-  
-  {#if content.length > 1}
-    <Navigation prev={prevSlide} next={nextSlide} />
-  {/if}
-</div>
+{/snippet}
+
+{#each content as slide, i}
+  {@render slideMarkup(slide, i === currentSlideIndex ? true : false, true)}
+{/each}
+
+{#if content.length > 1}
+  <Navigation prev={prevSlide} next={nextSlide} />
+{/if}
+
 
 <style>
 
-  .gallery {
-    --text-y-margin: 5rlh;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .slides-container {
-    height: 100%;
-    /*display: flex;
-    align-items: flex-start;
-    padding-left: var(--prev-area-width);*/
-  }
-
-  .slides-container > * {
-    flex-shrink:  0;
-  }
-
   .slide {
-    width: calc(100vw - var(--prev-area-width) - var(--next-area-width));
+    --caption-height: 3rlh;
+    grid-column: 2;
+    width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 1; 
+    z-index: -1; 
     opacity: 0.05;
     mix-blend-mode: soft-light;
     display: flex;
     align-items: flex-start;
     background-color: var(--slide-background);
     transition: opacity 0.05s, filter 0.05s;
+    pointer-events: none;
   }
 
   .slide.has-custom-background {
@@ -120,25 +89,21 @@
   }
 
   .slide.is-current {
-    z-index: 2;
+    z-index: 0;
     opacity: 0.95;
     filter: none;
     mix-blend-mode: normal;
+    pointer-events: unset;
   }
 
-  :global(.text-container) {
-    margin-top: var(--text-y-margin);
-  }
-  
-  .caption-container {
-    width: var(--header-width);
+  .slide :global(.text-container) {
+    margin-top: 1rlh;
     padding-left: var(--site-x-margin);
     padding-right: var(--site-x-margin);
   }
 
   .media-container {
-    /*height: round(down, calc(100% - 3rlh), 1rlh);*/
-    height: 100%;
+    height: round(down, calc(100% - var(--caption-height)), 1rlh);
     display: flex;
     align-items: start;
   }
@@ -155,5 +120,9 @@
     max-width: 100%;
     max-height: 100%;
   } 
+  
+  .caption-container {
+    width: var(--header-width);
+  }
 
 </style>
