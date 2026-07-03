@@ -13,11 +13,11 @@
 
 <svelte:window bind:innerWidth={w.w} bind:innerHeight={w.h} onmousemove={handleMousemove} />
 
-<button class="gallery-arrow prev" onclick={prev}>
+<button class="slideshow-arrow prev" onclick={prev}>
   <span><!-- &#x2190; --></span>
 </button>
 
-<button class="gallery-arrow next" onclick={next}>
+<button class="slideshow-arrow next" onclick={next}>
   <span><!-- &#x2192; --></span>
 </button>
 
