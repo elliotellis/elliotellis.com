@@ -29,7 +29,7 @@
 
 <div class="text-blocks text-container" bind:offsetWidth={null, resetIndents}>
   {#each blocks as block, i (i)}
-    <p {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
+    <p class={block.type} {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
       {#if blockIndents[i] > 0}
         <span class="indent" style:width={blockIndents[i] + 'px'}></span>
       {/if}

@@ -3,8 +3,8 @@ const content = [
     reference: 'Bio text',
     type: 'text',
     caption: [
-      { portions: [{ text: '(Design & code)'}] },
-      { portions: [{ type: 'link', text: 'elliot@elliotellis.com', url: 'mailto:elliot@elliotellis.com' }] }
+      { type: 'caption', portions: [{ text: '(Design & code)'}] },
+      { type: 'caption', portions: [{ type: 'link', text: 'elliot@elliotellis.com', url: 'mailto:elliot@elliotellis.com' }] }
     ],
     mainText: [
       { portions: [{ text: 'elliot is a designer, developer, and typographer who makes graphics, websites, systems, and tools.' }] },
@@ -16,7 +16,7 @@ const content = [
   
   {
     reference: 'reference name',
-    caption: [{ portions: [{text: 'Testy mctestface'}] }],
+    caption: [{ type: 'caption', portions: [{text: 'Testy mctestface'}] }],
     type: 'animation',
     videoFilename: 'test-animation-12fps.webm',
     imgFilename: '',
@@ -27,8 +27,7 @@ const content = [
   {
     reference: 'TOWNER 100',
     caption: [
-      { portions: [{ text: 'TOWNER 100 identity system' }] },
-      { portions: [{ type: 'caption', text: 'TOWNER 100 identity system' }] },
+      { type: 'caption', portions: [{ text: 'TOWNER 100 identity system' }] },
     ],
     type: 'image',
     layout: 'cover',

@@ -66,10 +66,11 @@
       --nav-next-width: 20%;
       --header-width: 12rem;
       --main-text-width: 32rem;
+      --caption-height: 4rlh;
 
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
-      --baseline-offset: calc(calc(var(--leading-base) - 1cap) / 2);
+      --baseline-offset: calc(calc(1rlh - 1cap) / 2);
     }
 
     body {
@@ -177,6 +178,13 @@
     p:first-child, ul + p {
       text-indent: unset;
     }
+
+    p.caption {
+      font-size: 0.75rem;
+      line-height: 0.8rlh;
+    }
+
+    
 
     ul {
       list-style-type: none;

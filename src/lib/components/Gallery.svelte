@@ -37,7 +37,7 @@
       slide.background ? 'has-custom-background' : '',
       current ? 'is-current' : ''
     ]} 
-    style:--slide-background={slide.background}
+    
   >
 
     {#if slide.type === 'text'}
@@ -54,6 +54,12 @@
       </div>
 
     {/if}
+
+    {#if slide.caption}
+      <div class="caption-container">
+        <TextBlocks blocks={slide.caption} />
+      </div>
+    {/if}
   </div>
 {/snippet}
 
@@ -69,7 +75,7 @@
 <style>
 
   .slide {
-    --caption-height: 3rlh;
+    padding-top: 1rlh;
     grid-column: 2;
     width: 100%;
     height: 100%;
@@ -78,6 +84,7 @@
     opacity: 0.05;
     mix-blend-mode: soft-light;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     background-color: var(--slide-background);
     transition: opacity 0.05s, filter 0.05s;
@@ -96,13 +103,13 @@
     pointer-events: unset;
   }
 
-  .slide :global(.text-container) {
-    margin-top: 1rlh;
+  /*.slide :global(.text-container) {
     padding-left: var(--site-x-margin);
     padding-right: var(--site-x-margin);
-  }
+  }*/
 
   .media-container {
+    width: 100%;
     height: round(down, calc(100% - var(--caption-height)), 1rlh);
     display: flex;
     align-items: start;
@@ -122,7 +129,8 @@
   } 
   
   .caption-container {
-    width: var(--header-width);
+    width: 100%;
+    height: var(--caption-height);
   }
 
 </style>
