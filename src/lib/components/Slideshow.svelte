@@ -1,6 +1,6 @@
 <script>
 	import { asset } from '$app/paths';
-  import Navigation from '$lib/components/GalleryNavigation.svelte';
+  import Navigation from '$lib/components/SlideshowNavigation.svelte';
   import TextBlocks from '$lib/components/TextBlocks.svelte';
   let { content } = $props();
   let galleryWidth = $state(0);
