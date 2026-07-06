@@ -21,7 +21,7 @@
         );
       background-repeat: repeat-y;
       background-size: 100% 1rlh;
-      mix-blend-mode: difference;
+      /*mix-blend-mode: difference;*/
       z-index: 2;
       pointer-events: none;
     }
