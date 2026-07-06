@@ -20,7 +20,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1e454313-0ae1-4523-a698-230e19d476c8"></script>
 </svelte:head>
 
-<BaselineGrid on />
+<BaselineGrid on mode="offByDefault" />
 
 <BackgroundManager debug={false} />
 
