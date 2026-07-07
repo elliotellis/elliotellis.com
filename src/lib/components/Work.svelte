@@ -42,6 +42,10 @@
     flex-direction: column;
   }
 
+  /*:global(.gallery:has(.work:hover)) .work:not(.active, :hover) {
+    /* something - but this bugs on firefox *
+  }*/
+
   .work.active {
     min-width: 66.67%;
     max-width: 100%;

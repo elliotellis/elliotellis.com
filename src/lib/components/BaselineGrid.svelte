@@ -1,21 +1,17 @@
 <script>
-  let { on = false, mode = 'constant' } = $props();
-  let showGrid = $state(false);
+  let { on = false } = $props();
+  let gridVisible = $state(false);
 
-  /*function handleKeydown(event) {
-    if (event.key === 'B') {
-      if (mode === 'offByDefault') {
-        showGrid = true;
-      } else {
-        showGrid = false;
-      }
+  function handleKeydown(event) {
+    if (event.key === 'b') {
+      gridVisible = !gridVisible;
     }
-  }*/
+  }
 </script>
 
-<!--<svelte:window onkeydown={on && mode != 'constant' ? handleKeydown : null} />-->
+<svelte:window onkeydown={handleKeydown} />
 
-{#if on}
+{#if on && gridVisible}
   <style>
     body::before {
       content: '';
@@ -50,12 +46,3 @@
     }
   </style>
 {/if}
-<!--
-{#if on && mode != 'constant' && showGrid === false}
-  <style>
-    body::before {
-      background: none;
-    }
-  </style>
-{/if}
--->

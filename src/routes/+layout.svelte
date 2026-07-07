@@ -5,6 +5,7 @@
   import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
   import BaselineGrid from '$lib/components/BaselineGrid.svelte';
+    import Text from '$lib/components/Text.svelte';
   let { children } = $props();
 </script>
 
@@ -24,12 +25,14 @@
 
 <BackgroundManager debug={false} />
 
+<div style="position: absolute; width: 1rem; height: 1rlh; background: white;"></div>
+
 <main class="grid">
 
   <header class="name-container">
-    <div class="text-container">
+    <Text>
       <h1>elliot ellis</h1>
-    </div>
+    </Text>
   </header>
 
   {@render children()}

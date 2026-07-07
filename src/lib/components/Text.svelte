@@ -27,7 +27,7 @@
   }
 </script>
 
-<div class="text-container" bind:offsetWidth={null, resetIndents}>
+<div class="text-container" style:padding-top={type === 'caption' ? 'calc( var(--baseline-offset) + calc(calc(1lh - 1cap) / 2) )' : ''} bind:offsetWidth={null, resetIndents}>
   {#if children}
     {@render children()}
 
@@ -55,7 +55,7 @@
 <style>
 
   .text-container {
-    --baseline-offset: calc(calc(1rlh - 1cap) / 2);
+    --baseline-offset: calc(calc(1rlh - 1rcap) / 2);
     padding-top: var(--baseline-offset);
   }
 
@@ -78,6 +78,7 @@
     p {
       font-size: 0.75rem;
       line-height: 0.75rlh;
+      text-indent: 0;
     }
   </style>
 {/if}
