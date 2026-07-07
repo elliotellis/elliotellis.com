@@ -29,7 +29,6 @@
 
   @media only screen and (min-width: 32rem) {
     .gallery {
-      --gallery-top-padding: 4rlh;
       grid-column: 2;
     }
   }

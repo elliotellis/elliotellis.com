@@ -66,11 +66,9 @@
       --nav-next-width: 20%;
       --header-width: 12rem;
       --main-text-width: 32rem;
-      --caption-height: 4rlh;
 
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
-      --baseline-offset: calc(calc(1rlh - 1cap) / 2);
     }
 
     body {
@@ -154,10 +152,6 @@
 
     .subtle-link {
       text-decoration: none;
-    }
-
-    .text-container {
-      padding-top: var(--baseline-offset);
     }
 
     figure {

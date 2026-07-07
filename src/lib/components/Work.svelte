@@ -1,4 +1,6 @@
 <script>
+    import Text from "./Text.svelte";
+
   let { data, active, onToggle } = $props();
 </script>
 
@@ -8,10 +10,10 @@
   style:--work-height={active ? ('clamp(' + data.galleryHeight + 'rlh, ' + (3 * data.galleryHeight) + 'rlh, round(down, calc(100vh - 2rlh), 1rlh)') : (data.galleryHeight + 'rlh')}
 >
 
-  <div class="media-container">
+  <div class="media-container" style:aspect-ratio={data.aspectRatio}>
     <a class="work-anchor" href={'#' + data.slug} onclick={onToggle}>Expand work</a>
-    {#if data.video}
-      <video src={data.video} muted loop autoplay playsinline></video>
+    {#if data.video && data.videoThumbnail}
+      <video src={active ? data.video : data.videoThumbnail} muted loop autoplay playsinline></video>
     {:else}
       <img src={data.image} alt={data.alt}>
     {/if}
@@ -19,9 +21,9 @@
 
   {#if active && data.caption}
     <div class="caption-container">
-      <div class="text-container">
+      <Text type="caption">
         {@html data.caption}
-      </div>
+      </Text>
     </div>
   {/if}
 
@@ -30,11 +32,11 @@
 <style>
   .work {
     --work-height: 12rlh;
+    --work-top-padding: 3rlh;
     --caption-min-height: 3rlh;
-    height: var(--work-height);
-    padding-top: 1rlh;
-    margin-right: 2rlh;
-    margin-bottom: 1rlh;
+    height: calc(var(--work-height) + var(--work-top-padding));
+    padding-top: var(--work-top-padding);
+    margin-right: 3rlh;
     position: relative;
     display: flex;
     flex-direction: column;

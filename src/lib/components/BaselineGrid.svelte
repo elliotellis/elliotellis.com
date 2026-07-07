@@ -25,16 +25,26 @@
       left: 0;
       width: 100%;
       height: 100%;
+      --ccmb: rgba(255,255,255,1);
+      --cbas: rgba(0,192,255,0.5);
+      --ccap: rgba(255,192,0,0.5);
       background-image: 
-        linear-gradient(to top, 
-          rgba(255,255,255,0.5) 0, 
-          transparent 1px 50%, 
-          rgba(255,255,255,0.25) 50%, 
-          transparent calc(50% + 1px) 100%
+        repeating-linear-gradient(
+          transparent, transparent calc(1rlh - 1px), 
+          var(--cbas) calc(1rlh - 1px), var(--cbas) 1rlh
+        ),
+        repeating-linear-gradient(
+          transparent, transparent calc(0.75rlh - 1px),
+          var(--ccap) calc(0.75rlh - 1px), var(--ccap) 0.75rlh
+        ),
+        repeating-linear-gradient(
+          transparent, transparent calc(3rlh - 1px), 
+          var(--ccmb) calc(3rlh - 1px), var(--ccmb) 3rlh
         );
-      background-repeat: repeat-y;
+        
+      /*background-repeat: repeat-y;
       background-size: 100% 1rlh;
-      /*mix-blend-mode: difference;*/
+      mix-blend-mode: difference;*/
       z-index: 2;
       pointer-events: none;
     }

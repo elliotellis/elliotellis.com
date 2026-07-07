@@ -1,7 +1,7 @@
 <script>
 	import { asset } from '$app/paths';
   import Navigation from '$lib/components/SlideshowNavigation.svelte';
-  import TextBlocks from '$lib/components/TextBlocks.svelte';
+  import Text from '$lib/components/Text.svelte';
   let { content } = $props();
   let galleryWidth = $state(0);
   let currentSlideIndex = $state(0);
@@ -41,7 +41,7 @@
   >
 
     {#if slide.type === 'text'}
-      <TextBlocks blocks={slide.mainText} dynamicIndents={true} />
+      <Text blocks={slide.mainText} dynamicIndents={true} />
 
     {:else if slide.type === 'image'} 
       <div class={['media-container', slide.layout]}>
@@ -57,7 +57,7 @@
 
     {#if slide.caption}
       <div class="caption-container">
-        <TextBlocks blocks={slide.caption} />
+        <Text blocks={slide.caption} />
       </div>
     {/if}
   </div>
