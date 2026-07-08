@@ -68,7 +68,7 @@
       --nav-prev-width: 20%;
       --nav-next-width: 20%;
       --header-width: 12rem;
-      --main-text-width: 32rem;
+      --base-line-length: 32em;
 
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
@@ -165,7 +165,7 @@
       padding: 0;
       margin: 0;
       font-size: 1rem;
-      max-width: var(--main-text-width);
+      max-width: var(--base-line-length);
     }
 
     p {
