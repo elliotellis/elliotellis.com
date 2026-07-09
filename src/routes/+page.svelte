@@ -22,4 +22,4 @@
   {/if}
 </svelte:head>
 
-<Gallery {data} />
+

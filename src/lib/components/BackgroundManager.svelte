@@ -30,6 +30,8 @@
   const yearStart = new Date(now.getFullYear(), 0);
   const yearEnd = new Date(now.getFullYear() + 1, 0);
   const tp = (t) => invlerp(dayStart, dayEnd, t); // get time point float
+  let dayPointMarkerPos = $derived( to2dp(range(dayStart, dayEnd, 0, 100, now)) );
+  let yearPointMarkerPos = $derived( to2dp(range(yearStart, yearEnd, 0, 100, now)) );
   
   let dayPoints = [
     { label: 'dayStart',      s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayStart }, 
@@ -105,43 +107,76 @@
 	});
 
 </script>
-  
+
 <svelte:window bind:innerWidth={ww} bind:innerHeight={wh} onmousemove={handleMousemove} />
 
-{#if debug}
-  <div class="colour-debug-points">
-    {#each dayPoints as point}
-      <span style:left={tp(point.t)*100 + '%'}>{point.label}<br>{point.t.toLocaleTimeString()}</span>
-    {/each}
-    <div>chroma {to2dp(saturation)} / light {to2dp(lightness)} <br>chroma {to2dp(1-saturation)} / light {1}<br>{dt.toLocaleTimeString()}</div>
+<div class="day-points">
+
+  {#each dayPoints as point}
+    <span class="point-marker" style:left={tp(point.t)*100 + '%'}>
+      {#if debug}
+        {point.label}<br>{point.t.toLocaleTimeString()}
+      {/if}
+    </span>
+  {/each}
+  
+  <div class="now-marker" style:left={debug ? (m.x + 'px') : (dayPointMarkerPos + '%')}>
+    {debug ? dt.toLocaleTimeString() : ''}
   </div>
 
-  <style>
-    .colour-debug-points {
-      position: absolute;
-      width: 100vw;
-      height: 1rlh;
-      top: 0;
-      left: 0;
-      color: white;
-      mix-blend-mode: difference;
-      overflow: hidden;
-    }
+  {#if debug}
+    <div class="colour-values">chroma {to2dp(saturation)} / light {to2dp(lightness)} <br>chroma {to2dp(1-saturation)} / light {1}</div>
+  {/if}
 
-    .colour-debug-points span {
-      position: absolute;
-      display: block;
-      border-left: 1px solid white;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-    }
+</div>
 
-    .colour-debug-points div {
-      margin-top: 60px;
-      text-align: center;
-      width: 100%;
-    }
-  </style>
-{/if}
+<div class="year-points">
+  <div class="now-marker" style:top={yearPointMarkerPos + '%'}></div>
+</div>
+
+<style>
+  .day-points, .year-points {
+    --points-colour: contrast-color( var(--text-colour) );
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 1rlh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    font-size: 0.75rem;
+    pointer-events: none;
+  }
+
+  .year-points {
+    width: var(--site-x-margin);
+    height: 100vh;
+  }
+
+  .point-marker, .now-marker {
+    position: absolute;
+    display: block;
+    border-left: 1px solid var(--points-colour);
+    padding-left: 0.125rem;
+    top: 0;
+    width: 100%;
+    height: 75%;
+    
+  }
+
+  .now-marker {
+    border-left-width: 2px;
+    height: 100%;
+  }
+
+  .year-points .now-marker {
+    border-left: none;
+    border-top: 2px solid var(--points-colour);
+  }
+
+  .colour-values {
+    margin-top: 60px;
+    text-align: center;
+    width: 100%;
+  }
+</style>

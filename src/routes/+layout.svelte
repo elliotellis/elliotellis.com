@@ -5,6 +5,7 @@
   import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
   import BaselineGrid from '$lib/components/BaselineGrid.svelte';
+  import Header from '$lib/components/Header.svelte';
   import Text from '$lib/components/Text.svelte';
   import content from '$lib/content/home';
   let { children } = $props();
@@ -26,15 +27,15 @@
 
 <BackgroundManager debug={false} />
 
-<main class="grid">
+<div class="parent-container grid">
 
-  <header class="name-container">
-    <Text blocks={content[0].mainText} dynamicIndents />
-  </header>
+  <Header />
 
-  {@render children()}
+  <main class="page-container">
+    {@render children()}
+  </main>
 
-</main>
+</div>
 
 <style>
 
@@ -107,14 +108,13 @@
       z-index: 1;
     }*/
 
-    ::selection {
+    ::selection, a:hover {
       color: contrast-color(var(--text-colour));
       background-color: var(--text-colour);
       background-blend-mode: difference;
-      z-index: 3;
     }
 
-    main {
+    .parent-container {
       width: 100%;
       position: relative;
       overflow: hidden;
@@ -129,20 +129,14 @@
       grid-column: span 2;
     }
 
+    @media only screen and (min-width: 32rem) {
+      .page-container {
+        grid-column: 2;
+      }
+    }
+
     .subgrid {
       grid-template-columns: subgrid;
-    }
-
-    .name-container {
-      padding: 0 var(--site-x-margin);
-      margin-top: var(--site-top-margin);
-      z-index: 2;
-    }
-
-    @media only screen and (min-width: 32rem) {
-      .name-container {
-        grid-column: span 1;
-      }
     }
 
     em { font-style: italic; }
@@ -164,6 +158,10 @@
       max-width: var(--base-line-length);
     }
 
+    h1, h2 {
+      font-weight: var(--fontweight-bold);
+    }
+
     p {
       text-indent: 2rem;
     }
@@ -176,8 +174,6 @@
       font-size: 0.75rem;
       line-height: 0.8rlh;
     }
-
-    
 
     ul {
       list-style-type: none;
