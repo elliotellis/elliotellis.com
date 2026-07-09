@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, tick } from 'svelte';
   import { slide } from 'svelte/transition';
-  let { type = "default", blocks, children, dynamicIndents = true } = $props();
+  let { type = "default", class: className, blocks, children, dynamicIndents = true } = $props();
   let blockIndents = $state([0]);
 
   function resetIndents() {
@@ -27,7 +27,7 @@
   }
 </script>
 
-<div class="text-container" style:padding-top={type === 'caption' ? 'calc( var(--baseline-offset) + calc(calc(1lh - 1cap) / 2) )' : ''} bind:offsetWidth={null, resetIndents}>
+<div class={['text-container', className]} style:padding-top={type === 'caption' ? 'calc( var(--baseline-offset) + calc(calc(1lh - 1cap) / 2) )' : ''} bind:offsetWidth={null, resetIndents}>
   {#if children}
     {@render children()}
 
@@ -57,14 +57,11 @@
   .text-container {
     --baseline-offset: calc(calc(1rlh - 1rcap) / 2);
     padding-top: var(--baseline-offset);
+    margin-bottom: calc( 0px - var(--baseline-offset) );
   }
 
   .indent {
     display: inline-block;
-  }
-
-  p {
-    text-indent: 0;
   }
 
   :global(.new-line) {

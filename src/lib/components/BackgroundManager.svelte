@@ -51,33 +51,31 @@
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okc),
     debug ? m.x/ww : tp(now)
-    //m.x/ww
   ));
 
   let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
     dayPoints.map((i) => i.okl),
     debug ? m.x/ww : tp(now)
-    //m.x/ww
   ));
 
   /*const getHue = (time, dc) => to2dp( invlerp(
-    yearStart, 
-    yearEnd, 
-    (debug ? dc/wh : time)
-  ) * 360 + 180 );
-
-  const getSaturation = (time, dc) => piecewiseLinear(
-    dayPoints.map((i) => tp(i.t)),
-    dayPoints.map((i) => i.okc),
-    (debug ? dc/ww : tp(time))
-  );
-
-  const getLightness = (time, dc) => piecewiseLinear(
-    dayPoints.map((i) => tp(i.t)),
-    dayPoints.map((i) => i.okl),
-    (debug ? dc/ww : tp(time))
-  );*/
+   *  yearStart, 
+   *  yearEnd, 
+   *  (debug ? dc/wh : time)
+   *) * 360 + 180 );
+   *
+   *const getSaturation = (time, dc) => piecewiseLinear(
+   *  dayPoints.map((i) => tp(i.t)),
+   *  dayPoints.map((i) => i.okc),
+   *  (debug ? dc/ww : tp(time))
+   *);
+   *
+   *const getLightness = (time, dc) => piecewiseLinear(
+   *  dayPoints.map((i) => tp(i.t)),
+   *  dayPoints.map((i) => i.okl),
+   *  (debug ? dc/ww : tp(time))
+   *);*/
 
   const handleMousemove = (event) => { 
     m.x = event.clientX; 
@@ -87,21 +85,7 @@
   
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
-
-    /*document.body.style.setProperty(
-      '--background-gradient',
-      'linear-gradient( 90deg in oklch, ' 
-      + '#fff 0' + '%, '
-      + '#000 100' +'%' 
-      + ')'
-    );
-
-    document.body.style.setProperty('--background-colour-left', 'oklch(' + (to2dp(getLightness(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + (to2dp(getSaturation(now - ms('3 hr'), m.x - 0.125*ww))) + ' ' + getHue(now - ms('3 hr'), m.y) + ')');
-    document.body.style.setProperty('--background-colour-centre', 'oklch(' + to2dp(getLightness(now, m.x)) + ' ' + (to2dp(getSaturation(now, m.x))) + ' ' + getHue(now, m.x) + ')');
-    document.body.style.setProperty('--background-colour-right', 'oklch(' + (to2dp(getLightness(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + (to2dp(getSaturation(now.valueOf() + ms('3 hr'), m.x + 0.125*ww))) + ' ' + getHue(now.valueOf() + ms('3 hr'), m.y) + ')');
-    */
     document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
-    //document.body.style.setProperty('--gradient-colour', 'oklch(' + 1 + ' ' + (to2dp(0.5/saturation)) + ' ' + getHue(now) + ')');
     document.body.style.opacity = 1;
 		return () => { clearInterval(interval); };
 	});

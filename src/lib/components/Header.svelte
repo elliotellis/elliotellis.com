@@ -21,6 +21,7 @@
 <style>
 
   header {
+    position: fixed;
     padding: 0 var(--site-x-margin);
     margin-top: var(--site-top-margin);
     z-index: 2;

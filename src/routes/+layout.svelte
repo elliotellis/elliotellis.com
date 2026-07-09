@@ -56,6 +56,7 @@
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
       --fontweight-bold: 800;
+      --fontweight-smallcaps: 600;
       --font-spacewidth-reg: 0.232em;
       --font-spacewidth-bold: 0.238em;
 
@@ -81,7 +82,6 @@
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       background-color: var(--background-colour);
-      /*background: linear-gradient(90deg in oklch, var(--background-colour-left) 0%, var(--background-colour-centre) 50%, var(--background-colour-right) 100%);*/
       color: var(--text-colour);
       min-width: 320px;
       min-height: 100vh;
@@ -94,19 +94,6 @@
       opacity: 0.5;
       overflow-x: hidden;
     }
-
-    /*body::before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4rem;
-      background: linear-gradient(180deg in oklch, var(--gradient-colour) -25%, transparent);
-      mix-blend-mode: exclusion;
-      z-index: 1;
-    }*/
 
     ::selection, a:hover {
       color: contrast-color(var(--text-colour));
@@ -129,8 +116,13 @@
       grid-column: span 2;
     }
 
+    .page-container {
+      margin-top: 9rlh;
+    }
+
     @media only screen and (min-width: 32rem) {
       .page-container {
+        margin-top: 0;
         grid-column: 2;
       }
     }
@@ -158,12 +150,19 @@
       max-width: var(--base-line-length);
     }
 
+    h4 {
+      margin-top: 1rlh;
+    }
+
     h1, h2 {
       font-weight: var(--fontweight-bold);
     }
 
-    p {
-      text-indent: 2rem;
+    h4, .ty-sc {
+      font-size: 0.75em;
+      font-weight: var(--fontweight-smallcaps);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
     }
 
     p:first-child, ul + p {
