@@ -19,7 +19,7 @@
 <style>
 
   .information-container {
-    padding: var(--site-top-margin) var(--site-x-margin) 0;
+    padding: var(--site-top-margin) var(--site-x-margin);
   }
 
   :global(.contact-info) a {

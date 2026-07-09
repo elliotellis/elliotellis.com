@@ -116,13 +116,8 @@
       grid-column: span 2;
     }
 
-    .page-container {
-      margin-top: 9rlh;
-    }
-
     @media only screen and (min-width: 32rem) {
       .page-container {
-        margin-top: 0;
         grid-column: 2;
       }
     }

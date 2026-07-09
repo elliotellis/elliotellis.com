@@ -21,9 +21,7 @@
 <style>
 
   header {
-    position: fixed;
-    padding: 0 var(--site-x-margin);
-    margin-top: var(--site-top-margin);
+    padding: var(--site-top-margin) var(--site-x-margin) 1rlh;
     z-index: 2;
   }
 
@@ -33,6 +31,7 @@
 
   @media only screen and (min-width: 32rem) {
     header {
+      position: fixed;
       grid-column: span 1;
     }
   }
@@ -41,8 +40,18 @@
     margin-top: 2rlh;
   }
 
-  .main-nav .current {
-    
+  .current {
+    opacity: 0.75;
+  }
+
+  .current a:hover {
+    color: inherit;
+    background-color: inherit;
+    background-blend-mode: unset;
+  }
+
+  .current::before {
+    content: '\2192\a0';
   }
 
 </style>
