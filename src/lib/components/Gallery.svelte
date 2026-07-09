@@ -16,7 +16,8 @@
 <style>
 
   .gallery {
-    --gallery-top-padding: 0;
+    --work-spacing: 2rlh;
+    --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing) );
     --background-colour: hsl(270 5 50);
     padding-top: var(--gallery-top-padding);
     background-color: var(--background-colour);

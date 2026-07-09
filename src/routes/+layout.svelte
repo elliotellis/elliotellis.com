@@ -5,7 +5,8 @@
   import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
   import BaselineGrid from '$lib/components/BaselineGrid.svelte';
-    import Text from '$lib/components/Text.svelte';
+  import Text from '$lib/components/Text.svelte';
+  import content from '$lib/content/home';
   let { children } = $props();
 </script>
 
@@ -25,14 +26,10 @@
 
 <BackgroundManager debug={false} />
 
-<div style="position: absolute; width: 1rem; height: 1rlh; background: white;"></div>
-
 <main class="grid">
 
   <header class="name-container">
-    <Text>
-      <h1>elliot ellis</h1>
-    </Text>
+    <Text blocks={content[0].mainText} dynamicIndents />
   </header>
 
   {@render children()}
@@ -65,8 +62,7 @@
       --leading-base: 1.25em;
 
       --site-x-margin: 0.75rem;
-      --nav-prev-width: 20%;
-      --nav-next-width: 20%;
+      --site-top-margin: 3rlh;
       --header-width: 12rem;
       --base-line-length: 32em;
 
@@ -139,7 +135,7 @@
 
     .name-container {
       padding: 0 var(--site-x-margin);
-      margin-top: 1rlh;
+      margin-top: var(--site-top-margin);
       z-index: 2;
     }
 

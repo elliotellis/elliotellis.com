@@ -42,7 +42,6 @@ active ? activeHeight : inactiveHeight
 
 <style>
   .work {
-    --work-spacing: 2rlh;
     --caption-min-height: 3rlh;
     /*height: calc(var(--work-media-height) + var(--work-spacing));*/
     padding-top: var(--work-spacing);
