@@ -27,8 +27,8 @@ active ? activeHeight : inactiveHeight
       <video src={active ? data.video : data.videoThumbnail} muted loop autoplay playsinline
     style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}></video>
     {:else}
-      <img src={data.image} alt={data.alt} 
-    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}>
+      <enhanced:img src={data.image} alt={data.alt} 
+    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]} />
     {/if}
   </div>
 
@@ -66,10 +66,12 @@ active ? activeHeight : inactiveHeight
     --media-ratio-height: 1;
     --media-height: calc( var(--media-scaled-target-height) / sqrt( calc( var(--media-ratio-width) / var(--media-ratio-height) ) ) );
     --media-height-rounded: round( up, var(--media-height), 1rlh );
-    --media-max-height: round( calc(100vh - var(--caption-min-height) - var(--work-spacing)), 1rlh );
     height: var(--media-height-rounded);
-    max-height: var(--media-max-height);
-    max-width: 100%;
+
+    /*--media-max-height: round( calc(100vh - var(--caption-min-height) - var(--work-spacing)), 1rlh );
+    max-height: var(--media-max-height);*/
+
+    width: calc( var(--media-height-rounded) * calc( var(--media-ratio-width) / var(--media-ratio-height) ) );
     position: relative;
   }
 
@@ -77,7 +79,7 @@ active ? activeHeight : inactiveHeight
     --media-target-height: 30rlh;
   }
 
-  .media-container img,
+  .media-container enhanced\:img,
   .media-container video {
     display: block;
     width: 100%;
