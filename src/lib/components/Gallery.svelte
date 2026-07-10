@@ -24,9 +24,6 @@
     background-color: var(--background-colour);
     color: var(--text-colour);
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    align-content: flex-start;
   }
 
 </style>

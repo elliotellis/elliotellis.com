@@ -116,6 +116,10 @@
       grid-column: span 2;
     }
 
+    .page-container {
+      overflow: hidden;
+    }
+
     @media only screen and (min-width: 40rem) {
       .page-container {
         grid-column: 2;
@@ -158,10 +162,6 @@
       font-weight: var(--fontweight-smallcaps);
       text-transform: uppercase;
       letter-spacing: 0.01em;
-    }
-
-    p:first-child, ul + p {
-      text-indent: unset;
     }
 
     p.caption {
