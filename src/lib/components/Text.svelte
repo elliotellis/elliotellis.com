@@ -68,10 +68,4 @@
     margin-right: 100%;
   }
 
-  :global(.caption-container p) {
-    font-size: 0.75rem;
-    line-height: 0.75rlh;
-    text-indent: 0;
-  }
-
 </style>

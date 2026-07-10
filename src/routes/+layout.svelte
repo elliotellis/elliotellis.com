@@ -116,7 +116,7 @@
       grid-column: span 2;
     }
 
-    @media only screen and (min-width: 32rem) {
+    @media only screen and (min-width: 40rem) {
       .page-container {
         grid-column: 2;
       }
@@ -146,7 +146,7 @@
     }
 
     h4 {
-      margin-top: 1rlh;
+      margin-top: 2rlh;
     }
 
     h1, h2 {

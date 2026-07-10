@@ -16,7 +16,7 @@ active ? activeHeight : inactiveHeight
 
   <div 
     class="media-container" 
-    style:aspect-ratio={''/*data.aspectRatio*/}
+    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}
     style:--media-height={''}
     style:--media-ratio-width={data.aspectRatio[0]}
     style:--media-ratio-height={data.aspectRatio[1]}
@@ -24,9 +24,11 @@ active ? activeHeight : inactiveHeight
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={onToggle}>Expand work</a>
     {#if data.video && data.videoThumbnail}
-      <video src={active ? data.video : data.videoThumbnail} muted loop autoplay playsinline></video>
+      <video src={active ? data.video : data.videoThumbnail} muted loop autoplay playsinline
+    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}></video>
     {:else}
-      <img src={data.image} alt={data.alt}>
+      <img src={data.image} alt={data.alt} 
+    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}>
     {/if}
   </div>
 
@@ -34,6 +36,7 @@ active ? activeHeight : inactiveHeight
     <div class="caption-container">
       <Text type="caption">
         {@html data.caption}
+        <p class="work-year">{data.year}</p>
       </Text>
     </div>
   {/if}
@@ -66,7 +69,7 @@ active ? activeHeight : inactiveHeight
     --media-max-height: round( calc(100vh - var(--caption-min-height) - var(--work-spacing)), 1rlh );
     height: var(--media-height-rounded);
     max-height: var(--media-max-height);
-    aspect-ratio: var(--media-ratio-width) / var(--media-ratio-height);
+    max-width: 100%;
     position: relative;
   }
 
@@ -79,7 +82,7 @@ active ? activeHeight : inactiveHeight
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .work-anchor {
@@ -92,6 +95,19 @@ active ? activeHeight : inactiveHeight
 
   .caption-container {
     min-height: var(--caption-min-height);
+    font-size: 0.75rem;
+    line-height: 0.75rlh;
+  }
+
+  .caption-container :global {
+    p {
+      display: inline;
+      font-size: 0.75rem;
+      line-height: 0.75rlh;
+    }
+    p::after {
+      content: '\2003';
+    }
   }
 
 </style>
