@@ -4,5 +4,5 @@
 
 <picture>
   <source srcset={srcsetWebp} type="image/webp">
-  <img alt={alt} src={small} srcset={srcset}>
+  <img alt={alt} src={small} srcset={srcset} loading="lazy">
 </picture>

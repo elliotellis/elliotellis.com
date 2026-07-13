@@ -1,6 +1,4 @@
 <script>
-  import { SvelteDate } from 'svelte/reactivity';
-  import * as sun from 'suncalc';
   import { page } from '$app/state';
   import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
@@ -91,7 +89,6 @@
       flex-direction: row;
       align-items: stretch;
       justify-content: space-between;
-      opacity: 0.5;
       overflow-x: hidden;
     }
 

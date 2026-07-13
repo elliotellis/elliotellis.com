@@ -2,6 +2,7 @@
   import { SvelteDate } from 'svelte/reactivity';
   import * as sun from 'suncalc';
   import ms from 'ms';
+    import { onMount } from 'svelte';
   let { debug = false, children } = $props();
 
   let m = $state({ x: 0, y: 0 });
@@ -82,11 +83,18 @@
     m.y = event.clientY; 
     dt.setTime(range(0, ww, dayStart, dayEnd, m.x));
   }
+
+  const setBackground = () => {
+    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
+  }
+
+  onMount(() => {
+    setBackground();
+  });
   
   $effect(() => {
 		const interval = setInterval(() => { now.setTime(Date.now()); }, 1000);
-    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
-    document.body.style.opacity = 1;
+    setBackground();
 		return () => { clearInterval(interval); };
 	});
 

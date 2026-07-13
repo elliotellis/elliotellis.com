@@ -22,10 +22,20 @@ active ? activeHeight : inactiveHeight
     style:--media-ratio-width={data.aspectRatio[0]}
     style:--media-ratio-height={data.aspectRatio[1]}
     data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
+    style:--media-margin-top={Math.floor(Math.random() * 4) + 'rlh'}
+    style:--media-margin-right={Math.floor(Math.random() * 4) + 'rlh'}
+    style:--media-margin-bottom={Math.floor(Math.random() * 4) + 'rlh'}
+    style:--media-margin-left={Math.floor(Math.random() * 4) + 'rlh'}
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={onToggle}>Expand work</a>
     {#if data.video && data.videoThumbnail}
-      <video src={active ? data.video : data.videoThumbnail} poster={data.image.small} muted loop autoplay playsinline></video>
+      <video 
+        src={active ? data.video : data.videoThumbnail} 
+        poster={data.image.small} 
+        loading="lazy"
+        muted loop autoplay playsinline
+        disablepictureinpicture
+      ></video>
     {:else}
       <Image
         original={data.image.original}
@@ -53,9 +63,10 @@ active ? activeHeight : inactiveHeight
     padding-top: var(--work-spacing);
     padding-right: var(--work-spacing);
     max-width: 100%;
+    float: left;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: end; 
   }
 
   .media-container {
@@ -63,13 +74,19 @@ active ? activeHeight : inactiveHeight
     max-height: calc(100vh - var(--caption-min-height) - var(--work-spacing));
   }
 
-  /*:global(.gallery:has(.work:hover)) .work:not(.active, :hover) {
-    /* something - but this bugs on firefox *
-  }*/
+  :global(.gallery:has(.work:not(.active) .media-container:hover)) .work:not(:hover) .media-container::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    /*background-color: hsl(from var(--background-colour) h s calc(l - 20));*/
+    background-color: var(--background-colour);
+  }
 
   .media-container {
     --media-scale: 1;
-    --media-target-height: 10rlh;
+    --media-target-height: 8rlh;
     --media-scaled-target-height: calc( var(--media-scale) * var(--media-target-height) );
     --media-ratio-width: 1;
     --media-ratio-height: 1;
@@ -83,6 +100,13 @@ active ? activeHeight : inactiveHeight
 
   .work.active .media-container {
     height: auto;
+  }
+
+  .work:not(.active) .media-container {
+    margin-top: var(--media-margin-top);
+    margin-right: var(--media-margin-right);
+    margin-bottom: var(--media-margin-bottom);
+    margin-left: var(--media-margin-left);
   }
 
   .media-container :global(img),
