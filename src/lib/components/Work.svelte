@@ -48,14 +48,16 @@
   <div class="work-footer">
 
     {#if active && data.video}
-      <div class="video-duration">
-        <div class="video-progress" style:--progress={(time / duration) * 100 + '%'}></div>
-      </div>
-
-      <div class="video-controls">
-        <button onclick={toggleMuted}>{muted ? 'Unmute' : 'Mute'}</button>
+      <div class="media-duration">
+        <div class="media-progress" style:--progress={(time / duration) * 100 + '%'}></div>
       </div>
     {/if}
+
+      <div class="media-controls">
+        {#if active && data.video}
+          <button onclick={toggleMuted}>{muted ? 'Unmute' : 'Mute'}</button>
+        {/if}
+      </div>
 
     {#if active && data.caption}
       <div class="caption-container">
@@ -85,7 +87,7 @@
 
   .media-container {
     max-width: 100%;
-    max-height: calc(100vh - var(--caption-min-height) - var(--work-spacing));
+    max-height: calc(100vh - var(--caption-min-height) - var(--work-spacing-y));
   }
 
   :global(.gallery:has(.work:not(.active) .media-container:hover)) .work:not(:hover) .media-container::before {
@@ -150,7 +152,7 @@
     line-height: 0.75rlh;
   }
 
-  .video-duration {
+  .media-duration {
     position: absolute;
     width: 100%;
     top: 0;
@@ -158,7 +160,7 @@
     height: 0.125rlh;
   }
 
-  .video-progress {
+  .media-progress {
     position: absolute;
     width: var(--progress);
     height: 100%;
