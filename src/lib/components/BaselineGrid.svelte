@@ -29,10 +29,10 @@
           transparent, transparent calc(1rlh - 1px), 
           var(--cbas) calc(1rlh - 1px), var(--cbas) 1rlh
         ),
-        repeating-linear-gradient(
+        /*repeating-linear-gradient(
           transparent, transparent calc(0.75rlh - 1px),
           var(--ccap) calc(0.75rlh - 1px), var(--ccap) 0.75rlh
-        ),
+        ),*/
         repeating-linear-gradient(
           transparent, transparent calc(3rlh - 1px), 
           var(--ccmb) calc(3rlh - 1px), var(--ccmb) 3rlh

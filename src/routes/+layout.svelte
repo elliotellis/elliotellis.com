@@ -50,6 +50,7 @@
     :root {
       --background-colour: grey;
       --text-colour: white;
+      --grey-text-colour: lightgrey;
 
       --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
       --fontweight-reg: 500;
@@ -72,6 +73,7 @@
 
     body {
       --text-colour: contrast-color( oklch(from var(--background-colour) calc(l - 0.2) c h) );
+      --grey-text-colour: oklch(from var(--background-colour) 0.8 0.01 h);
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
       font-family: var(--typeface);
@@ -92,7 +94,7 @@
       overflow-x: hidden;
     }
 
-    ::selection, a:hover {
+    ::selection, a:hover, button:hover {
       color: contrast-color(var(--text-colour));
       background-color: var(--text-colour);
       background-blend-mode: difference;
@@ -135,6 +137,17 @@
       text-decoration: none;
     }
 
+    button {
+      border: none;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      color: var(--grey-text-colour);
+    }
+
     figure {
       margin: 0;
     }
@@ -154,7 +167,7 @@
       font-weight: var(--fontweight-bold);
     }
 
-    h4, .ty-sc {
+    h4, button, .ty-sc {
       font-size: 0.75em;
       font-weight: var(--fontweight-smallcaps);
       text-transform: uppercase;
@@ -172,16 +185,6 @@
 
     .hidden {
       display: none;
-    }
-
-    button {
-      border: none;
-      background: transparent;
-      margin: 0;
-      padding: 0;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
     }
 
   }

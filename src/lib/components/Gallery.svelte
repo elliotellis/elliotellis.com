@@ -4,6 +4,7 @@
   let { data } = $props();
   let activeWork = $state(undefined);
   let works = $state(null);
+  let muted = $state(true);
 
   function shuffle(array) {
     for (let i = array.length - 1; i >= 1; i--) {
@@ -20,7 +21,13 @@
 
   {#if works}
     {#each works as work, i}
-      <Work data={work} active={activeWork === i} onToggle={() => activeWork = activeWork === i ? undefined : i} />
+      <Work 
+        data={work} 
+        active={activeWork === i} 
+        toggleActive={() => activeWork = activeWork === i ? undefined : i}
+        {muted}
+        toggleMuted={() => muted = !muted}
+      />
     {/each}
   {/if}
   
@@ -30,12 +37,11 @@
 
   .gallery {
     --text-colour: white;
-    --work-spacing: 2rlh;
-    --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing) );
-    --gallery-background-colour: hsl(270 5 50);
+    --work-spacing-x: 1rem;
+    --work-spacing-y: 1rlh;
+    --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing-y) );
     padding-top: var(--gallery-top-padding);
     padding-bottom: 6rlh;
-    background-color: var(--gallery-background-colour);
     background-color: oklch(from var(--background-colour) 0.5 0.01 h);
     min-height: 100vh;
     color: var(--text-colour);

@@ -1,21 +1,17 @@
 <script>
   import Text from "$lib/components/Text.svelte";
   import Image from "$lib/components/Image.svelte";
-  let { data, active, onToggle } = $props();
+  let { data, active, toggleActive, muted, toggleMuted } = $props();
+  let time = $state(0);
+  let duration = $state(0);
 </script>
-<!--
-{const activeHeight   = 'clamp(' + data.galleryHeight + 'rlh, ' + (3 * data.galleryHeight) + 'rlh, round(down, calc(100vh - 2rlh), 1rlh)'}
-{const inactiveHeight = data.galleryHeight + 'rlh'}
-
-active ? activeHeight : inactiveHeight
--->
 
 <div 
   id={data.slug}
   class={['work', {active}]}
+  style:float={Math.random() < 0.5 ? 'left': 'right'}
 >
 
-  
   <div 
     class="media-container" 
     style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}
@@ -23,17 +19,20 @@ active ? activeHeight : inactiveHeight
     style:--media-ratio-height={data.aspectRatio[1]}
     data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
     style:--media-margin-top={Math.floor(Math.random() * 4) + 'rlh'}
-    style:--media-margin-right={Math.floor(Math.random() * 4) + 'rlh'}
+    style:--media-margin-right={Math.floor(Math.random() * 4) + 'rem'}
     style:--media-margin-bottom={Math.floor(Math.random() * 4) + 'rlh'}
-    style:--media-margin-left={Math.floor(Math.random() * 4) + 'rlh'}
+    style:--media-margin-left={Math.floor(Math.random() * 4) + 'rem'}
   >
-    <a class="work-anchor" href={'#' + data.slug} onclick={onToggle}>Expand work</a>
+    <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
     {#if data.video && data.videoThumbnail}
       <video 
         src={active ? data.video : data.videoThumbnail} 
         poster={data.image.small} 
         loading="lazy"
-        muted loop autoplay playsinline
+        bind:muted
+        bind:currentTime={time}
+        bind:duration
+        loop autoplay playsinline
         disablepictureinpicture
       ></video>
     {:else}
@@ -46,22 +45,37 @@ active ? activeHeight : inactiveHeight
     {/if}
   </div>
 
-  {#if active && data.caption}
-    <div class="caption-container">
-      <Text type="caption">
-        <p class="work-year">({data.year})&nbsp;</p>
-        {@html data.caption}
-      </Text>
-    </div>
-  {/if}
+  <div class="work-footer">
+
+    {#if active && data.video}
+      <div class="video-duration">
+        <div class="video-progress" style:--progress={(time / duration) * 100 + '%'}></div>
+      </div>
+
+      <div class="video-controls">
+        <button onclick={toggleMuted}>{muted ? 'Unmute' : 'Mute'}</button>
+      </div>
+    {/if}
+
+    {#if active && data.caption}
+      <div class="caption-container">
+        <Text type="caption">
+          <p class="work-year">({data.year})&nbsp;</p>
+          {@html data.caption}
+        </Text>
+      </div>
+    {/if}
+
+  </div>
 
 </div>
 
 <style>
   .work {
     --caption-min-height: 3rlh;
-    padding-top: var(--work-spacing);
-    padding-right: var(--work-spacing);
+    /*padding-top: var(--work-spacing);
+    padding-right: var(--work-spacing);*/
+    padding: var(--work-spacing-y) var(--work-spacing-x);
     max-width: 100%;
     float: left;
     display: flex;
@@ -126,10 +140,35 @@ active ? activeHeight : inactiveHeight
     opacity: 0;
   }
 
-  .caption-container {
-    min-height: var(--caption-min-height);
+  .work-footer {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     font-size: 0.75rem;
     line-height: 0.75rlh;
+  }
+
+  .video-duration {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 0.125rlh;
+  }
+
+  .video-progress {
+    position: absolute;
+    width: var(--progress);
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--text-colour);
+  }
+
+  .caption-container {
+    min-height: var(--caption-min-height);
   }
 
   .caption-container :global {
@@ -144,7 +183,7 @@ active ? activeHeight : inactiveHeight
   }
 
   .work-year {
-    color: lightgray;
+    color: var(--grey-text-colour);
     float: left;
   }
 
