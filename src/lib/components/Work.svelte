@@ -102,7 +102,7 @@
 
   .media-container {
     --media-scale: 1;
-    --media-target-height: 8rlh;
+    --media-target-height: 12rlh;
     --media-scaled-target-height: calc( var(--media-scale) * var(--media-target-height) );
     --media-ratio-width: 1;
     --media-ratio-height: 1;

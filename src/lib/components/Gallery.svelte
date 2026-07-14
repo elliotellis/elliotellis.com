@@ -37,7 +37,7 @@
 
   .gallery {
     --text-colour: white;
-    --work-spacing-x: 2rem;
+    --work-spacing-x: 1rem;
     --work-spacing-y: 1rlh;
     --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing-y) );
     padding-top: var(--gallery-top-padding);
