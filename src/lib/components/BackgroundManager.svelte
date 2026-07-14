@@ -102,29 +102,28 @@
 
 <svelte:window bind:innerWidth={ww} bind:innerHeight={wh} onmousemove={handleMousemove} />
 
-<div class="day-points">
+{#if debug}
 
-  {#each dayPoints as point}
-    <span class="point-marker" style:left={tp(point.t)*100 + '%'}>
-      {#if debug}
-        {point.label}<br>{point.t.toLocaleTimeString()}
-      {/if}
-    </span>
-  {/each}
-  
-  <div class="now-marker" style:left={debug ? (m.x + 'px') : (dayPointMarkerPos + '%')}>
-    {debug ? dt.toLocaleTimeString() : ''}
+  <div class="day-points">
+      {#each dayPoints as point}
+        <span class="point-marker" style:left={tp(point.t)*100 + '%'}>
+          {point.label}<br>{point.t.toLocaleTimeString()}
+        </span>
+      {/each}
+
+      <div class="now-marker" style:left={debug ? (m.x + 'px') : (dayPointMarkerPos + '%')}>
+        {debug ? dt.toLocaleTimeString() : ''}
+      </div>
+
+      <div class="colour-values">chroma {to2dp(saturation)} / light {to2dp(lightness)} <br>chroma {to2dp(1-saturation)} / light {1}</div>
+
   </div>
 
-  {#if debug}
-    <div class="colour-values">chroma {to2dp(saturation)} / light {to2dp(lightness)} <br>chroma {to2dp(1-saturation)} / light {1}</div>
-  {/if}
+  <div class="year-points">
+    <div class="now-marker" style:top={yearPointMarkerPos + '%'}></div>
+  </div>
 
-</div>
-
-<div class="year-points">
-  <div class="now-marker" style:top={yearPointMarkerPos + '%'}></div>
-</div>
+{/if}
 
 <style>
   .day-points, .year-points {
