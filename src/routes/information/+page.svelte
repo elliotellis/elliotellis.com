@@ -1,10 +1,11 @@
 <script>
   import Text from "$lib/components/Text.svelte";
   const bio = [
-    { portions: [{ text: 'elliot is a designer, developer, and typographer who makes graphics, websites, systems, and tools.' }] },
-    { portions: [{ text: 'When working on things like visual identities, motion graphics, editorial design, exhibition graphics, and film titles, it is his critical, cross-disciplinary, and characterful approach to problem solving that offers an original angle to any project.' }] },
-    { portions: [{ text: 'His coding background means he especially enjoys to build websites, custom design tools, scripts, and systematic workflows.' }] },
-    { portions: [{ text: 'Currently working on a freelance basis in culture, editorial, and fashion, he has worked with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.' }] },
+    { portions: [{ text: 'Designer, developer, and typographer who makes graphics, websites, systems, and tools.' }] },
+    { portions: [{ text: 'Currently working on a freelance basis in culture, editorial, and fashion, my experience includes work with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.' }] },
+    { portions: [{ text: 'As a designer I’m best at editorial design, identities, and motion graphics – anything that benefits from a systematic approach and good typography. I use code as a key part of my practice, both to explore and execute creative ideas, and to automate processes and build efficient workflows.' }] },
+    { portions: [{ text: 'I also design and build websites that are uncomplicated and friendly, yet filled with personality and charm. Absent of annoyances, bloat, or invasive features, the sites I make allow visitors to form a trustworthy initial relationship with businesses and professionals.' }] },
+    { portions: [{ text: 'I’m based in London, but love working on projects with people anywhere in the world.' }] },
   ];
 </script>
 
