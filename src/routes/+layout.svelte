@@ -119,7 +119,7 @@
       overflow: hidden;
     }
 
-    @media only screen and (min-width: 40rem) {
+    @media only screen and (min-width: 48rem) {
       .page-container {
         grid-column: 2;
       }

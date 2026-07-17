@@ -37,7 +37,7 @@
 
   .gallery {
     --text-colour: white;
-    --work-spacing-x: 1rem;
+    --work-spacing-x: 0.5rem;
     --work-spacing-y: 1rlh;
     --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing-y) );
     padding-top: var(--gallery-top-padding);
@@ -46,6 +46,12 @@
     min-height: 100vh;
     color: var(--text-colour);
     overflow: hidden;
+  }
+
+  @media only screen and (min-width: 32rem) {
+    .gallery {
+      --work-spacing-x: 1rem;
+    }
   }
 
 </style>

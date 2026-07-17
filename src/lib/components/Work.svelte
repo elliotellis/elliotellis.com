@@ -17,10 +17,10 @@
     style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}
     style:--media-ratio-width={data.aspectRatio[0]}
     style:--media-ratio-height={data.aspectRatio[1]}
-    style:--media-margin-top={Math.floor(Math.random() * 4) + 'rlh'}
-    style:--media-margin-right={Math.floor(Math.random() * 4) + 'rem'}
-    style:--media-margin-bottom={Math.floor(Math.random() * 4) + 'rlh'}
-    style:--media-margin-left={Math.floor(Math.random() * 4) + 'rem'}
+    style:--media-margin-top={Math.floor(Math.random() * 4)}
+    style:--media-margin-right={Math.floor(Math.random() * 4)}
+    style:--media-margin-bottom={Math.floor(Math.random() * 4)}
+    style:--media-margin-left={Math.floor(Math.random() * 4)}
     data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
     data-thumbnail-size={data.thumbnailSize}
   >
@@ -76,8 +76,6 @@
 <style>
   .work {
     --caption-min-height: 3rlh;
-    /*padding-top: var(--work-spacing);
-    padding-right: var(--work-spacing);*/
     padding: var(--work-spacing-y) var(--work-spacing-x);
     max-width: 100%;
     float: left;
@@ -97,12 +95,12 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    /*background-color: hsl(from var(--background-colour) h s calc(l - 20));*/
     background-color: var(--background-colour);
   }
 
   .media-container {
-    --media-scale: 0.75;
+    --media-margin-scale: 0.25;
+    --media-scale: 0.5;
     --media-target-height: 12rlh;
     --media-scaled-target-height: calc( var(--media-scale) * var(--media-target-height) );
     --media-ratio-width: 1;
@@ -116,22 +114,54 @@
   }
 
   .media-container[data-thumbnail-size="larger"] {
-    --media-target-height: 16rlh; }
+    --media-target-height: 18rlh; 
+  }
+
   .media-container[data-thumbnail-size="smaller"] {
-    --media-target-height: 8rlh; }
+    --media-target-height: 8rlh; 
+  }
+
+  /* might replace all the below breakpoints 
+   * with no-breakpoint vw unit-based calculation instead 
+   */
+
+  @media only screen and (min-width: 32rem) {
+    .media-container { 
+      --media-margin-scale: 0.5;
+      --media-scale: 0.625;
+    } 
+  }
+  
+  @media only screen and (min-width: 40rem) {
+    .media-container { 
+      --media-margin-scale: 0.75;
+      --media-scale: 0.75;
+    } 
+  }
+
+  @media only screen and (min-width: 48rem) {
+    .media-container { 
+      --media-margin-scale: 0.875;
+      --media-scale: 0.875;
+    } 
+  }
 
   @media only screen and (min-width: 60rem) {
-    .media-container { --media-scale: 1; } }
+    .media-container { 
+      --media-margin-scale: 1;
+      --media-scale: 1; 
+    } 
+  }
 
   .work.active .media-container {
     height: auto;
   }
 
   .work:not(.active) .media-container {
-    margin-top: var(--media-margin-top);
-    margin-right: var(--media-margin-right);
-    margin-bottom: var(--media-margin-bottom);
-    margin-left: var(--media-margin-left);
+    margin-top: round( calc( var(--media-margin-top) * var(--media-margin-scale) * 1rlh ), 1rlh);
+    margin-right: round( calc( var(--media-margin-right) * var(--media-margin-scale) * 1rem ), 1rem);
+    margin-bottom: round( calc( var(--media-margin-bottom) * var(--media-margin-scale) * 1rlh ), 1rlh);
+    margin-left: round( calc( var(--media-margin-left) * var(--media-margin-scale) * 1rem ), 1rem);
   }
 
   .media-container :global(img),

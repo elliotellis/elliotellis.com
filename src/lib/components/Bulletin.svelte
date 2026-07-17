@@ -36,7 +36,7 @@
     text-align: center;
   }
 
-  @media only screen and (min-width: 40rem) {
+  @media only screen and (min-width: 48rem) {
     .editable-text {
       --target-font-size: 10vw;
     }

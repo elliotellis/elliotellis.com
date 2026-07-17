@@ -29,7 +29,7 @@
     text-decoration: none;
   }
 
-  @media only screen and (min-width: 40rem) {
+  @media only screen and (min-width: 48rem) {
     header {
       position: fixed;
       grid-column: span 1;
