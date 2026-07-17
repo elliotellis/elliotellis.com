@@ -62,10 +62,7 @@
 
     {#if active && data.caption}
       <div class="caption-container">
-        <Text type="caption">
-          <p class="work-year">({data.year})&nbsp;</p>
-          {@html data.caption}
-        </Text>
+        <Text type="caption" blocks={data.caption} captionYear={data.year} dynamicIndents={false} />
       </div>
     {/if}
 
@@ -221,11 +218,6 @@
       font-size: inherit;
       line-height: inherit;
     }
-  }
-
-  .work-year {
-    color: var(--grey-text-colour);
-    float: left;
   }
 
 </style>

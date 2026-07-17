@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, tick } from 'svelte';
   import { slide } from 'svelte/transition';
-  let { type = "default", class: className, blocks, children, dynamicIndents = true } = $props();
+  let { type = "default", class: className, blocks, captionYear, children, dynamicIndents = true } = $props();
   let blockIndents = $state([0]);
   $inspect(children);
 
@@ -33,11 +33,16 @@
     {@render children()}
 
   {:else if blocks}
+    {#if captionYear}
+      <p class="work-year">({captionYear})&nbsp;</p>
+    {/if}
     {#each blocks as block, i (i)}
       <p class={[block.type]} {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
         {#if blockIndents[i] > 0}
           <span class="indent" style:width={blockIndents[i] + 'px'}></span>
         {/if}
+        {@html block}
+        <!--
         {#each block.portions as portion}
           {#if portion.className}
             <span class={portion.className}>{portion.text}</span>
@@ -47,9 +52,9 @@
             {portion.text}
           {/if}
         {/each}
+        -->
       </p>
     {/each}
-
   {/if}
 </div>
 
@@ -67,6 +72,11 @@
 
   :global(.new-line) {
     margin-right: 100%;
+  }
+
+  .work-year {
+    color: var(--grey-text-colour);
+    float: left;
   }
 
 </style>

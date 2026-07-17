@@ -145,7 +145,6 @@
       color: inherit;
       font: inherit;
       cursor: pointer;
-      color: var(--grey-text-colour);
     }
 
     figure {
