@@ -17,11 +17,12 @@
     style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}
     style:--media-ratio-width={data.aspectRatio[0]}
     style:--media-ratio-height={data.aspectRatio[1]}
-    data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
     style:--media-margin-top={Math.floor(Math.random() * 4) + 'rlh'}
     style:--media-margin-right={Math.floor(Math.random() * 4) + 'rem'}
     style:--media-margin-bottom={Math.floor(Math.random() * 4) + 'rlh'}
     style:--media-margin-left={Math.floor(Math.random() * 4) + 'rem'}
+    data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
+    data-thumbnail-size={data.thumbnailSize}
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
     {#if data.video && data.videoThumbnail}
@@ -101,7 +102,7 @@
   }
 
   .media-container {
-    --media-scale: 1;
+    --media-scale: 0.75;
     --media-target-height: 12rlh;
     --media-scaled-target-height: calc( var(--media-scale) * var(--media-target-height) );
     --media-ratio-width: 1;
@@ -113,6 +114,14 @@
     /*--media-max-height: round( calc(100vh - var(--caption-min-height) - var(--work-spacing)), 1rlh );
     max-height: var(--media-max-height);*/
   }
+
+  .media-container[data-thumbnail-size="larger"] {
+    --media-target-height: 16rlh; }
+  .media-container[data-thumbnail-size="smaller"] {
+    --media-target-height: 8rlh; }
+
+  @media only screen and (min-width: 60rem) {
+    .media-container { --media-scale: 1; } }
 
   .work.active .media-container {
     height: auto;
