@@ -31,8 +31,9 @@
 <div class={['text-container', className]} style:padding-top={type === 'caption' ? 'calc( var(--baseline-offset) + calc(calc(1lh - 1cap) / 2) )' : ''} bind:offsetWidth={null, resetIndents}>
   {#if children}
     {@render children()}
+  {/if}
 
-  {:else if blocks}
+  {#if blocks}
     {#if captionYear}
       <p class="work-year">({captionYear})&nbsp;</p>
     {/if}

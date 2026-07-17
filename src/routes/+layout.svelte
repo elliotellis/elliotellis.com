@@ -7,6 +7,7 @@
   import Text from '$lib/components/Text.svelte';
   import content from '$lib/content/home';
   let { children } = $props();
+  export const prerender = true;
 </script>
 
 <svelte:head>
