@@ -5,14 +5,14 @@
   let { data, active, toggleActive, muted, toggleMuted } = $props();
   let time = $state(0);
   let duration = $state(0);
-  /*let video;
+  let video;
 
   onMount(() => {
     if (video) {
       video.setAttribute('muted', String(muted));
       video.play().catch(() => {});
     }
-  })*/
+  });
 </script>
 
 <div 
@@ -35,27 +35,17 @@
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
     {#if data.video && data.videoThumbnail}
-      <!-- bind:this={video} -->
-      {#if !active}
-        <video 
-          src={data.videoThumbnail}
-          poster={data.image.small} 
-          loading="lazy"
-          muted loop autoplay playsinline
-          disablepictureinpicture
-        ></video>
-      {:else}
-        <video 
-          src={data.video} 
-          poster={data.image.small} 
-          loading="lazy"
-          bind:muted
-          bind:currentTime={time}
-          bind:duration
-          loop autoplay playsinline
-          disablepictureinpicture
-        ></video>
-      {/if}
+      <video 
+        bind:this={video}
+        src={active ? data.video : data.videoThumbnail} 
+        poster={data.image.small} 
+        loading="lazy"
+        bind:muted
+        bind:currentTime={time}
+        bind:duration
+        loop autoplay playsinline
+        disablepictureinpicture
+      ></video>
     {:else}
       <Image
         original={data.image.original}
