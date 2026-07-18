@@ -1,9 +1,18 @@
 <script>
   import Text from "$lib/components/Text.svelte";
   import Image from "$lib/components/Image.svelte";
+    import { onMount } from "svelte";
   let { data, active, toggleActive, muted, toggleMuted } = $props();
   let time = $state(0);
   let duration = $state(0);
+  /*let video;
+
+  onMount(() => {
+    if (video) {
+      video.setAttribute('muted', String(muted));
+      video.play().catch(() => {});
+    }
+  })*/
 </script>
 
 <div 
@@ -26,7 +35,9 @@
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
     {#if data.video && data.videoThumbnail}
+      <!-- bind:this={video} -->
       <video 
+        
         src={active ? data.video : data.videoThumbnail} 
         poster={data.image.small} 
         loading="lazy"
@@ -93,6 +104,7 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     background-color: var(--background-colour);
+    z-index: 3;
   }
 
   .media-container {
@@ -170,12 +182,17 @@
     object-fit: contain;
   }
 
+  .media-container video {
+    z-index: 2;
+  }
+
   .work-anchor {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
+    z-index: 4;
   }
 
   .work-footer {

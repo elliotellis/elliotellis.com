@@ -13,6 +13,7 @@
     return array; }
 
   onMount(() => {
+    muted = true;
     works = shuffle(data.data);
   });
 </script>
