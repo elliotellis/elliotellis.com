@@ -36,17 +36,26 @@
     <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
     {#if data.video && data.videoThumbnail}
       <!-- bind:this={video} -->
-      <video 
-        
-        src={active ? data.video : data.videoThumbnail} 
-        poster={data.image.small} 
-        loading="lazy"
-        bind:muted
-        bind:currentTime={time}
-        bind:duration
-        loop autoplay playsinline
-        disablepictureinpicture
-      ></video>
+      {#if !active}
+        <video 
+          src={data.videoThumbnail}
+          poster={data.image.small} 
+          loading="lazy"
+          muted loop autoplay playsinline
+          disablepictureinpicture
+        ></video>
+      {:else}
+        <video 
+          src={data.video} 
+          poster={data.image.small} 
+          loading="lazy"
+          bind:muted
+          bind:currentTime={time}
+          bind:duration
+          loop autoplay playsinline
+          disablepictureinpicture
+        ></video>
+      {/if}
     {:else}
       <Image
         original={data.image.original}
