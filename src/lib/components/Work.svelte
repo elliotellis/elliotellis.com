@@ -5,6 +5,8 @@
   let { data, active, toggleActive, muted, toggleMuted } = $props();
   let time = $state(0);
   let duration = $state(0);
+  const isClient = typeof window !== 'undefined';
+  //const isClient = true;
 </script>
 
 <div 
@@ -26,7 +28,7 @@
     data-thumbnail-size={data.thumbnailSize}
   >
     <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
-    {#if data.video && data.videoThumbnail}
+    {#if data.video && data.videoThumbnail && isClient}
       <video 
         src={active ? data.video : data.videoThumbnail} 
         poster={data.image.small} 
