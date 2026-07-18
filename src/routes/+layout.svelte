@@ -174,9 +174,9 @@
       letter-spacing: 0.01em;
     }
 
-    p.caption {
+    .caption {
       font-size: 0.75rem;
-      line-height: 0.8rlh;
+      line-height: 0.75rlh;
     }
 
     ul {

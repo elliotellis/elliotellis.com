@@ -19,9 +19,8 @@
     `This site was built with Svelte,
     and uses Kirby to manage content. The frontend is
     hosted on Netlify (for now) and the CMS on
-    Uberspace.`,
-    `It uses Umami for privacy-focused cookie–free analytics.`,
-    `It is typeset in Action Grotesque.`
+    Uberspace. It uses Umami for privacy-focused cookie–free analytics.
+    It is typeset in Action Grotesque.`
   ]
 </script>
 
