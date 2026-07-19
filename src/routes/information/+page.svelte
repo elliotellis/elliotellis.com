@@ -4,7 +4,7 @@
     'Designer, developer, and typographer who makes graphics, websites, systems, and tools.',
     'Currently working on a freelance basis in culture, editorial, and fashion, my experience includes work with The Guardian, the Barbican Centre, WIRED, Fraser Muggeridge studio, Philharmonia, the University of Reading, and Geographer, among others.',
     'As a designer I’m best at editorial design, identities, and motion graphics – anything that benefits from a systematic approach and good typography. I use code as a key part of my practice, both to explore and execute creative ideas, and to automate processes and build efficient workflows.',
-    'I also design and build websites that are uncomplicated and friendly, yet filled with personality and charm. Absent of annoyances, bloat, or invasive features, the sites I make allow visitors to form a trustworthy initial relationship with businesses and professionals.',
+    'I also design and build websites that are uncomplicated, friendly, and charmful. Absent of annoyances, bloat, or invasive features, the sites I make allow visitors to form a trustworthy initial relationship with businesses and professionals.',
     'I’m based in London, but love working on projects with people anywhere in the world.',
   ];
   let colophon = [

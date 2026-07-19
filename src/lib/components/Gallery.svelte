@@ -43,7 +43,6 @@
     --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing-y) );
     padding-top: var(--gallery-top-padding);
     padding-bottom: 6rlh;
-    background-color: oklch(from var(--background-colour) 0.5 0.01 h);
     min-height: 100vh;
     color: var(--text-colour);
     overflow: hidden;
