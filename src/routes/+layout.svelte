@@ -38,7 +38,36 @@
 
 <style>
 
+  @font-face {
+    font-family: 'Action Grotesque';
+    src: url('$lib/fonts/ActionGrotesque-RegularNo2-Web.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Action Grotesque';
+    src: url('$lib/fonts/ActionGrotesque-RegularNo2Italic-Web.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  @font-face {
+    font-family: 'Action Grotesque';
+    src: url('$lib/fonts/ActionGrotesque-Medium-Web.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Action Grotesque';
+    src: url('$lib/fonts/ActionGrotesque-Heavy-Web.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+  }
+
   :global {
+
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -53,7 +82,7 @@
       --text-colour: white;
       --grey-text-colour: lightgrey;
 
-      --typeface: 'Action Grotesque Trial', 'Verdana', sans-serif;
+      --typeface: 'Action Grotesque', 'Verdana', sans-serif;
       --fontweight-reg: 500;
       --fontweight-bold: 800;
       --fontweight-smallcaps: 600;
