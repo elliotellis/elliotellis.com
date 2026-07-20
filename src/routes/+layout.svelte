@@ -5,7 +5,6 @@
   import Header from '$lib/components/Header.svelte';
   import Text from '$lib/components/Text.svelte';
   let { children } = $props();
-  export const prerender = true;
 </script>
 
 <svelte:head>

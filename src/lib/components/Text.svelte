@@ -3,7 +3,6 @@
   import { slide } from 'svelte/transition';
   let { type = "default", class: className, blocks, captionYear, children, dynamicIndents = true } = $props();
   let blockIndents = $state([0]);
-  $inspect(children);
 
   function resetIndents() {
     if (dynamicIndents) {
