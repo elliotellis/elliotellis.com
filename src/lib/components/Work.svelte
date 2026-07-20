@@ -204,6 +204,10 @@
     background-color: var(--text-colour);
   }
 
+  .media-controls {
+    margin-right: 1rem;
+  }
+
   .caption-container {
     min-height: var(--caption-min-height);
   }

@@ -9,19 +9,12 @@
   ];
   let colophon = [
     `This site was built with <a href="https://svelte.dev/" target="_blank">Svelte</a>,
-    and uses <a href="https://getkirby.com/">Kirby</a> to manage content. The frontend is
-    hosted on <a href="https://www.netlify.com/">Netlify</a> (for now) and the CMS on
-    <a href="https://uberspace.de/">Uberspace</a>.`,
-    `It uses <a href="https://umami.is/">Umami</a> for privacy-focused cookie–free analytics.`,
-    `It is typeset in <a href="https://commercialtype.com/catalog/action_grotesque">Action Grotesque</a>.`
+    and uses <a href="https://getkirby.com/" target="_blank">Kirby</a> to manage content. The frontend is
+    hosted on <a href="https://www.netlify.com/" target="_blank">Netlify</a> (for now) and the CMS on
+    <a href="https://uberspace.de/" target="_blank">Uberspace</a>.
+    It uses <a href="https://umami.is/" target="_blank">Umami</a> for privacy-focused cookie–free analytics.`,
+    `It is typeset in <a href="https://commercialtype.com/catalog/action_grotesque" target="_blank">Action Grotesque</a>.`
   ];
-  colophon = [
-    `This site was built with Svelte,
-    and uses Kirby to manage content. The frontend is
-    hosted on Netlify (for now) and the CMS on
-    Uberspace. It uses Umami for privacy-focused cookie–free analytics.
-    It is typeset in Action Grotesque.`
-  ]
 </script>
 
 <div class="information-container">
@@ -30,9 +23,9 @@
     <h4>Contact</h4>
     <p><a href="mailto:elliot@elliotellis.com">elliot@elliotellis.com</a></p>
   </Text>
-  <Text class="colophon" blocks={colophon} dynamicIndents>
-    <h4>Colophon</h4>
-  </Text>
+  <div class="colophon">
+    <Text type="caption" blocks={colophon} dynamicIndents={false} />
+  </div>
 </div>
 
 <style>
@@ -43,6 +36,10 @@
 
   :global(.contact-info) a {
     text-decoration: none;
+  }
+
+  .colophon {
+    margin-top: 6lh;
   }
 
 </style>

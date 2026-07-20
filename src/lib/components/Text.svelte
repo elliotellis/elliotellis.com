@@ -34,14 +34,17 @@
   {/if}
 
   {#if blocks}
-    {#if captionYear}
-      <p class="work-year">({captionYear})&nbsp;</p>
-    {/if}
     {#each blocks as block, i (i)}
-      <p class={type} {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')} data-indent={blockIndents[i]}>
+      <p 
+        class={type} 
+        {@attach dynamicIndents === true && blockIndents.length <= blocks.length && getNextIndent(i, 'p')}
+      >
         {#if blockIndents[i] > 0}
           <span class="indent" style:width={blockIndents[i] + 'px'}></span>
         {/if}
+
+        {#if captionYear && i === 0}({captionYear}){/if}
+
         {@html block}
         <!--
         {#each block.portions as portion}
@@ -75,8 +78,8 @@
     margin-right: 100%;
   }
 
-  .work-year {
-    float: left;
+  p.caption:not(:first-child) {
+    margin-top: 0.5lh;
   }
 
 </style>
