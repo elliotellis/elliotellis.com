@@ -8,12 +8,13 @@
     <h1 class="site-name">
       <a href="/">elliot ellis</a>
     </h1>
+    <!-- Hiding temporarily for holding page
     <nav class="main-nav">
       <ul>
         <li class={page.route.id === '/work' ? 'current' : ''}><a href="/work">Work</a></li>
         <li class={page.route.id === '/information' ? 'current' : ''}><a href="/information">Info</a></li>
       </ul>
-    </nav>
+    </nav>-->
   </Text>
   <!-- <Text blocks={content[0].mainText} dynamicIndents /> -->
 </header>
