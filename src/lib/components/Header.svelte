@@ -10,7 +10,7 @@
     </h1>
     <nav class="main-nav">
       <ul>
-        <li class={page.route.id === '/work' ? 'current' : ''}><a href="/work">Work</a></li>
+        <li class={page.route.id === '/' ? 'current' : ''}><a href="/">Work</a></li>
         <li class={page.route.id === '/information' ? 'current' : ''}><a href="/information">Info</a></li>
       </ul>
     </nav>

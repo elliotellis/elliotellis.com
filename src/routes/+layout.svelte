@@ -1,18 +1,16 @@
 <script>
   import { page } from '$app/state';
-  import favicon from '$lib/assets/favicon.svg';
   import BackgroundManager from '$lib/components/BackgroundManager.svelte';
   import BaselineGrid from '$lib/components/BaselineGrid.svelte';
   import Header from '$lib/components/Header.svelte';
   import Text from '$lib/components/Text.svelte';
-  import content from '$lib/content/home';
   let { children } = $props();
   export const prerender = true;
 </script>
 
 <svelte:head>
   <meta property="og:locale" content="en_GB">
-  <link rel="icon" href={favicon} />
+  <!-- <link rel="icon" href={favicon} /> -->
   <link rel="canonical" href={'https://elliotellis.com' + page.url.pathname} />
   <meta property="og:url" content={'https://elliotellis.com' + page.url.pathname}>
   <meta name="twitter:url" content={'https://elliotellis.com' + page.url.pathname}>
