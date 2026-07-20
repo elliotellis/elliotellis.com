@@ -1,10 +1,13 @@
 <script>
   import Work from '$lib/components/Work.svelte';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   let { data } = $props();
   let activeWork = $state(undefined);
+  let activeWorkSlug = $derived( data.works[activeWork].slug );
   let works = $state(null);
   let muted = $state(true);
+  let y = $state(undefined);
+  let workEl = $state(undefined);
 
   function shuffle(array) {
     for (let i = array.length - 1; i >= 1; i--) {
@@ -22,7 +25,7 @@
 
   {#if works}
     {#each works as work, i}
-      <Work 
+      <Work
         data={work} 
         active={activeWork === i} 
         toggleActive={() => activeWork = activeWork === i ? undefined : i}
@@ -37,7 +40,6 @@
 <style>
 
   .gallery {
-    --text-colour: white;
     --work-spacing-x: 0.5rem;
     --work-spacing-y: 1rlh;
     --gallery-top-padding: calc( var(--site-top-margin) - var(--work-spacing-y) );

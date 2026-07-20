@@ -76,7 +76,6 @@
   }
 
   .work-year {
-    color: var(--grey-text-colour);
     float: left;
   }
 

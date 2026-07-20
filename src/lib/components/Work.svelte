@@ -5,8 +5,11 @@
   let { data, active, toggleActive, muted, toggleMuted } = $props();
   let time = $state(0);
   let duration = $state(0);
-  const isClient = typeof window !== 'undefined';
-  //const isClient = true;
+  let videoThumbnailElement;
+
+  onMount(() => {
+    videoThumbnailElement.setAttribute('muted', 'true');
+  })
 </script>
 
 <div 
@@ -14,40 +17,68 @@
   class={['work', {active}]}
   style:float={Math.random() < 0.5 ? 'left': 'right'}
 >
-
-  <div 
-    class="media-container" 
-    style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]}
-    style:--media-ratio-width={data.aspectRatio[0]}
-    style:--media-ratio-height={data.aspectRatio[1]}
-    style:--media-margin-top={Math.floor(Math.random() * 4)}
-    style:--media-margin-right={Math.floor(Math.random() * 4)}
-    style:--media-margin-bottom={Math.floor(Math.random() * 4)}
-    style:--media-margin-left={Math.floor(Math.random() * 4)}
-    data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
-    data-thumbnail-size={data.thumbnailSize}
-  >
-    <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
-    {#if data.video && data.videoThumbnail && isClient}
-      <video 
-        src={active ? data.video : data.videoThumbnail} 
-        poster={data.image.small} 
-        loading="lazy"
-        bind:muted
-        bind:currentTime={time}
-        bind:duration
-        loop autoplay playsinline
-        disablepictureinpicture
-      ></video>
-    {:else}
-      <Image
-        original={data.image.original}
-        small={data.image.small}
-        srcset={data.image.srcset}
-        srcsetWebp={data.image.srcsetWebp}
-      />
-    {/if}
-  </div>
+  <!-- style:aspect-ratio={data.aspectRatio[0] + ' / ' + data.aspectRatio[1]} -->
+  {#if active}
+    <div 
+      class="main-media-container" 
+      style:--media-ratio-width={data.aspectRatio[0]}
+      style:--media-ratio-height={data.aspectRatio[1]}
+      data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
+    >
+      <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
+      {#if data.video}
+        <video 
+          src={data.video} 
+          poster={data.image.small} 
+          loading="lazy"
+          bind:muted
+          bind:currentTime={time}
+          bind:duration
+          loop autoplay playsinline
+          disablepictureinpicture
+        ></video>
+      {:else}
+        <Image
+          original={data.image.original}
+          small={data.image.small}
+          srcset={data.image.srcset}
+          srcsetWebp={data.image.srcsetWebp}
+        />
+      {/if}
+    </div>
+  {:else}
+    <div 
+      class="thumbnail-media-container" 
+      style:--media-ratio-width={data.aspectRatio[0]}
+      style:--media-ratio-height={data.aspectRatio[1]}
+      style:--media-margin-top={Math.floor(Math.random() * 4)}
+      style:--media-margin-right={Math.floor(Math.random() * 4)}
+      style:--media-margin-bottom={Math.floor(Math.random() * 4)}
+      style:--media-margin-left={Math.floor(Math.random() * 4)}
+      data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
+      data-thumbnail-size={data.thumbnailSize}
+    >
+      <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
+      {#if data.videoThumbnail}
+        {@html '<video muted autoplay loop defaultmuted playsinline disablepictureinpicture src="' + data.videoThumbnail + '" />'}
+        <!-- <video 
+          bind:this={videoThumbnailElement}
+          src={data.videoThumbnail} 
+          poster={data.image.small} 
+          loading="lazy"
+          muted loop autoplay playsinline
+          disablepictureinpicture
+        ></video> -->
+      {:else}
+        <Image
+          original={data.image.original}
+          small={data.image.small}
+          srcset={data.image.srcset}
+          srcsetWebp={data.image.srcsetWebp}
+        />
+      {/if}
+    </div>
+  {/if}
 
   <div class="work-footer">
 
@@ -77,29 +108,28 @@
   .work {
     --caption-min-height: 3rlh;
     padding: var(--work-spacing-y) var(--work-spacing-x);
-    max-width: 100%;
     float: left;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: end; 
+    align-items: end;  */
   }
 
-  .media-container {
-    max-width: 100%;
+  .main-media-container {
+    --max-media-height: ;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .main-media-container :global(img),
+  .main-media-container video {
+    display: block;
+    width: 100%;
+    height: auto;
     max-height: calc(100vh - var(--caption-min-height) - var(--work-spacing-y));
   }
 
-  :global(.gallery:has(.work:not(.active) .media-container:hover)) .work:not(:hover) .media-container::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: var(--background-colour);
-    z-index: 3;
-  }
-
-  .media-container {
+  .thumbnail-media-container {
     --media-margin-scale: 0.25;
     --media-scale: 0.5;
     --media-target-height: 12rlh;
@@ -109,16 +139,19 @@
     --media-height: calc( var(--media-scaled-target-height) / sqrt( calc( var(--media-ratio-width) / var(--media-ratio-height) ) ) );
     --media-height-rounded: round( up, var(--media-height), 1rlh );
     height: var(--media-height-rounded);
+    display: inline-flex;
     position: relative;
-    /*--media-max-height: round( calc(100vh - var(--caption-min-height) - var(--work-spacing)), 1rlh );
-    max-height: var(--media-max-height);*/
+    margin-top: round( calc( var(--media-margin-top) * var(--media-margin-scale) * 1rlh ), 1rlh);
+    margin-right: round( calc( var(--media-margin-right) * var(--media-margin-scale) * 1rem ), 1rem);
+    margin-bottom: round( calc( var(--media-margin-bottom) * var(--media-margin-scale) * 1rlh ), 1rlh);
+    margin-left: round( calc( var(--media-margin-left) * var(--media-margin-scale) * 1rem ), 1rem);
   }
 
-  .media-container[data-thumbnail-size="larger"] {
+  .thumbnail-media-container[data-thumbnail-size="larger"] {
     --media-target-height: 18rlh; 
   }
 
-  .media-container[data-thumbnail-size="smaller"] {
+  .thumbnail-media-container[data-thumbnail-size="smaller"] {
     --media-target-height: 8rlh; 
   }
 
@@ -127,55 +160,42 @@
    */
 
   @media only screen and (min-width: 32rem) {
-    .media-container { 
+    .thumbnail-media-container { 
       --media-margin-scale: 0.5;
       --media-scale: 0.625;
     } 
   }
   
   @media only screen and (min-width: 40rem) {
-    .media-container { 
+    .thumbnail-media-container { 
       --media-margin-scale: 0.75;
       --media-scale: 0.75;
     } 
   }
 
   @media only screen and (min-width: 48rem) {
-    .media-container { 
+    .thumbnail-media-container { 
       --media-margin-scale: 0.875;
       --media-scale: 0.875;
     } 
   }
 
   @media only screen and (min-width: 60rem) {
-    .media-container { 
+    .thumbnail-media-container { 
       --media-margin-scale: 1;
       --media-scale: 1; 
     } 
   }
 
-  .work.active .media-container {
-    height: auto;
-  }
-
-  .work:not(.active) .media-container {
-    margin-top: round( calc( var(--media-margin-top) * var(--media-margin-scale) * 1rlh ), 1rlh);
-    margin-right: round( calc( var(--media-margin-right) * var(--media-margin-scale) * 1rem ), 1rem);
-    margin-bottom: round( calc( var(--media-margin-bottom) * var(--media-margin-scale) * 1rlh ), 1rlh);
-    margin-left: round( calc( var(--media-margin-left) * var(--media-margin-scale) * 1rem ), 1rem);
-  }
-
-  .media-container :global(img),
-  .media-container :global(picture),
-  .media-container video {
+  .thumbnail-media-container :global(img),
+  .thumbnail-media-container video {
     display: block;
+    width: auto;
+    height: 100%;
+    /*display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-  }
-
-  .media-container video {
-    z-index: 2;
+    object-fit: contain;*/
   }
 
   .work-anchor {

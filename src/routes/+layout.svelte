@@ -103,7 +103,6 @@
 
     body {
       --text-colour: contrast-color( oklch(from var(--background-colour) calc(l - 0.2) c h) );
-      --grey-text-colour: oklch(from var(--background-colour) 0.8 0.01 h);
       font-size: var(--typesize-base);
       line-height: var(--leading-base);
       font-family: var(--typeface);
