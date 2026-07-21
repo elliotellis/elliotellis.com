@@ -49,29 +49,29 @@
    */
 
   let dayPoints = [
-    { label: 'dayStart',      s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayStart }, 
-    { label: 'nauticalDawn',  s:  10, l: 15, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDawn }, 
+    { label: 'dayStart',      s:  15, l: 15, okl: 0.1,  okc: 0.1,  t: dayStart }, 
+    { label: 'nauticalDawn',  s:  25, l: 20, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDawn }, 
     { label: 'goldenHourEnd', s:  90, l: 60, okl: 0.6,  okc: 0.35,  t: sunTimes.goldenHourEnd }, 
-    { label: 'noon-1h',       s:  90, l: 60, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon - ms('1h')) }, 
-    { label: 'solarNoon',     s: 100, l: 95, okl: 1,    okc: 0,    t: sunTimes.solarNoon },  
-    { label: 'noon+1h',       s:  90, l: 60, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon.valueOf() + ms('1h')) },
+    { label: 'noon-1h',       s: 100, l: 75, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon - ms('1h')) }, 
+    { label: 'solarNoon',     s: 100, l:100, okl: 1,    okc: 0,    t: sunTimes.solarNoon },  
+    { label: 'noon+1h',       s: 100, l: 75, okl: 0.8,  okc: 0.15,  t: new Date(sunTimes.solarNoon.valueOf() + ms('1h')) },
     { label: 'goldenHour',    s:  90, l: 60, okl: 0.6,  okc: 0.35,  t: sunTimes.goldenHour }, 
-    { label: 'nauticalDusk',  s:  10, l: 15, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDusk }, 
-    { label: 'dayEnd',        s:   5, l: 10, okl: 0.1,  okc: 0.1,  t: dayEnd }, 
+    { label: 'nauticalDusk',  s:  25, l: 20, okl: 0.15, okc: 0.1,  t: sunTimes.nauticalDusk }, 
+    { label: 'dayEnd',        s:  15, l: 15, okl: 0.1,  okc: 0.1,  t: dayEnd }, 
   ];
 
-  let hueBase = $derived( invlerp(dayStart, dayEnd, debug ? m.x/ww : now) * 360 );
-  let hueOffset = $derived( invlerp(yearStart, yearEnd, debug ? m.y/wh : now) * 360 ); // Hue is determined by the time of year
+  let hueBase = $derived( invlerp(dayStart, dayEnd, debug ? m.x/ww : now) * 360 * 24 * 4  );
+  let hueOffset = $derived( invlerp(yearStart, yearEnd, now) * 360 );
   let hue = $derived( to2dp(hueBase + hueOffset) );
   let saturation = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
-    dayPoints.map((i) => i.s), // change s to okc for oklch
+    dayPoints.map((i) => i.okc), // change s to okc for oklch
     debug ? m.x/ww : tp(now)
   ));
 
   let lightness = $derived(piecewiseLinear(
     dayPoints.map((i) => tp(i.t)),
-    dayPoints.map((i) => i.l), // change l to okl for oklch
+    dayPoints.map((i) => i.okl), // change l to okl for oklch
     debug ? m.x/ww : tp(now)
   ));
 
@@ -106,8 +106,8 @@
   }
 
   const setBackground = () => {
-    //document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
-    document.body.style.setProperty('--background-colour', 'hsl(' + hue + ' ' + to2dp(saturation) + ' ' + to2dp(lightness) + ')');
+    document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
+    //document.body.style.setProperty('--background-colour', 'hsl(' + hue + ' ' + to2dp(saturation) + ' ' + to2dp(lightness) + ')');
   }
 
   onMount(() => {
