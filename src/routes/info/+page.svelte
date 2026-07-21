@@ -8,11 +8,13 @@
     'I’m based in London, but love working on projects with people anywhere in the world.',
   ];
   let colophon = [
-    `This site was built with <a href="https://svelte.dev/" target="_blank">Svelte</a>,
+    `This site is built with <a href="https://svelte.dev/" target="_blank">Svelte</a>,
     and uses <a href="https://getkirby.com/" target="_blank">Kirby</a> to manage content. The frontend is
     hosted on <a href="https://www.netlify.com/" target="_blank">Netlify</a> (for now) and the CMS on
     <a href="https://uberspace.de/" target="_blank">Uberspace</a>.
     It uses <a href="https://umami.is/" target="_blank">Umami</a> for privacy-focused cookie–free analytics.`,
+    `It is very new and very much a work in progress! The source code is 
+    <a href="https://github.com/elliotellis/elliotellis.com" target="_blank">on GitHub</a>.`,
     `It is typeset in <a href="https://commercialtype.com/catalog/action_grotesque" target="_blank">Action Grotesque</a>.`
   ];
 </script>
