@@ -44,13 +44,20 @@
           alt={data.alt}
         />
       {:else}
-        <Image
-          original={data.imageThumbnail ? data.imageThumbnail.original : data.image.original}
-          src={data.imageThumbnail ? data.imageThumbnail.small : data.image.small}
-          srcset={data.imageThumbnail ? data.imageThumbnail.srcset : data.image.srcset}
-          srcsetWebp={data.imageThumbnail ? data.imageThumbnail.srcsetWebp : data.image.srcsetWebp}
-          alt={data.alt}
-        />
+        {#if data.videoThumbnail.gif || data.videoThumbnail.webp}
+          <Image
+            src={data.videoThumbnail.gif}
+            srcsetWebp={data.videoThumbnail.webp}
+            alt={data.alt}
+          />
+        {:else}
+          <Image
+            src={data.imageThumbnail ? data.imageThumbnail.small : data.image.small}
+            srcset={data.imageThumbnail ? data.imageThumbnail.srcset : data.image.srcset}
+            srcsetWebp={data.imageThumbnail ? data.imageThumbnail.srcsetWebp : data.image.srcsetWebp}
+            alt={data.alt}
+          />
+        {/if}
       {/if}
     </div>
 

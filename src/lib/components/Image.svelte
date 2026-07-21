@@ -1,5 +1,5 @@
 <script>
-  let { original, src, srcset, srcsetWebp, alt } = $props();
+  let { src, srcset, srcsetWebp, alt } = $props();
 </script>
 
 <picture>
