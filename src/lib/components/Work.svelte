@@ -44,7 +44,13 @@
           alt={data.alt}
         />
       {:else}
-        <Image src={data.imageThumbnail ? data.imageThumbnail : data.image.small} alt={data.alt} />
+        <Image
+          original={data.imageThumbnail ? data.imageThumbnail.original : data.image.original}
+          src={data.imageThumbnail ? data.imageThumbnail.small : data.image.small}
+          srcset={data.imageThumbnail ? data.imageThumbnail.srcset : data.image.srcset}
+          srcsetWebp={data.imageThumbnail ? data.imageThumbnail.srcsetWebp : data.image.srcsetWebp}
+          alt={data.alt}
+        />
       {/if}
     </div>
 

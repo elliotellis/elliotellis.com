@@ -11,7 +11,7 @@
     <nav class="main-nav">
       <ul>
         <li class={page.route.id === '/' ? 'current' : ''}><a href="/">Work</a></li>
-        <li class={page.route.id === '/information' ? 'current' : ''}><a href="/information">Info</a></li>
+        <li class={page.route.id === '/info' ? 'current' : ''}><a href="/info">Info</a></li>
       </ul>
     </nav>
   </Text>
