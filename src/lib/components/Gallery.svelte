@@ -8,6 +8,7 @@
   let muted = $state(true);
   let y = $state(undefined);
   let workEl = $state(undefined);
+  const paradiddle = ['L', 'R', 'L', 'L', 'R', 'L', 'R', 'R'];
 
   function shuffle(array) {
     for (let i = array.length - 1; i >= 1; i--) {
@@ -31,6 +32,7 @@
         toggleActive={() => activeWork = activeWork === i ? undefined : i}
         {muted}
         toggleMuted={() => muted = !muted}
+        float={paradiddle[i % paradiddle.length] === 'L' ? 'left' : 'right'}
       />
     {/each}
   {/if}

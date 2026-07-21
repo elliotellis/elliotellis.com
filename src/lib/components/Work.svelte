@@ -2,7 +2,7 @@
   import Text from "$lib/components/Text.svelte";
   import Image from "$lib/components/Image.svelte";
     import { onMount } from "svelte";
-  let { data, active, toggleActive, muted, toggleMuted } = $props();
+  let { data, active, toggleActive, muted, toggleMuted, float } = $props();
   let time = $state(0);
   let duration = $state(0);
 </script>
@@ -10,7 +10,7 @@
 <div 
   id={data.slug}
   class={['work', {active}]}
-  style:float={Math.random() < 0.5 ? 'left': 'right'}
+  style:float={float}
 >
     <div 
       class="media-container" 
@@ -118,10 +118,10 @@
   }
 
   .work:not(.active) .media-container {
-    margin-top: round( calc( var(--media-margin-top) * var(--media-margin-scale) * 1rlh ), 1rlh);
-    margin-right: round( calc( var(--media-margin-right) * var(--media-margin-scale) * 1rem ), 1rem);
-    margin-bottom: round( calc( var(--media-margin-bottom) * var(--media-margin-scale) * 1rlh ), 1rlh);
-    margin-left: round( calc( var(--media-margin-left) * var(--media-margin-scale) * 1rem ), 1rem);
+    margin-top: round( calc( var(--media-margin-top) * 2.5vh ), 1rlh);
+    margin-bottom: round( calc( var(--media-margin-bottom) * 2.5vh ), 1rlh);
+    margin-right: round( calc( var(--media-margin-right) * 2.5vw ), 1rem);
+    margin-left: round( calc( var(--media-margin-left) * 2.5vw ), 1rem);
   }
 
   /* might replace all the below breakpoints 
@@ -130,28 +130,24 @@
 
   @media only screen and (min-width: 32rem) {
     .media-container { 
-      --media-margin-scale: 0.5;
       --media-scale: 0.625;
     } 
   }
   
   @media only screen and (min-width: 40rem) {
     .media-container { 
-      --media-margin-scale: 0.75;
       --media-scale: 0.75;
     } 
   }
 
   @media only screen and (min-width: 48rem) {
     .media-container { 
-      --media-margin-scale: 0.875;
       --media-scale: 0.875;
     } 
   }
 
   @media only screen and (min-width: 60rem) {
     .media-container { 
-      --media-margin-scale: 1;
       --media-scale: 1; 
     } 
   }
