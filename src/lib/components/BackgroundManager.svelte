@@ -107,6 +107,7 @@
 
   const setBackground = () => {
     document.body.style.setProperty('--background-colour', 'oklch(' + (to2dp(lightness)) + ' ' + (to2dp(saturation)) + ' ' + hue + ')');
+    document.body.style.setProperty('--text-colour', lightness < 0.67 ? 'white' : 'black');
     //document.body.style.setProperty('--background-colour', 'hsl(' + hue + ' ' + to2dp(saturation) + ' ' + to2dp(lightness) + ')');
   }
 
