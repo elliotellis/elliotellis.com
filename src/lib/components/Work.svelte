@@ -46,7 +46,7 @@
             bind:duration
             bind:paused
             onplaying={() => videoPlaying = true}
-            loop playsinline
+            loop autoplay playsinline
             disablepictureinpicture
           ></video>
         {/if}
