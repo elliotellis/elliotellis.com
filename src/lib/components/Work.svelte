@@ -14,6 +14,7 @@
 >
     <div 
       class="media-container" 
+      style:aspect-ratio={data.aspectRatio[0] + " / " + data.aspectRatio[1]}
       style:--media-ratio-width={data.aspectRatio[0]}
       style:--media-ratio-height={data.aspectRatio[1]}
       style:--media-margin-top={Math.floor(Math.random() * 4)}
