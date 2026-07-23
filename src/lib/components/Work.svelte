@@ -1,10 +1,15 @@
 <script>
   import Text from "$lib/components/Text.svelte";
   import Image from "$lib/components/Image.svelte";
-    import { onMount } from "svelte";
+  import { scale } from 'svelte/transition';
+    import { untrack } from "svelte";
   let { data, active, toggleActive, muted, toggleMuted, float } = $props();
+  let opened = $state(false);
+  let src = $derived(opened ? untrack(() => data.video) : undefined);
   let time = $state(0);
   let duration = $state(0);
+  let paused = $derived(!active);
+  let videoPlaying = $state(false);
 </script>
 
 <div 
@@ -24,41 +29,29 @@
       data-orientation={parseInt(data.aspectRatio[0]) > parseInt(data.aspectRatio[1]) ? 'landscape' : parseInt(data.aspectRatio[0]) < parseInt(data.aspectRatio[1]) ? 'portrait' : 'square'}
       data-thumbnail-size={data.thumbnailSize}
     >
-      <a class="work-anchor" href={'#' + data.slug} onclick={toggleActive}>Expand work</a>
-      {#if active && data.video}
-        <video 
-          src={data.video} 
-          poster={data.image.small} 
-          loading="lazy"
-          bind:muted
-          bind:currentTime={time}
-          bind:duration
-          loop autoplay playsinline
-          disablepictureinpicture
-        ></video>
-      {:else if active}
-        <Image
-          original={data.image.original}
-          src={data.image.small}
-          srcset={data.image.srcset}
-          srcsetWebp={data.image.srcsetWebp}
-          alt={data.alt}
-        />
-      {:else}
-        {#if data.videoThumbnail.gif || data.videoThumbnail.webp}
-          <Image
-            src={data.videoThumbnail.gif}
-            srcsetWebp={data.videoThumbnail.webp}
-            alt={data.alt}
-          />
+      <a class="work-anchor" href={'#' + data.slug} onclick={() => {
+        toggleActive();
+        if (active && !opened) opened = true;
+      }}>Expand work</a>
+      {#if data.video}
+        {#if !active}
+          <Image data={data.animation || data.image} />
         {:else}
-          <Image
-            src={data.imageThumbnail ? data.imageThumbnail.small : data.image.small}
-            srcset={data.imageThumbnail ? data.imageThumbnail.srcset : data.image.srcset}
-            srcsetWebp={data.imageThumbnail ? data.imageThumbnail.srcsetWebp : data.image.srcsetWebp}
-            alt={data.alt}
-          />
+          <video 
+            class:visible={videoPlaying}
+            src={opened ? data.video : ''} 
+            poster={data.image.src}
+            bind:muted
+            bind:currentTime={time}
+            bind:duration
+            bind:paused
+            onplaying={() => videoPlaying = true}
+            loop playsinline
+            disablepictureinpicture
+          ></video>
         {/if}
+      {:else}
+        <Image data={data.image} />
       {/if}
     </div>
 
@@ -91,9 +84,6 @@
     --caption-min-height: 3rlh;
     padding: var(--work-spacing-y) var(--work-spacing-x);
     float: left;
-    /* display: flex;
-    flex-direction: column;
-    align-items: end;  */
   }
 
   .media-container {
@@ -106,7 +96,6 @@
     --media-height: calc( var(--media-scaled-target-height) / sqrt( calc( var(--media-ratio-width) / var(--media-ratio-height) ) ) );
     --media-height-rounded: round( up, var(--media-height), 1rlh );
     height: var(--media-height-rounded);
-    /* display: inline-flex; */
     position: relative;
   }
 
@@ -153,15 +142,16 @@
     } 
   }
 
-  .media-container :global(img),
-  .media-container video {
+  .media-container :global(img) {
     display: block;
     width: auto;
     height: 100%;
-    /*display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;*/
+  }
+
+  .media-container video {
+    display: inline;
+    width: 0;
+    height: 0;
   }
 
   .work.active .media-container {
@@ -176,6 +166,10 @@
     width: 100%;
     height: auto;
     max-height: calc(100vh - var(--caption-min-height) - var(--work-spacing-y));
+  }
+
+  .work.active .media-container video {
+    display: block;
   }
 
   .work-anchor {

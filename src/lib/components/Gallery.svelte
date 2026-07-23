@@ -30,6 +30,7 @@
         data={work} 
         active={activeWork === i} 
         toggleActive={() => activeWork = activeWork === i ? undefined : i}
+        onOpened={() => opened = true}
         {muted}
         toggleMuted={() => muted = !muted}
         float={paradiddle[i % paradiddle.length] === 'L' ? 'left' : 'right'}

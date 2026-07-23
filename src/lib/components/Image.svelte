@@ -1,8 +1,15 @@
 <script>
-  let { src, srcset, srcsetWebp, alt } = $props();
+  let { data } = $props();
 </script>
 
 <picture>
-  <source srcset={srcsetWebp} type="image/webp">
-  <img alt={alt} src={src} srcset={srcset} loading="lazy">
+  {#if data.srcsetWebp}
+    <source srcset={data.srcsetWebp} type="image/webp">
+  {/if}
+  <img 
+    alt={data.alt}
+    src={data.src} 
+    srcset={data.srcset} 
+    loading="lazy"
+  >
 </picture>

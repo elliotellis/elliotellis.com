@@ -1,4 +1,5 @@
 <script>
+  import { dev } from '$app/environment';
   import { page } from '$app/state';
   import Gallery from '$lib/components/Gallery.svelte';
   let { data } = $props();
@@ -6,7 +7,7 @@
 
 <svelte:head>
   <!-- Page title -->
-  <title>elliot ellis</title>
+  <title>{dev ? 'LOCALDEV: ' : ''}elliot ellis</title>
   <meta property="og:title" content="elliot ellis">
   <meta property="twitter:title" content="elliot ellis">
   <!-- Page image -->
