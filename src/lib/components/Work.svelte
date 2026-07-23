@@ -11,7 +11,7 @@
   id={data.slug}
   class={['work', {active}]}
   style:float={float}
->
+> 
     <div 
       class="media-container" 
       style:aspect-ratio={data.aspectRatio[0] + " / " + data.aspectRatio[1]}
