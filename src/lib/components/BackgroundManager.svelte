@@ -162,7 +162,7 @@
   }
 
   .year-points {
-    width: var(--site-x-margin);
+    width: var(--site-hmargin);
     height: 100vh;
   }
 

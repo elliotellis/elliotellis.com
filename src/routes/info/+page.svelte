@@ -33,7 +33,7 @@
 <style>
 
   .information-container {
-    padding: var(--site-top-margin) var(--site-x-margin);
+    padding: var(--site-top-margin) var(--site-hmargin);
   }
 
   :global(.contact-info) a {

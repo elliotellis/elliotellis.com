@@ -50,6 +50,8 @@
     min-height: 100vh;
     color: var(--text-colour);
     overflow: hidden;
+    /* display: flex;
+    flex-wrap: wrap; */
   }
 
   @media only screen and (min-width: 32rem) {

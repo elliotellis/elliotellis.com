@@ -37,7 +37,13 @@
           disablepictureinpicture
         ></video>
       {:else if active}
-        <Image data={image.data} />
+        <Image
+          original={data.image.original}
+          src={data.image.small}
+          srcset={data.image.srcset}
+          srcsetWebp={data.image.srcsetWebp}
+          alt={data.alt}
+        />
       {:else}
         {#if data.videoThumbnail.gif || data.videoThumbnail.webp}
           <Image

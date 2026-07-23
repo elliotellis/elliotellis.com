@@ -21,7 +21,7 @@
 <style>
 
   header {
-    padding: var(--site-top-margin) var(--site-x-margin) 1rlh;
+    padding: var(--site-top-margin) var(--site-hmargin) 1rlh;
     z-index: 2;
   }
 

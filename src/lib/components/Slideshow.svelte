@@ -104,8 +104,8 @@
   }
 
   /*.slide :global(.text-container) {
-    padding-left: var(--site-x-margin);
-    padding-right: var(--site-x-margin);
+    padding-left: var(--site-hmargin);
+    padding-right: var(--site-hmargin);
   }*/
 
   .media-container {

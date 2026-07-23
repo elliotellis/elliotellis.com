@@ -1,6 +1,6 @@
 <script>
   import { page } from '$app/state';
-  import Gallery from '$lib/components/Gallery.svelte';
+  import Works from '$lib/components/Works.svelte';
   let { data } = $props();
 </script>
 
@@ -21,4 +21,4 @@
   {/if}
 </svelte:head>
 
-<Gallery {data} />
+<Works {data} />

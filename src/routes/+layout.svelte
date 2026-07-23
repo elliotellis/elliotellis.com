@@ -89,7 +89,7 @@
       --typesize-base: 1rem;
       --leading-base: 1.25em;
 
-      --site-x-margin: 0.75rem;
+      --site-hmargin: 0.75rem;
       --site-top-margin: 3rlh;
       --header-width: 12rem;
       --base-line-length: 32em;
