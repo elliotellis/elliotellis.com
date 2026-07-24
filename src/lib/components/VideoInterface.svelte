@@ -1,4 +1,5 @@
 <script>
+  import Image from '$lib/components/Image.svelte';
   let { video, image, muted, toggleMuted } = $props();
   let time = $state();
   let duration = $state();
@@ -15,7 +16,7 @@
       loop autoplay playsinline
       disablepictureinpicture
     >
-      <source {src} type="video/webm">
+      <source src={video} type="video/webm">
       <Image data={image} />
     </video>
   </div>

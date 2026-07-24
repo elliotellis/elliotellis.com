@@ -1,5 +1,5 @@
 <script>
-  import Work from '$lib/components/Work.svelte';
+  import Work from '$lib/components/WorkOld.svelte';
   import { onMount, tick } from 'svelte';
   let { data } = $props();
   let activeWork = $state(undefined);
