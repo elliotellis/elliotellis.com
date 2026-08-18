@@ -60,7 +60,7 @@
     { label: 'dayEnd',        s:  15, l: 15, okl: 0.1,  okc: 0.1,  t: dayEnd }, 
   ];
 
-  let hueBase = $derived( invlerp(dayStart, dayEnd, debug ? m.x/ww : now) * 360 * 24 * 4  );
+  let hueBase = $derived( invlerp(dayStart, dayEnd, now) * 360 * 24 * 4  );
   let hueOffset = $derived( invlerp(yearStart, yearEnd, now) * 360 );
   let hue = $derived( to2dp(hueBase + hueOffset) );
   let saturation = $derived(piecewiseLinear(

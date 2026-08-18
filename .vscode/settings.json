@@ -1,14 +1,3 @@
 {
-  "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#4dbc4d",
-    "titleBar.activeForeground": "#021F02",
-    "titleBar.inactiveBackground": "#032F03",
-    "titleBar.inactiveForeground": "#021F02",
-    "statusBar.background": "#044204",
-    "statusBar.foreground": "#EEFEEE",
-    "statusBar.debuggingBackground": "#044204",
-    "statusBar.debuggingForeground": "#EEFEEE",
-    "statusBar.noFolderBackground": "#044204",
-    "statusBar.noFolderForeground": "#EEFEEE"
-  }
+	"editor.tabSize": 3,
 }

@@ -3,7 +3,7 @@
   let gridVisible = $state(false);
 
   function handleKeydown(event) {
-    if (event.key === 'b') {
+    if (event.key === 'g') {
       gridVisible = !gridVisible;
     }
   }

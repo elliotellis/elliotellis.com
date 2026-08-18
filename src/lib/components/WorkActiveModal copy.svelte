@@ -4,7 +4,6 @@
 	import Image from "$lib/components/Image.svelte";
 	import Caption from "$lib/components/Caption.svelte";
 	import { dev } from "$app/environment";
-	import MediaContainer from "./MediaContainer.svelte";
 	let { work, thumbnailRect, toggleActive } = $props();
 	let canShow = $state(false);
 	let mediaEl;
@@ -21,11 +20,13 @@
 </script>
 
 <div class="active-work-modal">
-	<MediaContainer
-		aspectRatio={work.aspectRatio}
-		baseSize={work.aspectRatio[0] > work.aspectRatio[1]
-			? "calc(100% - var(--caption-height))"
-			: "calc(100% - var(--caption-height))"}
+	<div
+		class="media-container media-main"
+		bind:this={mediaEl}
+		style:opacity={canShow ? "1" : "0"}
+		style:aspect-ratio={work.aspectRatio[0] + " / " + work.aspectRatio[1]}
+		style:--ratio-width={work.aspectRatio[0]}
+		style:--ratio-height={work.aspectRatio[1]}
 	>
 		<button class="work-toggle" style:width={dev ? "50%" : undefined} onclick={toggleActive}
 			>Close work</button
@@ -35,7 +36,7 @@
 		{:else}
 			<Image data={work.image} />
 		{/if}
-	</MediaContainer>
+	</div>
 
 	<div class="work-caption">
 		{#each work.caption as cap, c}
